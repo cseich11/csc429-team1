@@ -19,6 +19,13 @@ public class ActionFactory
 	public static Action createAction(String actionType)
 		throws Exception
 	{
-		return null;
+		Action retValue = null;
+
+		if (actionType.equals("addVendor") == true)
+		{
+			retValue = new addVendor();
+		}
+		
+		return retValue;
 	}
 }
