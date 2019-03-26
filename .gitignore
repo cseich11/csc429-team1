@@ -2,3 +2,5 @@
 TermProjectTeam1/.classpath
 **/mysql-connector-java-5.1.7-bin.jar
 TermProjectTeam1/.classpath
+.classpath
+*.jar
