@@ -21,7 +21,7 @@ public class Vendor extends EntityBase implements IView {
         super(myTableName);
 
         setDependencies();
-        String query = "SELECT * FROM " + myTableName + " WHERE (Id = " + vendorId + ")";
+        String query = "SELECT * FROM " + myTableName + " WHERE (vId = " + vendorId + ")";
 
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 
@@ -175,10 +175,10 @@ public class Vendor extends EntityBase implements IView {
     {
         Vector<String> v = new Vector<String>();
 
-        v.addElement(persistentState.getProperty("Id"));
-        v.addElement(persistentState.getProperty("Name"));
-        v.addElement(persistentState.getProperty("Phone Number"));
-        v.addElement(persistentState.getProperty("Status"));
+        v.addElement(persistentState.getProperty("vId"));
+        v.addElement(persistentState.getProperty("vName"));
+        v.addElement(persistentState.getProperty("vPhone"));
+        v.addElement(persistentState.getProperty("vStatus"));
 
         return v;
     }
