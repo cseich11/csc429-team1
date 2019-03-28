@@ -33,22 +33,21 @@ public class Vendor extends EntityBase implements IView {
             // There should be EXACTLY one book. More than that is an error
             if (size != 1)
             {
-                throw new InvalidPrimaryKeyException("Multiple vnendors matching id : "
+                throw new InvalidPrimaryKeyException("Multiple vendors matching id : "
                         + vendorId + " found.");
             }
             else
             {
                 // copy all the retrieved data into persistent state
-                Properties retrievedBookData = allDataRetrieved.elementAt(0);
+                Properties retrievedVendorData = allDataRetrieved.elementAt(0);
                 persistentState = new Properties();
 
-                Enumeration allKeys = retrievedBookData.propertyNames();
+                Enumeration allKeys = retrievedVendorData.propertyNames();
                 while (allKeys.hasMoreElements() == true)
                 {
                     String nextKey = (String)allKeys.nextElement();
-                    String nextValue = retrievedBookData.getProperty(nextKey);
-                    // bookNumber = Integer.parseInt(retrievedBookData.getProperty("bookNumber"));
-
+                    String nextValue = retrievedVendorData.getProperty(nextKey);
+x
                     if (nextValue != null)
                     {
                         persistentState.setProperty(nextKey, nextValue);
@@ -183,4 +182,8 @@ public class Vendor extends EntityBase implements IView {
         return v;
     }
 
+    public boolean modifyVendor(Vendor vendor, String name, String phone)
+    {
+        //TODO modify informations name and phone for the vendor
+    }
 }
