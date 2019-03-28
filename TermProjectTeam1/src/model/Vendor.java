@@ -47,7 +47,7 @@ public class Vendor extends EntityBase implements IView {
                 {
                     String nextKey = (String)allKeys.nextElement();
                     String nextValue = retrievedVendorData.getProperty(nextKey);
-x
+
                     if (nextValue != null)
                     {
                         persistentState.setProperty(nextKey, nextValue);
