@@ -91,7 +91,7 @@ public class InventoryManager implements IView, IModel
 		// STEP 4: Write the sCR method component for the key you
 		// just set up dependencies for
 		// DEBUG System.out.println("InventoryManager.sCR: key = " + key);
-		if (key.equals("AddIIT"))
+		if (key.equals("AddNewIIT"))
 		{
 			doAction(key);
 		}
@@ -133,6 +133,8 @@ public class InventoryManager implements IView, IModel
 					Event.ERROR);
 		}
 	}
+	
+	
 
 	//----------------------------------------------------------
 	private void createAndShowInventoryManagerView()

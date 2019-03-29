@@ -1,1 +1,5 @@
 [3/28/19 5:48 PM]|Main|Library.<init>|Error|NOTAG|null<Unable to create InventoryManager object>
+[3/28/19 10:18 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException>
+[3/28/19 10:18 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException>
+[3/28/19 10:18 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException>
+[3/28/19 10:18 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException>
