@@ -95,7 +95,7 @@ public class InventoryManagerView extends View
 		// action choice buttons
         insertIITButton = new Button("Add New Inventory Item Type");
         insertIITButton.setOnAction(e -> {
- 			myModel.stateChangeRequest("InsertIIT", null);
+ 			myModel.stateChangeRequest("AddNewIIT", null);
         });
         	
 		doneButton = new Button("Done");

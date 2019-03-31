@@ -133,6 +133,8 @@ public class InventoryManager implements IView, IModel
 					Event.ERROR);
 		}
 	}
+	
+	
 
 	//----------------------------------------------------------
 	private void createAndShowInventoryManagerView()
