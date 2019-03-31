@@ -38,7 +38,7 @@ public class AddNewIITActionView extends View
 	// GUI components
 	protected TextField itemTypeName;
 	protected TextField units;
-	protected TextField unitsMeasure;
+	protected TextField unitMeasure;
 	protected TextField validityDays;
 	protected TextField reorderPoint;
 	protected TextField notes;
@@ -149,16 +149,16 @@ public class AddNewIITActionView extends View
        	  }
    	});
 
-		Text unitsMeasureLabel = new Text(" Units Measure : ");
-		unitsMeasureLabel.setFont(myFont);
-		unitsMeasureLabel.setWrappingWidth(150);
-		unitsMeasureLabel.setTextAlignment(TextAlignment.RIGHT);
-		grid.add(unitsMeasureLabel, 0, 3);
+		Text unitMeasureLabel = new Text(" Unit Measure : ");
+		unitMeasureLabel.setFont(myFont);
+		unitMeasureLabel.setWrappingWidth(150);
+		unitMeasureLabel.setTextAlignment(TextAlignment.RIGHT);
+		grid.add(unitMeasureLabel, 0, 3);
 
-		unitsMeasure = new TextField();
-		unitsMeasure.setEditable(true);
-		grid.add(unitsMeasure, 1, 3);
-		unitsMeasure.setOnAction(new EventHandler<ActionEvent>() {
+		unitMeasure = new TextField();
+		unitMeasure.setEditable(true);
+		grid.add(unitMeasure, 1, 3);
+		unitMeasure.setOnAction(new EventHandler<ActionEvent>() {
 
        		     @Override
        		     public void handle(ActionEvent e) {
@@ -276,7 +276,7 @@ public class AddNewIITActionView extends View
 	{
 		itemTypeName.setText("");
 		units.setText("");
-		unitsMeasure.setText("");
+		unitMeasure.setText("");
 		validityDays.setText("");
 		reorderPoint.setText("");
 		notes.setText("");
@@ -303,7 +303,7 @@ public class AddNewIITActionView extends View
 		
 		String itemTypeNameInput = itemTypeName.getText();
 		String unitsInput = units.getText();
-		String unitsMeasureInput = unitsMeasure.getText();
+		String unitMeasureInput = unitMeasure.getText();
 		String validityDaysInput = validityDays.getText();
 		String reorderPointInput = reorderPoint.getText();
 		String notesInput = notes.getText();
@@ -317,7 +317,7 @@ public class AddNewIITActionView extends View
 		{
 			displayErrorMessage("Please Enter an amount of units");
 		}
-		else if(unitsMeasureInput.length() == 0)
+		else if(unitMeasureInput.length() == 0)
 		{
 			displayErrorMessage("Please Enter a measure for units");
 		}
@@ -335,17 +335,17 @@ public class AddNewIITActionView extends View
 //		}
 		else
 		{
-			processData(itemTypeNameInput, unitsInput, unitsMeasureInput, validityDaysInput, reorderPointInput, notesInput, statusInput);
+			processData(itemTypeNameInput, unitsInput, unitMeasureInput, validityDaysInput, reorderPointInput, notesInput, statusInput);
 		}
 	}
 	
 	
-	private void processData(String itemTypeName, String units, String unitsMeasure, String validityDays, String reorderPoint, String notes, String status)
+	private void processData(String itemTypeName, String units, String unitMeasure, String validityDays, String reorderPoint, String notes, String status)
 	{
 		Properties prop = new Properties();
 		prop.setProperty("ItemTypeName", itemTypeName);
 		prop.setProperty("Units", units);
-		prop.setProperty("UnitsMeasure", unitsMeasure);
+		prop.setProperty("UnitMeasure", unitMeasure);
 		prop.setProperty("ValidityDays", validityDays);
 		prop.setProperty("ReorderPoint", reorderPoint);
 		prop.setProperty("Notes", notes);

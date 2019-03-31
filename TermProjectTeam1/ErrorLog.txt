@@ -8,3 +8,11 @@
 [3/31/19 6:16 PM]|JDBCBroker|JDBCBroker|Error|NOTAG|null<Could not load driver class[com.mysql.jdbc.Driver]>
 [3/31/19 6:18 PM]|JDBCBroker|JDBCBroker|Error|NOTAG|null<Could not load driver class[com.mysql.jdbc.Driver]>
 [3/31/19 6:28 PM]|JDBCBroker|JDBCBroker|Error|NOTAG|null<Could not load driver class[com.mysql.jdbc.Driver]>
+[3/31/19 6:47 PM]|InventoryItemType|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'ItemTypeName' in 'where clause'>
+[3/31/19 6:49 PM]|InventoryItemType|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'ItemTypeName' in 'where clause'>
+[3/31/19 6:50 PM]|InventoryItemType|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'ItemTypeName' in 'where clause'>
+[3/31/19 6:52 PM]|InventoryItemType|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'ItemTypeName' in 'where clause'>
+[3/31/19 6:56 PM]|InventoryItemType|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'bread' in 'where clause'>
+[3/31/19 6:57 PM]|InventoryItemType|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'bread' in 'where clause'>
+[3/31/19 7:01 PM]|InventoryItemType|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'bread' in 'where clause'>
+[3/31/19 7:06 PM]|InventoryItemType|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'bread' in 'where clause'>

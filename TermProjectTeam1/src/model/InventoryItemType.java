@@ -21,7 +21,7 @@ import userinterface.WindowPosition;
 	//==============================================================
 	public class InventoryItemType extends EntityBase implements IView
 	{
-		private static final String myTableName = "Book";
+		private static final String myTableName = "InventoryItemType";
 		
 		public Scene prevScene = myStage.getScene();
 	
@@ -292,7 +292,13 @@ import userinterface.WindowPosition;
 		{
 			try
 			{
-				if (persistentState.getProperty("ItemTypeName") != null)
+				String itemTypeName = persistentState.getProperty("ItemTypeName");
+				String query = "SELECT * FROM " + myTableName + " WHERE (ItemTypeName = " + itemTypeName + ")";
+				
+				Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
+		
+				// You must get one book at least
+				if (allDataRetrieved != null)
 				{
 					Properties whereClause = new Properties();
 					whereClause.setProperty("ItemTypeName",persistentState.getProperty("ItemTypeName"));
@@ -301,8 +307,7 @@ import userinterface.WindowPosition;
 				}
 				else
 				{
-					String itemTypeName = persistentState.getProperty("ItemTypeName");
-//						insertAutoIncrementalPersistentState(mySchema, persistentState);
+						insertPersistentState(mySchema, persistentState);
 					persistentState.setProperty("ItemTypeName", itemTypeName);
 					updateStatusMessage = "data for new IIT : " +  persistentState.getProperty("ItemTypeName")
 						+ " installed successfully in database!";
