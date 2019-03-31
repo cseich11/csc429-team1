@@ -347,8 +347,8 @@ public class AddNewIITActionView extends View
 		prop.setProperty("Units", units);
 		prop.setProperty("UnitsMeasure", unitsMeasure);
 		prop.setProperty("ValidityDays", validityDays);
-		prop.setProperty("reorderPoint", reorderPoint);
-		prop.setProperty("notes", notes);
+		prop.setProperty("ReorderPoint", reorderPoint);
+		prop.setProperty("Notes", notes);
 		prop.setProperty("Status", status);
 		myModel.stateChangeRequest("IITData", prop);
 	}
