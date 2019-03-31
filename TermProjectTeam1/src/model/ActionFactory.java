@@ -19,6 +19,12 @@ public class ActionFactory
 	public static Action createAction(String actionType)
 		throws Exception
 	{
-		return null;
+		Action retValue = null;
+
+		if (actionType.equals("AddNewIIT") == true)
+		{
+			retValue = new AddNewIITAction();
+		}
+		return retValue;
 	}
 }
