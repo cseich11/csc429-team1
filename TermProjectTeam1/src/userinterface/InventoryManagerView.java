@@ -93,7 +93,7 @@ public class InventoryManagerView extends View
         	grid.setPadding(new Insets(25, 25, 25, 25));
 
 		// action choice buttons
-        insertIITButton = new Button("Insert New Inventory Item Type");
+        insertIITButton = new Button("Add New Inventory Item Type");
         insertIITButton.setOnAction(e -> {
  			myModel.stateChangeRequest("InsertIIT", null);
         });
