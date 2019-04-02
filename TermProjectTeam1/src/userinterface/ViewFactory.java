@@ -8,8 +8,8 @@ public class ViewFactory {
 	{
 		if(viewName.equals("InventoryManagerView"))
 			return new InventoryManagerView(model);
-//		else if(viewName.equals("VendorManagerView"))
-//			return new AddVendorView(model);
+		else if(viewName.equals("AddVendorActionView"))
+			return new AddVendorActionView(model);
 		return null;
 	}
 }

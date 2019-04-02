@@ -14,7 +14,6 @@ import exception.InvalidPrimaryKeyException;
 import userinterface.View;
 import userinterface.ViewFactory;
 
-/** The class containing the TransferAction for the ATM application */
 //==============================================================
 public class AddVendorAction extends Action
 {
@@ -29,11 +28,8 @@ public class AddVendorAction extends Action
 	
 	private Vendor v;
 	
-	/**
-	 * Constructor for this class.
-	 *
-	 *
-	 */
+
+	
 	//----------------------------------------------------------
 	public AddVendorAction()
 		throws Exception
@@ -53,10 +49,8 @@ public class AddVendorAction extends Action
 		myRegistry.setDependencies(dependencies);
 	}
 
-	/**
-	 * This method encapsulates all the logic of creating the book,
-	 * verifying ownership, crediting, etc. etc.
-	 */
+
+	
 	//----------------------------------------------------------
 	public void processAction(Properties props)
 	{
@@ -88,8 +82,8 @@ public class AddVendorAction extends Action
 		}
 		else if(key.equals("VendorData"))
 		{
-			String[] iitData = {vName, vPhone, vStatus};
-			return iitData;
+			String[] vData = {vName, vPhone, vStatus};
+			return vData;
 		}
 		
 		return null;
@@ -111,22 +105,19 @@ public class AddVendorAction extends Action
 		myRegistry.updateSubscribers(key, this);
 	}
 
-	/**
-	 * Create the view of this class. And then the super-class calls
-	 * swapToView() to display the view in the stage
-	 */
+
 	//------------------------------------------------------
 	protected Scene createView()
 	{
 
-		Scene currentScene = myViews.get("AddNewIITActionView");
+		Scene currentScene = myViews.get("AddVendorActionView");
 
 		if (currentScene == null)
 		{
 			// create our initial view
-			View newView = ViewFactory.createView("AddNewIITActionView", this);
+			View newView = ViewFactory.createView("AddVendorActionView", this);
 			currentScene = new Scene(newView);
-			myViews.put("AddNewIITActionView", currentScene);
+			myViews.put("AddVendorActionView", currentScene);
 
 			return currentScene;
 		}
@@ -140,10 +131,10 @@ public class AddVendorAction extends Action
 	//------------------------------------------------------
 	protected void createAndShowView()
 	{
-		View newView = ViewFactory.createView("AddNewIITActionView", this);
+		View newView = ViewFactory.createView("AddVendorActionView", this);
 		Scene newScene = new Scene(newView);
 
-		myViews.put("AddNewIITActionView", newScene);
+		myViews.put("AddVendorActionView", newScene);
 
 		// make the view visible by installing it into the stage
 		swapToView(newScene);
