@@ -103,8 +103,8 @@ public class Vendor extends EntityBase implements IView {
     //----------------------------------------------------------------
     public static int compare(Vendor a, Vendor b)
     {
-        String aNum = (String)a.getState("vendorId");
-        String bNum = (String)b.getState("vendorId");
+        String aNum = (String)a.getState("vId");
+        String bNum = (String)b.getState("vId");
 
         return aNum.compareTo(bNum);
     }
@@ -141,19 +141,19 @@ public class Vendor extends EntityBase implements IView {
     {
         try
         {
-            if (persistentState.getProperty("vendorId") != null)
+            if (persistentState.getProperty("vId") != null)
             {
                 Properties whereClause = new Properties();
-                whereClause.setProperty("vendorId",
-                        persistentState.getProperty("vendorId"));
+                whereClause.setProperty("vId",
+                        persistentState.getProperty("vId"));
                 updatePersistentState(mySchema, persistentState, whereClause);
-                updateStatusMessage = "Vendor data for book id : " + persistentState.getProperty("vendorId") + " updated successfully in database!";
+                updateStatusMessage = "Vendor data for book id : " + persistentState.getProperty("vId") + " updated successfully in database!";
             }
             else
             {
                 Integer vendorsId =
                         insertAutoIncrementalPersistentState(mySchema, persistentState);
-                persistentState.setProperty("vendorId", "" + vendorsId.intValue());
+                persistentState.setProperty("vId", "" + vendorsId.intValue());
                 updateStatusMessage = "Vendor with ID: " +  persistentState.getProperty("vendorId")
                         + " inserted successfully!";
             }
@@ -184,6 +184,9 @@ public class Vendor extends EntityBase implements IView {
 
     public boolean modifyVendor(Vendor vendor, String name, String phone)
     {
-        //TODO modify informations name and phone for the vendor
+        persistentState.setProperty("vName", name);
+        persistentState.setProperty("vPhone", phone);
+        update();
+        return true;
     }
 }

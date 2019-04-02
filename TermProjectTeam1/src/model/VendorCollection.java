@@ -29,7 +29,7 @@ public class VendorCollection  extends EntityBase implements IView
     }
 
     //----------------------------------------------------------------------------------
-    public void findVendors(String name, String phone)
+    public Vector<Vendor> findVendors(String name, String phone)
     {
         String query = "SELECT * FROM " + myTableName + " WHERE (vName=%" + name + "% vPhone=%" + phone + "%)";
 
@@ -59,6 +59,8 @@ public class VendorCollection  extends EntityBase implements IView
                         + nextVendorData.getProperty("vPhone") + "\t\t" + nextVendorData.getProperty("vStatus"));
             }
         }
+
+        return (vendorList);
     }
 
     private void addVendor(Vendor a)
