@@ -154,7 +154,7 @@ public class Vendor extends EntityBase implements IView {
                 Integer vendorsId =
                         insertAutoIncrementalPersistentState(mySchema, persistentState);
                 persistentState.setProperty("vId", "" + vendorsId.intValue());
-                updateStatusMessage = "Vendor with ID: " +  persistentState.getProperty("vendorId")
+                updateStatusMessage = "Vendor with ID: " +  persistentState.getProperty("vID")
                         + " inserted successfully!";
             }
         }

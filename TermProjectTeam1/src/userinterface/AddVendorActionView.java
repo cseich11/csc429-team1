@@ -141,7 +141,8 @@ public class AddVendorActionView extends View
 		doneButton = new Button("Done");
  		doneButton.setOnAction(e -> {
  			clearErrorMessage();
-			myModel.stateChangeRequest("CancelInsert", null);   
+// 			System.exit(0);
+ 			myModel.stateChangeRequest("CancelInsert", null);
         });
 
 		HBox btnContainer = new HBox(100);
@@ -182,19 +183,20 @@ public class AddVendorActionView extends View
 		String venNameEntered = venName.getText();
 		String phoneNumEntered = phoneNum.getText();
 
-		boolean isNum = true;
-		try {
-			Integer.parseInt(phoneNumEntered);
-		} catch(NumberFormatException e) {
-			isNum = false;
-		}
+//		boolean isNum = true;
+//		try {
+//			Integer.parseInt(phoneNumEntered);
+//		} catch(NumberFormatException e) {
+//			isNum = false;
+//		}
 
 		if (venNameEntered == null || venNameEntered.length() == 0)
 			displayErrorMessage("Please enter an name");
 		else if(phoneNumEntered == null || phoneNumEntered.length() == 0)
 			displayErrorMessage("Please enter a phone number");
-		else if(!isNum || phoneNumEntered.length() != 9)
-			displayErrorMessage("Phone Number must be exactly 9-digits");
+		//else if(!isNum || phoneNumEntered.length() != 10)
+		else if(phoneNumEntered.matches("^[0-9]+$") && phoneNumEntered.length() == 10) 
+			displayErrorMessage("Phone Number must be exactly 10-digits");
 		else
 		{
 			String status = "Active";
@@ -210,9 +212,9 @@ public class AddVendorActionView extends View
 	private void processData(String a, String t, String s)
 	{
 		Properties props = new Properties();
-		props.setProperty("vendorName", a);
-		props.setProperty("phoneNumber", t);
-		props.setProperty("status", t);
+		props.setProperty("vName", a);
+		props.setProperty("vPhone", t);
+		props.setProperty("vStatus", t);
 		myModel.stateChangeRequest("VendorData", props);
 		populateFields();
 	}
