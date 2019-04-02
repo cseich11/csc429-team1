@@ -309,7 +309,7 @@ import userinterface.WindowPosition;
 				{
 						insertPersistentState(mySchema, persistentState);
 					persistentState.setProperty("ItemTypeName", itemTypeName);
-					updateStatusMessage = "data for new IIT : " +  persistentState.getProperty("ItemTypeName")
+					updateStatusMessage = persistentState.getProperty("ItemTypeName")
 						+ " installed successfully in database!";
 				}
 			}
