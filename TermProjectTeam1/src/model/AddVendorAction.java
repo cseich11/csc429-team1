@@ -97,7 +97,7 @@ public class AddVendorAction extends Action
 			doYourJob();
 		}
 		else
-		if (key.equals("IITData") == true)
+		if (key.equals("VendorData") == true)
 		{
 			processAction((Properties)value);
 		}
