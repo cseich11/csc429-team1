@@ -115,7 +115,7 @@ public class SearchVendorAction extends Action
 			// create our initial view
 			View newView = ViewFactory.createView("SearchVendorActionView", this);
 			currentScene = new Scene(newView);
-			myViews.put("AddVendorActionView", currentScene);
+			myViews.put("SearchVendorActionView", currentScene);
 
 			return currentScene;
 		}
