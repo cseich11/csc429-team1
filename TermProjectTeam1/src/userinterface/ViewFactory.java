@@ -10,6 +10,8 @@ public class ViewFactory {
 			return new InventoryManagerView(model);
 		else if(viewName.equals("AddVendorActionView"))
 			return new AddVendorActionView(model);
+		else if(viewName.equals("AddVendorActionView"))
+			return new VendorCollectionView(model);
 		return null;
 	}
 }

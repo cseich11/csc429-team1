@@ -23,9 +23,9 @@ public class SearchVendorAction extends Action
 	
 	private String vName;
 	private String vPhone;
-	private String vStatus;
+//	private String vStatus;
 	
-	private Vendor v;
+//	private Vendor v;
 	
 	private VendorCollection vc;
 	
@@ -61,7 +61,13 @@ public class SearchVendorAction extends Action
 		
 		vc = new VendorCollection(vName,vPhone);
 		
+		createAndShowView();
 	}
+	
+//	protected void createAndShowView()
+//	{
+//		swapToView(myViews.get("VendorCollectionView"));
+//	}
 
 
 	//-----------------------------------------------------------
@@ -123,10 +129,23 @@ public class SearchVendorAction extends Action
 	//------------------------------------------------------
 	protected void createAndShowView()
 	{
-		View newView = ViewFactory.createView("SearchVendorActionView", this);
-		Scene newScene = new Scene(newView);
-
-		myViews.put("SearchVendorActionView", newScene);
+		Scene newScene;
+		
+		if(vc != null)
+		{
+			View newView = ViewFactory.createView("SearchVendorActionView", this);
+			newScene = new Scene(newView);
+	
+			myViews.put("SearchVendorActionView", newScene);
+		}
+		else
+		{
+			View newView = ViewFactory.createView("VendorCollectionView", this);
+			newScene = new Scene(newView);
+	
+			myViews.put("VendorCollectionView", newScene);
+			
+		}
 
 		// make the view visible by installing it into the stage
 		swapToView(newScene);
