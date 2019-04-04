@@ -37,7 +37,7 @@ public class InventoryManagerView extends View
 {
 
 	// GUI stuff
-	private Button insertIITButton, doneButton, addVendorButton;
+	private Button insertIITButton, doneButton, addVendorButton, searchVendorButton;
 
 	// For showing error message
 	private MessageView statusLog;
@@ -102,6 +102,11 @@ public class InventoryManagerView extends View
         addVendorButton.setOnAction(e -> {
         	myModel.stateChangeRequest("AddVendor", null);
         });
+        
+        searchVendorButton = new Button("Search Vendor");
+        addVendorButton.setOnAction(e -> {
+        	myModel.stateChangeRequest("SearchVendor", null);
+        });
         	
 		doneButton = new Button("Done");
  		doneButton.setOnAction(e -> {
@@ -112,6 +117,7 @@ public class InventoryManagerView extends View
 		btnContainer.setAlignment(Pos.BOTTOM_RIGHT);
 		btnContainer.getChildren().add(insertIITButton);
 		btnContainer.getChildren().add(addVendorButton);
+		btnContainer.getChildren().add(searchVendorButton);
 		btnContainer.getChildren().add(doneButton);
 		grid.add(btnContainer, 1, 3);
 

@@ -23,6 +23,7 @@ import java.util.Properties;
 
 // project imports
 import impresario.IModel;
+//import model.SearchVendorAction;
 
 /** The class containing the Deposit Amount View  for the ATM application */
 //==============================================================
@@ -43,9 +44,9 @@ public class SearchVendorActionView extends View
 
 	// constructor for this class -- takes a model object
 	//----------------------------------------------------------
-	public SearchVendorActionView(IModel librarian)
+	public SearchVendorActionView(IModel SearchVendorAction)
 	{
-		super(librarian, "SearchVendorView");
+		super(SearchVendorAction, "SearchVendorActionView");
 
 		// create a container for showing the contents
 		VBox container = new VBox(10);
