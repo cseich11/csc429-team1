@@ -12,6 +12,8 @@ public class ViewFactory {
 			return new AddNewIITActionView(model);
 		if(viewName.equals("SearchIITActionView"))
 			return new SearchIITActionView(model);
+		if(viewName.equals("InventoryItemTypeCollectionView"))
+			return new InventoryItemTypeCollectionView(model);
 		return null;
 	}
 }
