@@ -56,18 +56,13 @@ public class SearchVendorAction extends Action
 	public void processAction(Properties props)
 	{
 
-		vName = props.getProperty("vName");
-		vPhone = props.getProperty("vPhone");
-		
+		vName = props.getProperty("vendorName");
+		vPhone = props.getProperty("phoneNumber");
+		System.out.println(vName + " " + vPhone);
 		vc = new VendorCollection(vName,vPhone);
 		
 		createAndShowView();
 	}
-	
-//	protected void createAndShowView()
-//	{
-//		swapToView(myViews.get("VendorCollectionView"));
-//	}
 
 
 	//-----------------------------------------------------------
@@ -97,7 +92,10 @@ public class SearchVendorAction extends Action
 		if (key.equals("DoYourJob") == true)
 			doYourJob();
 		else if (key.equals("VendorData") == true)
+		{
+			System.out.println("test");
 			processAction((Properties)value);
+		}
 		
 
 		myRegistry.updateSubscribers(key, this);

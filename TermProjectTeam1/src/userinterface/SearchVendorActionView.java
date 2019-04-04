@@ -182,20 +182,20 @@ public class SearchVendorActionView extends View
 
 		String venNameEntered = venName.getText();
 		String phoneNumEntered = phoneNum.getText();
-
-		boolean isNum = true;
-		try {
-			Integer.parseInt(phoneNumEntered);
-		} catch(NumberFormatException e) {
-			isNum = false;
-		}
+System.out.println(venNameEntered + " - " + phoneNumEntered);
+//		boolean isNum = true; 
+//		try {
+//			Integer.parseInt(phoneNumEntered);
+//		} catch(NumberFormatException e) {
+//			isNum = false;
+//		}
 
 		if (venNameEntered == null || venNameEntered.length() == 0)
 			displayErrorMessage("Please enter an name");
 		else if(phoneNumEntered == null || phoneNumEntered.length() == 0)
 			displayErrorMessage("Please enter a phone number");
-		else if(!isNum || phoneNumEntered.length() != 9)
-			displayErrorMessage("Phone Number must be exactly 9-digits");
+		else if(phoneNumEntered.matches("^[0-9]+$") && phoneNumEntered.length() != 10) 
+			displayErrorMessage("Phone Number must be exactly 10-digits");
 		else
 		{
 			String status = "Active";
