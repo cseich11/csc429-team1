@@ -1,1 +1,22 @@
 [3/28/19 5:48 PM]|Main|Library.<init>|Error|NOTAG|null<Unable to create InventoryManager object>
+[4/4/19 5:52 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException: Root cannot be null>
+[4/4/19 5:52 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException: Root cannot be null>
+[4/4/19 5:52 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException: Root cannot be null>
+[4/4/19 5:52 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException: Root cannot be null>
+[4/4/19 5:53 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException: Root cannot be null>
+[4/4/19 5:53 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException: Root cannot be null>
+[4/4/19 5:53 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException: Root cannot be null>
+[4/4/19 5:53 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException: Root cannot be null>
+[4/4/19 5:53 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException: Root cannot be null>
+[4/4/19 5:53 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException: Root cannot be null>
+[4/4/19 5:54 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException: Root cannot be null>
+[4/4/19 5:54 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException: Root cannot be null>
+[4/4/19 5:55 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException: Root cannot be null>
+[4/4/19 5:56 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException: Root cannot be null>
+[4/4/19 5:56 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException: Root cannot be null>
+[4/4/19 5:56 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException: Root cannot be null>
+[4/4/19 5:56 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException: Root cannot be null>
+[4/4/19 5:56 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException: Root cannot be null>
+[4/4/19 5:57 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException>
+[4/4/19 5:57 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException>
+[4/4/19 5:57 PM]|InventoryManager|createAction|Error|NOTAG|null<Action Creation Failure: Unrecognized action java.lang.NullPointerException>

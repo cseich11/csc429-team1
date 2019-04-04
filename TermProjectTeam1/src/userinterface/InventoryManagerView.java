@@ -44,10 +44,10 @@ public class InventoryManagerView extends View
 
 	// constructor for this class -- takes a model object
 	//----------------------------------------------------------
-	public InventoryManagerView( IModel inventoryManager)
+	public InventoryManagerView( IModel InventoryManager)
 	{
 
-		super(inventoryManager, "InventoryManagerView");
+		super(InventoryManager, "InventoryManagerView");
 
 		// create a container for showing the contents
 		VBox container = new VBox(10);
@@ -104,7 +104,7 @@ public class InventoryManagerView extends View
         });
         
         searchVendorButton = new Button("Search Vendor");
-        addVendorButton.setOnAction(e -> {
+        searchVendorButton.setOnAction(e -> {
         	myModel.stateChangeRequest("SearchVendor", null);
         });
         	
