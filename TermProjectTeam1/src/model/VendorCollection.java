@@ -23,17 +23,25 @@ public class VendorCollection  extends EntityBase implements IView
 
     // constructor for this class
     //----------------------------------------------------------
-    public VendorCollection()
+    public VendorCollection(String name, String phone)
     {
         super(myTableName);
+		
+		vendorList = new Vector<Vendor>(); // new Vector<Book>();
+		vendorList = findVendors(name, phone);
+		System.out.println(vendorList);
+		
     }
 
     //----------------------------------------------------------------------------------
     public Vector<Vendor> findVendors(String name, String phone)
     {
-        String query = "SELECT * FROM " + myTableName + " WHERE (vName=%" + name + "% vPhone=%" + phone + "%)";
-
-        Vector allDataRetrieved = getSelectQueryResult(query);
+		
+	   String query = "SELECT * FROM " + myTableName + " WHERE vName LIKE '%" + name + "%' AND vPhone LIKE '%" + phone + "%'";
+		
+		//SELECT * FROM Vendor WHERE vName LIKE "%Jake%" AND vPhone LIKE "%999999999%"
+       
+	   Vector allDataRetrieved = getSelectQueryResult(query);
 
         System.out.println(query + "\n");
 
@@ -111,10 +119,10 @@ public class VendorCollection  extends EntityBase implements IView
     //----------------------------------------------------------
     public Object getState(String key)
     {
-        if (key.equals("Books"))
+        if (key.equals("Vendor"))
             return vendorList;
         else
-        if (key.equals("BookList"))
+        if (key.equals("VendorList"))
             return this;
         return null;
     }
@@ -152,21 +160,21 @@ public class VendorCollection  extends EntityBase implements IView
     }
 
     //------------------------------------------------------
-    protected void createAndShowView()
+    protected void createAndShowVendorCollectionView()
     {
 
-        Scene localScene = myViews.get("BookCollectionView");
+        Scene localScene = myViews.get("VendorCollectionView");
 
         if (localScene == null)
         {
             // create our new view
-            View newView = ViewFactory.createView("BookCollectionView", this);
+            View newView = ViewFactory.createView("VendorCollectionView", this);
             localScene = new Scene(newView);
-            myViews.put("BookCollectionView", localScene);
+            myViews.put("VendorCollectionView", localScene);
         }
         // make the view visible by installing it into the frame
         swapToView(localScene);
-
+		
     }
 
     //-----------------------------------------------------------------------------------
