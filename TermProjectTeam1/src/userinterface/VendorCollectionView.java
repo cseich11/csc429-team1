@@ -40,7 +40,7 @@ import java.util.Enumeration;
 import userinterface.VendorTableModel;
 import model.Vendor;
 import model.VendorCollection;
-import model.Librarian;
+import model.InventoryManager;
 import userinterface.MessageView;
 import impresario.IModel;
 
@@ -211,7 +211,7 @@ public class VendorCollectionView extends View
 
             @Override
             public void handle(ActionEvent e) {
-                Librarian newLibrarian = new Librarian();
+            	InventoryManager newLibrarian = new InventoryManager();
             }
         });
         // HBox btnContainer4 = new HBox(10);
