@@ -108,14 +108,14 @@ public class SearchVendorAction extends Action
 	protected Scene createView()
 	{
 
-		Scene currentScene = myViews.get("AddVendorActionView");
+		Scene currentScene = myViews.get("SearchVendorActionView");
 
 		if (currentScene == null)
 		{
 			// create our initial view
-			View newView = ViewFactory.createView("AddVendorActionView", this);
+			View newView = ViewFactory.createView("SearchVendorActionView", this);
 			currentScene = new Scene(newView);
-			myViews.put("AddVendorActionView", currentScene);
+			myViews.put("SearchVendorActionView", currentScene);
 
 			return currentScene;
 		}
