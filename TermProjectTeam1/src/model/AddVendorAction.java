@@ -93,14 +93,10 @@ public class AddVendorAction extends Action
 	public void stateChangeRequest(String key, Object value)
 	{
 		if (key.equals("DoYourJob") == true)
-		{
 			doYourJob();
-		}
-		else
-		if (key.equals("VendorData") == true)
-		{
+		else if (key.equals("VendorData") == true)
 			processAction((Properties)value);
-		}
+		
 
 		myRegistry.updateSubscribers(key, this);
 	}

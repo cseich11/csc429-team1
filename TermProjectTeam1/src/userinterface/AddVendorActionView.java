@@ -141,8 +141,7 @@ public class AddVendorActionView extends View
 		doneButton = new Button("Done");
  		doneButton.setOnAction(e -> {
  			clearErrorMessage();
-// 			System.exit(0);
- 			myModel.stateChangeRequest("CancelInsert", null);
+ 			myModel.stateChangeRequest("Cancel", null);
         });
 
 		HBox btnContainer = new HBox(100);
