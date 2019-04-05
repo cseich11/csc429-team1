@@ -75,7 +75,6 @@ import userinterface.WindowPosition;
 							persistentState.setProperty(nextKey, nextValue);
 						}
 					}
-	
 				}
 			}
 			// If no book found for this bookId, throw an exception
@@ -137,8 +136,6 @@ import userinterface.WindowPosition;
 	
 		public void swapToView(Scene newScene)
 		{
-
-			
 			if (newScene == null)
 			{
 				System.out.println("InventoryItemType.swapToView(): Missing view for display");
@@ -149,7 +146,6 @@ import userinterface.WindowPosition;
 
 			myStage.setScene(newScene);
 			myStage.sizeToScene();
-			
 				
 			//Place in center
 			WindowPosition.placeCenter(myStage);
