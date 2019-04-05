@@ -15,7 +15,7 @@ public class SearchIITAction extends Action
 	private InventoryItemTypeCollection list;
 
 	// GUI Components
-	private String name, units, unitMeasure, validityDays, reorder, notes, status;
+	private String name, notes;
 	private String actionErrorMessage = "";
 	private String inventoryUpdateStatusMessage = "";
 
@@ -52,7 +52,8 @@ public class SearchIITAction extends Action
 		if(data.length == 2 && data[0] != null && data[1] != null)
 		{
 			list = new InventoryItemTypeCollection();
-			list.findAllIITWithNameNotes(data[0], data[1]);
+			name = data[0]; notes = data[1];
+			list.findAllIITWithNameNotes(name, notes);
 			createAndShowIITListView();
 		}
 //		if (props.getProperty("author") != null && props.getProperty("title") != null
@@ -84,14 +85,14 @@ public class SearchIITAction extends Action
 		// DEBUG System.out.println("SearchInventoryItemTypesAction.sCR: key: " + key);
 
 		if(key.equals("DoYourJob"))
-		{
 			doYourJob();
-		}
 		else if(key.equals("IITData"))
-		{
 			processAction((String[])value);
-		}
 		else if(key.equals("CancelInventoryItemTypeList"))
+			swapToView(createView());
+		else if(key.equals("ModifyIIT"))
+			createAndShowModifyIITView();
+		else if(key.equals("CancelModify"))
 			swapToView(createView());
 
 		myRegistry.updateSubscribers(key, this);
@@ -133,6 +134,15 @@ public class SearchIITAction extends Action
 		View newView = ViewFactory.createView("InventoryItemTypeCollectionView", this);
 		Scene currentScene = new Scene(newView);
 		myViews.put("InventoryItemTypeCollectionView", currentScene);
+
+		swapToView(currentScene);
+	}
+	
+	protected void createAndShowModifyIITView()
+	{
+		View newView = ViewFactory.createView("ModifyIITActionView", this);
+		Scene currentScene = new Scene(newView);
+		myViews.put("ModifyIITActionView", currentScene);
 
 		swapToView(currentScene);
 	}

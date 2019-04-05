@@ -14,6 +14,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -35,7 +36,8 @@ import model.InventoryItemTypeCollection;
 public class InventoryItemTypeCollectionView extends View
 {
 	protected TableView<InventoryItemTypeTableModel> tableOfIITs;
-	protected Button doneButton;
+	protected Button doneButton, modifyButton, deleteButton;
+	protected HBox btnContainer;
 
 	protected MessageView statusLog;
 
@@ -162,25 +164,29 @@ public class InventoryItemTypeCollectionView extends View
 		TableColumn notesColumn = new TableColumn("Notes") ;
 		notesColumn.setMinWidth(100);
 		notesColumn.setCellValueFactory(
-	                new PropertyValueFactory<TableModel, String>("reorderPoint"));
+	                new PropertyValueFactory<InventoryItemTypeTableModel, String>("reorderPoint"));
 		
 		TableColumn statusColumn = new TableColumn("Status") ;
 		statusColumn.setMinWidth(100);
 		statusColumn.setCellValueFactory(
 	                new PropertyValueFactory<InventoryItemTypeTableModel, String>("status"));
+		
+//		TableColumn actionsColumn = new TableColumn("Actions");
+//		actionsColumn.setMinWidth(100);
+		
 
 		tableOfIITs.getColumns().addAll(nameColumn, 
 				unitsColumn, unitMeasureColumn, validityDaysColumn, reorderPointColumn, statusColumn);
 
-//		tableOfIITs.setOnMousePressed(new EventHandler<MouseEvent>() {
-//			@Override
-//			public void handle(MouseEvent event)
-//			{
-//				if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
-//					processBookSelected();
-//				}
-//			}
-//		});
+		tableOfIITs.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event)
+			{
+				if (event.isPrimaryButtonDown() && event.getClickCount() >=1 ){
+					addButtonsForSelected();
+				}
+			}
+		});
 		ScrollPane scrollPane = new ScrollPane();
 		scrollPane.setPrefSize(115, 150);
 		scrollPane.setContent(tableOfIITs);
@@ -199,11 +205,11 @@ public class InventoryItemTypeCollectionView extends View
 				 */
        		    	//----------------------------------------------------------
        		    	clearErrorMessage();
-       		    	myModel.stateChangeRequest("CancelBookList", null); 
+       		    	myModel.stateChangeRequest("CancelInventoryItemTypeList", null); 
        		    }
         	});
 
-		HBox btnContainer = new HBox(100);
+		btnContainer = new HBox(100);
 		btnContainer.setAlignment(Pos.CENTER);
 		btnContainer.getChildren().add(doneButton);
 		
@@ -222,17 +228,28 @@ public class InventoryItemTypeCollectionView extends View
 	}
 
 	//--------------------------------------------------------------------------
-//	protected void processBookSelected()
-//	{
-//		BookTableModel selectedItem = tableOfIITs.getSelectionModel().getSelectedItem();
-//		
-//		if(selectedItem != null)
-//		{
-//			String selectedAcctNumber = selectedItem.getBookId();
-//
-//			myModel.stateChangeRequest("BookSelected", selectedAcctNumber);
-//		}
-//	}
+	protected void addButtonsForSelected()
+	{
+		InventoryItemTypeTableModel selectedItem = tableOfIITs.getSelectionModel().getSelectedItem();
+		
+		if(selectedItem != null)
+		{
+			if(btnContainer.getChildren().contains(modifyButton) && btnContainer.getChildren().contains(deleteButton)) {
+				btnContainer.getChildren().remove(modifyButton);
+				btnContainer.getChildren().remove(deleteButton);
+			}
+			
+			String selectedIITName = selectedItem.getItemTypeName();
+			String[] data = {selectedItem.getItemTypeName(), selectedItem.getNotes()};
+			modifyButton = new Button("Modify");
+			modifyButton.setOnAction(e -> {
+				myModel.stateChangeRequest("ModifyIIT", data);
+			});
+			deleteButton = new Button("Delete");
+			btnContainer.getChildren().addAll(modifyButton, deleteButton);
+			myModel.stateChangeRequest("IITSelected", selectedIITName);
+		}
+	}
 
 	//--------------------------------------------------------------------------
 	protected MessageView createStatusLog(String initialMessage)
