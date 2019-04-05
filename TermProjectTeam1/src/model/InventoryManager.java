@@ -64,6 +64,7 @@ public class InventoryManager implements IView, IModel
 	{
 		dependencies = new Properties();
 		dependencies.setProperty("AddIIT", "ActionError");
+		dependencies.setProperty("SearchIIT", "ActionError");
 
 		myRegistry.setDependencies(dependencies);
 	}
@@ -91,7 +92,7 @@ public class InventoryManager implements IView, IModel
 		// STEP 4: Write the sCR method component for the key you
 		// just set up dependencies for
 		// DEBUG System.out.println("InventoryManager.sCR: key = " + key);
-		if (key.equals("AddNewIIT"))
+		if (key.equals("AddNewIIT") || key.equals("SearchIIT"))
 		{
 			doAction(key);
 		}
