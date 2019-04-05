@@ -5,6 +5,7 @@ package model;
 import javafx.scene.Scene;
 import java.util.Properties;
 
+import exception.InvalidPrimaryKeyException;
 import userinterface.View;
 import userinterface.ViewFactory;
 
@@ -15,10 +16,13 @@ public class SearchIITAction extends Action
 	private InventoryItemTypeCollection list;
 
 	// GUI Components
-	private String name, notes;
+	private String itemTypeName, notes, units, unitMeasure, validityDays, reorderPoint, status;
 	private String actionErrorMessage = "";
 	private String inventoryUpdateStatusMessage = "";
-
+	private String iitUpdateStatusMessage = "";
+	
+	private InventoryItemType iit;
+	
 	/**
 	 * Constructor for this class.
 	 *
@@ -38,6 +42,8 @@ public class SearchIITAction extends Action
 		dependencies.setProperty("Cancel", "CancelAction");
 		dependencies.setProperty("SearchIIT", "ActionError");
 		dependencies.setProperty("OK", "CancelAction");
+		dependencies.setProperty("ModifyIIT", "ActionError");
+		dependencies.setProperty("IITData", "UpdateStatusMessage");
 
 		myRegistry.setDependencies(dependencies);
 	}
@@ -52,8 +58,8 @@ public class SearchIITAction extends Action
 		if(data.length == 2 && data[0] != null && data[1] != null)
 		{
 			list = new InventoryItemTypeCollection();
-			name = data[0]; notes = data[1];
-			list.findAllIITWithNameNotes(name, notes);
+			itemTypeName = data[0]; notes = data[1];
+			list.findAllIITWithNameNotes(itemTypeName, notes);
 			createAndShowIITListView();
 		}
 //		if (props.getProperty("author") != null && props.getProperty("title") != null
@@ -66,6 +72,29 @@ public class SearchIITAction extends Action
 //
 //		}
 	}
+	
+	/**
+	 * This method encapsulates all the logic of updating the iit
+	 */
+	//----------------------------------------------------------
+	public void processAction(Properties props)
+	{
+
+		itemTypeName = props.getProperty("ItemTypeName");
+		units = props.getProperty("Units");
+		unitMeasure = props.getProperty("UnitMeasure");
+		validityDays = props.getProperty("ValidityDays");
+		reorderPoint = props.getProperty("ReorderPoint");
+		notes = props.getProperty("Notes");
+		status = props.getProperty("Status");
+
+		if(itemTypeName != null && units != null && unitMeasure != null && validityDays!= null && reorderPoint != null && notes != null && status != null)
+		{
+			iit = new InventoryItemType(props);
+			iit.update();
+			iitUpdateStatusMessage = (String)iit.getState("UpdateStatusMessage");
+		}
+	}
 
 	//-----------------------------------------------------------
 	public Object getState(String key)
@@ -76,6 +105,13 @@ public class SearchIITAction extends Action
 			return inventoryUpdateStatusMessage;
 		if(key.equals("InventoryItemTypeList"))
 			return list;
+		if(key.equals("IITData"))
+		{
+			String[] iitData = {itemTypeName, units, unitMeasure, validityDays, reorderPoint, notes, status};
+			return iitData;
+		}
+		if (iit != null)
+			return iit.getState(key);
 		return null;
 	}
 
@@ -90,10 +126,19 @@ public class SearchIITAction extends Action
 			processAction((String[])value);
 		else if(key.equals("CancelInventoryItemTypeList"))
 			swapToView(createView());
-		else if(key.equals("ModifyIIT"))
+		else if(key.equals("ModifyIIT")) {
+			try {
+				iit = new InventoryItemType((String)value);
+			} catch (InvalidPrimaryKeyException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			createAndShowModifyIITView();
+		}
 		else if(key.equals("CancelModify"))
-			swapToView(createView());
+			createAndShowIITListView();
+		else if (key.equals("IITData") == true)
+			processAction((Properties)value);
 
 		myRegistry.updateSubscribers(key, this);
 	}

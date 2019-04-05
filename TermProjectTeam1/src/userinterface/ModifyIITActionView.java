@@ -274,7 +274,7 @@ public class ModifyIITActionView extends View
 	//-------------------------------------------------------------
 	public void populateFields()
 	{
-		itemTypeName.setText(iit.getState());
+		itemTypeName.setText((String)myModel.getState("ItemTypeName"));
 		units.setText("");
 		unitMeasure.setText("");
 		validityDays.setText("");

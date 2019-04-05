@@ -238,12 +238,11 @@ public class InventoryItemTypeCollectionView extends View
 				btnContainer.getChildren().remove(modifyButton);
 				btnContainer.getChildren().remove(deleteButton);
 			}
-			
+			System.out.println(selectedItem.getItemTypeName());
 			String selectedIITName = selectedItem.getItemTypeName();
-			String[] data = {selectedItem.getItemTypeName(), selectedItem.getNotes()};
 			modifyButton = new Button("Modify");
 			modifyButton.setOnAction(e -> {
-				myModel.stateChangeRequest("ModifyIIT", data);
+				myModel.stateChangeRequest("ModifyIIT", selectedIITName);
 			});
 			deleteButton = new Button("Delete");
 			btnContainer.getChildren().addAll(modifyButton, deleteButton);

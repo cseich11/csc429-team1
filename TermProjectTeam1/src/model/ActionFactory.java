@@ -23,6 +23,8 @@ public class ActionFactory
 			return new AddNewIITAction();
 		if(actionType.equals("SearchIIT"))
 			return new SearchIITAction();
+		if(actionType.equals("ModifyIIT"))
+			return new ModifyIITAction();
 		return null;
 	}
 }
