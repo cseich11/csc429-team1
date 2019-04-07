@@ -105,7 +105,7 @@ public class InventoryItemTypeCollectionView extends View
 		HBox container = new HBox();
 		container.setAlignment(Pos.CENTER);	
 
-		Text unitMeasureText = new Text(" Library System ");
+		Text unitMeasureText = new Text("       Restaurant Inventory System       ");
 		unitMeasureText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 		unitMeasureText.setWrappingWidth(300);
 		unitMeasureText.setTextAlignment(TextAlignment.CENTER);
@@ -127,7 +127,7 @@ public class InventoryItemTypeCollectionView extends View
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
         
-        Text prompt = new Text("LIST OF BOOKS");
+        Text prompt = new Text("LIST OF INVENTORY ITEM TYPES");
         prompt.setWrappingWidth(350);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
