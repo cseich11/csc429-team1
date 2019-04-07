@@ -41,7 +41,7 @@ import userinterface.WindowPosition;
 			super(myTableName);
 	
 			setDependencies();
-			String query = "SELECT * FROM " + myTableName + " WHERE (ItemTypeName = " + itemTypeName + ")";
+			String query = "SELECT * FROM " + myTableName + " WHERE (ItemTypeName = \"" + itemTypeName + "\")";
 	
 			Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 	
