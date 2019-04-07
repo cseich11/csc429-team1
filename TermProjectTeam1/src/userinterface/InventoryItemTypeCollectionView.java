@@ -245,8 +245,13 @@ public class InventoryItemTypeCollectionView extends View
 				myModel.stateChangeRequest("ModifyIIT", selectedIITName);
 			});
 			deleteButton = new Button("Delete");
+			deleteButton.setOnAction(e -> {
+				myModel.stateChangeRequest("ConfirmDeleteIIT", selectedIITName);
+			});
 			btnContainer.getChildren().addAll(modifyButton, deleteButton);
+
 			myModel.stateChangeRequest("IITSelected", selectedIITName);
+			
 		}
 	}
 

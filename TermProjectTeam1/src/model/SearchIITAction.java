@@ -135,8 +135,22 @@ public class SearchIITAction extends Action
 			}
 			createAndShowModifyIITView();
 		}
+		else if(key.equals("ConfirmDeleteIIT")) {
+			try {
+				iit = new InventoryItemType((String)value);
+			} catch (InvalidPrimaryKeyException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			createAndShowDeleteIITView();
+		}
 		else if(key.equals("CancelModify"))
 			createAndShowIITListView();
+		else if(key.equals("Delete"))
+		{
+			iit.persistentState.setProperty("Status", "Inactive");
+			iit.update();
+		}
 		else if (key.equals("IITData") == true)
 			processAction((Properties)value);
 
@@ -150,6 +164,13 @@ public class SearchIITAction extends Action
 		stateChangeRequest(key, value);
 	}
 
+	
+//	public void deleteIIT()
+//	{
+//		iit.persistentState.setProperty("Status", "Inactive");
+//		iit.update();
+//	}
+	
 	/**
 	 * Create the view of this class. And then the super-class calls
 	 * swapToView() to display the view in the frame
@@ -188,6 +209,15 @@ public class SearchIITAction extends Action
 		View newView = ViewFactory.createView("ModifyIITActionView", this);
 		Scene currentScene = new Scene(newView);
 		myViews.put("ModifyIITActionView", currentScene);
+
+		swapToView(currentScene);
+	}
+	
+	protected void createAndShowDeleteIITView()
+	{
+		View newView = ViewFactory.createView("DeleteIITActionView", this);
+		Scene currentScene = new Scene(newView);
+		myViews.put("DeleteIITActionView", currentScene);
 
 		swapToView(currentScene);
 	}
