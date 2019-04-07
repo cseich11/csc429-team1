@@ -148,6 +148,7 @@ public class DeleteIITActionView extends View
 //		{
 			//processData(itemTypeNameEntered);
 			myModel.stateChangeRequest("Delete", null);
+			
 //		}
 	}
 
