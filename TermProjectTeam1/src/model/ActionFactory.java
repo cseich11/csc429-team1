@@ -25,8 +25,6 @@ public class ActionFactory
 			return new SearchIITAction();
 		if(actionType.equals("ModifyIIT"))
 			return new ModifyIITAction();
-		if(actionType.equals("DeleteIIT"))
-			return new DeleteIITAction();
 		return null;
 	}
 }

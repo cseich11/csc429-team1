@@ -13,10 +13,10 @@ import userinterface.ViewFactory;
 //==============================================================
 public class SearchIITAction extends Action
 {
-	private InventoryItemTypeCollection list;
+	private InventoryItemTypeCollection list; 
 
 	// GUI Components
-	private String itemTypeName, notes, units, unitMeasure, validityDays, reorderPoint, status;
+	private String itemTypeName, notes, units, unitMeasure, validityDays, reorderPoint, status, itemTypeNameSearched, notesSearched;
 	private String actionErrorMessage = "";
 	private String inventoryUpdateStatusMessage = "";
 	private String iitUpdateStatusMessage = "";
@@ -58,8 +58,8 @@ public class SearchIITAction extends Action
 		if(data.length == 2 && data[0] != null && data[1] != null)
 		{
 			list = new InventoryItemTypeCollection();
-			itemTypeName = data[0]; notes = data[1];
-			list.findAllIITWithNameNotes(itemTypeName, notes);
+			itemTypeNameSearched = data[0]; notesSearched = data[1];
+			list.findAllIITWithNameNotes(itemTypeNameSearched, notesSearched);
 			createAndShowIITListView();
 		}
 //		if (props.getProperty("author") != null && props.getProperty("title") != null
@@ -90,9 +90,17 @@ public class SearchIITAction extends Action
 
 		if(itemTypeName != null && units != null && unitMeasure != null && validityDays!= null && reorderPoint != null && notes != null && status != null)
 		{
-			iit = new InventoryItemType(props);
+			iit.persistentState.setProperty("Units", units);
+			iit.persistentState.setProperty("UnitMeasure", unitMeasure);
+			iit.persistentState.setProperty("ValidityDays", validityDays);
+			iit.persistentState.setProperty("ReorderPoint", reorderPoint);
+			iit.persistentState.setProperty("Notes", notes);
+			iit.persistentState.setProperty("Status", status);
 			iit.update();
 			iitUpdateStatusMessage = (String)iit.getState("UpdateStatusMessage");
+			list = new InventoryItemTypeCollection();
+			list.findAllIITWithNameNotes(itemTypeNameSearched, notesSearched);
+			createAndShowIITListView();
 		}
 	}
 
@@ -135,6 +143,8 @@ public class SearchIITAction extends Action
 			}
 			createAndShowModifyIITView();
 		}
+		else if(key.equals("ModifyIITData"))
+			processAction((Properties)value);
 		else if(key.equals("ConfirmDeleteIIT")) {
 			try {
 				iit = new InventoryItemType((String)value);
@@ -224,4 +234,3 @@ public class SearchIITAction extends Action
 	}
 
 }
-
