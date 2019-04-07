@@ -293,7 +293,7 @@ import userinterface.WindowPosition;
 			try
 			{
 				String itemTypeName = persistentState.getProperty("ItemTypeName");
-				String query = "SELECT * FROM " + myTableName + " WHERE (ItemTypeName = " + itemTypeName + ")";
+				String query = "SELECT * FROM " + myTableName + " WHERE (ItemTypeName = \"" + itemTypeName + "\")";
 				
 				Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 		
