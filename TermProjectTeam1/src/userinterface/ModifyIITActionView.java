@@ -275,13 +275,12 @@ public class ModifyIITActionView extends View
 	public void populateFields()
 	{
 		itemTypeName.setText((String)myModel.getState("ItemTypeName"));
-		itemTypeName.setEditable(false);
-		units.setText((String)myModel.getState("Units"));
-		unitMeasure.setText((String)myModel.getState("UnitMeasure"));
-		validityDays.setText((String)myModel.getState("ValidityDays"));
-		reorderPoint.setText((String)myModel.getState("ReorderPoint"));
-		notes.setText((String)myModel.getState("Notes"));
-	 	status.getSelectionModel().select((String)myModel.getState("Status"));
+		units.setText("");
+		unitMeasure.setText("");
+		validityDays.setText("");
+		reorderPoint.setText("");
+		notes.setText("");
+	 	status.getSelectionModel().selectFirst();
 	}
 
 	/**
@@ -351,7 +350,7 @@ public class ModifyIITActionView extends View
 		prop.setProperty("ReorderPoint", reorderPoint);
 		prop.setProperty("Notes", notes);
 		prop.setProperty("Status", status);
-		myModel.stateChangeRequest("ModifyIITData", prop);
+		myModel.stateChangeRequest("IITData", prop);
 	}
 	/**
 	 * Display error message

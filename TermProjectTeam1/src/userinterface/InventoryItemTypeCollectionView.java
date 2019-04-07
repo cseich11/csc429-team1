@@ -75,9 +75,9 @@ public class InventoryItemTypeCollectionView extends View
 		ObservableList<InventoryItemTypeTableModel> tableData = FXCollections.observableArrayList();
 		try
 		{
-			InventoryItemTypeCollection itemCollection = (InventoryItemTypeCollection)myModel.getState("InventoryItemTypeList");
+			InventoryItemTypeCollection bookCollection = (InventoryItemTypeCollection)myModel.getState("InventoryItemTypeList");
 
-	 		Vector entryList = (Vector)itemCollection.getState("InventoryItemTypes");
+	 		Vector entryList = (Vector)bookCollection.getState("InventoryItemTypes");
 			Enumeration entries = entryList.elements();
 
 			while (entries.hasMoreElements() == true)
@@ -105,7 +105,7 @@ public class InventoryItemTypeCollectionView extends View
 		HBox container = new HBox();
 		container.setAlignment(Pos.CENTER);	
 
-		Text unitMeasureText = new Text("       Restaurant Inventory System          ");
+		Text unitMeasureText = new Text(" Library System ");
 		unitMeasureText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 		unitMeasureText.setWrappingWidth(300);
 		unitMeasureText.setTextAlignment(TextAlignment.CENTER);
@@ -127,7 +127,7 @@ public class InventoryItemTypeCollectionView extends View
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
         
-        Text prompt = new Text("LIST OF INVENTORY ITEM TYPES");
+        Text prompt = new Text("LIST OF BOOKS");
         prompt.setWrappingWidth(350);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
@@ -238,6 +238,7 @@ public class InventoryItemTypeCollectionView extends View
 				btnContainer.getChildren().remove(modifyButton);
 				btnContainer.getChildren().remove(deleteButton);
 			}
+			System.out.println(selectedItem.getItemTypeName());
 			String selectedIITName = selectedItem.getItemTypeName();
 			modifyButton = new Button("Modify");
 			modifyButton.setOnAction(e -> {
