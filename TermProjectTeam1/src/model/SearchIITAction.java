@@ -150,6 +150,7 @@ public class SearchIITAction extends Action
 		{
 			iit.persistentState.setProperty("Status", "Inactive");
 			iit.update();
+			iitUpdateStatusMessage = (String)iit.getState("UpdateStatusMessage");
 		}
 		else if (key.equals("IITData") == true)
 			processAction((Properties)value);
