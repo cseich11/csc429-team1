@@ -61,7 +61,7 @@ public class SearchVendorAction extends Action
 		System.out.println(vName + " " + vPhone);
 		vc = new VendorCollection(vName,vPhone);
 		
-		createAndShowView();
+		vc.createAndShowVendorCollectionView();
 	}
 
 

@@ -53,6 +53,7 @@ public class VendorCollectionView extends View
 	protected TableView<VendorTableModel> vendorTable;
 
     private Button doneButtonSearchBook;
+    private Button selectVendorButton;
 
     // For showing error message
     private MessageView statusLog;
@@ -91,34 +92,22 @@ public class VendorCollectionView extends View
 	{
 		
 		ObservableList<VendorTableModel> tableData = FXCollections.observableArrayList();
-		System.out.println("11");
 		try
 		{
-			System.out.println("1");
 			VendorCollection vendorCollection = (VendorCollection)myModel.getState("VendorList");
-			System.out.println("2");
 	 		Vector entryList = (Vector)vendorCollection.getState("Vendor");
-			System.out.println("3");
 			Enumeration entries = entryList.elements();
-			System.out.println("4");
 
 			while (entries.hasMoreElements() == true)
 			{
 				Vendor nextVendor = (Vendor)entries.nextElement();
-				System.out.println("5");
 				Vector<String> view = nextVendor.getEntryListView();
-				System.out.println("6");
 
 				// add this list entry to the list
 				VendorTableModel nextTableRowData = new VendorTableModel(view);
-				System.out.println("7");
-				tableData.add(nextTableRowData);
-				System.out.println("8");
-				
+				tableData.add(nextTableRowData);				
 			}
-			System.out.println("9");
 			vendorTable.setItems(tableData);
-			System.out.println("10");
 		}
 		catch (Exception e) {//SQLException e) {
 			// Need to handle this exception
@@ -166,32 +155,28 @@ public class VendorCollectionView extends View
 		vendorTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 	
 		TableColumn vendorIdColumn = new TableColumn("Vendor ID") ;
-		vendorIdColumn.setMinWidth(20);
+		vendorIdColumn.setMinWidth(10);
 		vendorIdColumn.setCellValueFactory(
 	                new PropertyValueFactory<VendorTableModel, String>("vID"));
 		
-		TableColumn authorColumn = new TableColumn("Name") ;
-		authorColumn.setMinWidth(70);
-		authorColumn.setCellValueFactory(
-	                new PropertyValueFactory<VendorTableModel, String>("vName"));
+		TableColumn nameColumn = new TableColumn("Name") ;
+		nameColumn.setMinWidth(70);
+		nameColumn.setCellValueFactory(
+	                new PropertyValueFactory<VendorTableModel, String>("name"));
 		  
-		TableColumn titleColumn = new TableColumn("Title") ;
-		titleColumn.setMinWidth(250);
-		titleColumn.setCellValueFactory(
-	                new PropertyValueFactory<VendorTableModel, String>("title"));
+		TableColumn phoneColumn = new TableColumn("Phone Number") ;
+		phoneColumn.setMinWidth(250);
+		phoneColumn.setCellValueFactory(
+	                new PropertyValueFactory<VendorTableModel, String>("vPhone"));
 		
-		TableColumn pubYearColumn = new TableColumn("Publication Year") ;
-		pubYearColumn.setMinWidth(20);
-		pubYearColumn.setCellValueFactory(
-	                new PropertyValueFactory<VendorTableModel, String>("pubYear"));
-					
+
 		TableColumn statusColumn = new TableColumn("Status") ;
 		statusColumn.setMinWidth(20);
 		statusColumn.setCellValueFactory(
 	                new PropertyValueFactory<VendorTableModel, String>("status"));
 
 		vendorTable.getColumns().addAll(vendorIdColumn, 
-				authorColumn, titleColumn, pubYearColumn, statusColumn);
+				 nameColumn, phoneColumn, statusColumn);
 
 		vendorTable.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
@@ -214,6 +199,13 @@ public class VendorCollectionView extends View
             	InventoryManager newLibrarian = new InventoryManager();
             }
         });
+        
+        selectVendorButton = new Button("SELECT");
+        selectVendorButton.setOnAction(e -> {
+ 			clearErrorMessage(); 
+			// do the insert
+			processVendorSelected();
+        });
         // HBox btnContainer4 = new HBox(10);
         // btnContainer4.setAlignment(Pos.BOTTOM_CENTER);
         // btnContainer4.getChildren().add(doneButtonSearchBook);
@@ -222,6 +214,8 @@ public class VendorCollectionView extends View
 		HBox btnContainer = new HBox(10);
 		btnContainer.setAlignment(Pos.CENTER);
 		btnContainer.getChildren().add(doneButtonSearchBook);
+		btnContainer.getChildren().add(selectVendorButton);
+
 		
 		vbox.getChildren().add(grid);
 		vbox.getChildren().add(scrollPane);
@@ -242,6 +236,7 @@ public class VendorCollectionView extends View
 		
 		if(selectedItem != null)
 		{
+			System.out.println("1");
 			String selectedVendorId = selectedItem.getVendorId();
 
 			myModel.stateChangeRequest("selectedVendor", selectedVendorId);

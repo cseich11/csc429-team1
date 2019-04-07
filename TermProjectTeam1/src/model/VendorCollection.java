@@ -34,23 +34,19 @@ public class VendorCollection  extends EntityBase implements IView
     }
 
     //----------------------------------------------------------------------------------
-    public Vector<Vendor> findVendors(String name, String phone)
-    {
-		
+    public Vector<Vendor> findVendors(String name, String phone){
+    
 	   String query = "SELECT * FROM " + myTableName + " WHERE vName LIKE '%" + name + "%' AND vPhone LIKE '%" + phone + "%'";
 		
 		//SELECT * FROM Vendor WHERE vName LIKE "%Jake%" AND vPhone LIKE "%999999999%"
        
 	   Vector allDataRetrieved = getSelectQueryResult(query);
 
-        System.out.println(query + "\n");
+       System.out.println(query + "\n");
 
         if (allDataRetrieved != null)
         {
             vendorList = new Vector<Vendor>();
-
-            System.out.println("Vendor ID\t\tAuthor\t\tTitle\t\tPublication Year\tStatus");
-            System.out.println("=================================================================================");
 
             for (int i = 0; i < allDataRetrieved.size(); i++)
             {

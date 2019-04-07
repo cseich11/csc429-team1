@@ -12,6 +12,8 @@ public class ViewFactory {
 			return new AddVendorActionView(model);
 		else if(viewName.equals("SearchVendorActionView"))
 			return new SearchVendorActionView(model);
+		else if(viewName.equals("VendorCollectionView"))
+			return new VendorCollectionView(model);
 		return null;
 	}
 }

@@ -182,7 +182,6 @@ public class SearchVendorActionView extends View
 
 		String venNameEntered = venName.getText();
 		String phoneNumEntered = phoneNum.getText();
-System.out.println(venNameEntered + " - " + phoneNumEntered);
 //		boolean isNum = true; 
 //		try {
 //			Integer.parseInt(phoneNumEntered);
