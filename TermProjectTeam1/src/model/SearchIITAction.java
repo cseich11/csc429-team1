@@ -13,7 +13,7 @@ import userinterface.ViewFactory;
 //==============================================================
 public class SearchIITAction extends Action
 {
-	private InventoryItemTypeCollection list;
+	private InventoryItemTypeCollection list; 
 
 	// GUI Components
 	private String itemTypeName, notes, units, unitMeasure, validityDays, reorderPoint, status;
