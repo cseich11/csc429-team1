@@ -7,6 +7,9 @@ import java.util.Vector;
 
 import exception.InvalidPrimaryKeyException;
 import impresario.IView;
+import javafx.scene.Scene;
+import userinterface.View;
+import userinterface.ViewFactory;
 
 public class Vendor extends EntityBase implements IView {
 
@@ -182,11 +185,26 @@ public class Vendor extends EntityBase implements IView {
         return v;
     }
 
-    public boolean modifyVendor(Vendor vendor, String name, String phone)
+    //--------------------------------------------------------------------------
+    public boolean modifyVendor(Vendor vendor, String name, String phone, String status)
     {
         persistentState.setProperty("vName", name);
         persistentState.setProperty("vPhone", phone);
+        persistentState.setProperty("vStatus", status);
+
         update();
         return true;
     }
+    
+  //------------------------------------------------------
+  	protected void createAndShowModifyVendorView()
+  	{
+  		View newView = ViewFactory.createView("ModifyVendorView", this);
+  		Scene newScene = new Scene(newView);
+
+  		myViews.put("ModifyVendorView", newScene);
+
+  		// make the view visible by installing it into the stage
+  		swapToView(newScene);
+  	}
 }
