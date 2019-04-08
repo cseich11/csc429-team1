@@ -308,14 +308,14 @@ import userinterface.WindowPosition;
 					Properties whereClause = new Properties();
 					whereClause.setProperty("ItemTypeName",persistentState.getProperty("ItemTypeName"));
 					updatePersistentState(mySchema, persistentState, whereClause);
-					updateStatusMessage = "data for IIT : " + persistentState.getProperty("ItemTypeName") + " updated successfully in database!";
+					updateStatusMessage = "ItemType: " + persistentState.getProperty("ItemTypeName") + " updated in database!";
 				}
 				else
 				{
 						insertPersistentState(mySchema, persistentState);
 					persistentState.setProperty("ItemTypeName", itemTypeName);
-					updateStatusMessage = "data for new IIT : " +  persistentState.getProperty("ItemTypeName")
-						+ " installed successfully in database!";
+					updateStatusMessage = "New ItemType: " +  persistentState.getProperty("ItemTypeName")
+						+ " added to database!";
 				}
 			}
 			catch (SQLException ex)
@@ -340,14 +340,14 @@ import userinterface.WindowPosition;
 					Properties whereClause = new Properties();
 					whereClause.setProperty("ItemTypeName",persistentState.getProperty("ItemTypeName"));
 					updatePersistentState(mySchema, persistentState, whereClause);
-					updateStatusMessage = "data for IIT : " + persistentState.getProperty("ItemTypeName") + " updated successfully in database!";
+					updateStatusMessage = "Item: " + persistentState.getProperty("ItemTypeName") + " updated in database!";
 				}
 				else
 				{
 						insertPersistentState(mySchema, persistentState);
 					persistentState.setProperty("ItemTypeName", itemTypeName);
-					updateStatusMessage = "data for new IIT : " +  persistentState.getProperty("ItemTypeName")
-						+ " installed successfully in database!";
+					updateStatusMessage = "New Item: " +  persistentState.getProperty("ItemTypeName")
+						+ " added to database!";
 				}
 			}
 			catch (SQLException ex)

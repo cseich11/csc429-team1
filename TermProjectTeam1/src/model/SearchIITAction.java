@@ -42,7 +42,7 @@ public class SearchIITAction extends Action
 		dependencies.setProperty("Cancel", "CancelAction");
 		dependencies.setProperty("SearchIIT", "ActionError");
 		dependencies.setProperty("OK", "CancelAction");
-		dependencies.setProperty("ModifyIIT", "ActionError");
+		dependencies.setProperty("ModifyIITData", "ActionMessage");
 		dependencies.setProperty("IITData", "UpdateStatusMessage");
 
 		myRegistry.setDependencies(dependencies);
@@ -97,10 +97,10 @@ public class SearchIITAction extends Action
 			iit.persistentState.setProperty("Notes", notes);
 			iit.persistentState.setProperty("Status", status);
 			iit.update();
-			iitUpdateStatusMessage = (String)iit.getState("UpdateStatusMessage");
-			list = new InventoryItemTypeCollection();
-			list.findAllIITWithNameNotes(itemTypeNameSearched, notesSearched);
-			createAndShowIITListView();
+			inventoryUpdateStatusMessage = (String)iit.getState("UpdateStatusMessage");
+			//list = new InventoryItemTypeCollection();
+			//list.findAllIITWithNameNotes(itemTypeNameSearched, notesSearched);
+			//createAndShowIITListView();
 		}
 	}
 
@@ -109,6 +109,8 @@ public class SearchIITAction extends Action
 	{
 		if (key.equals("ActionError"))
 			return actionErrorMessage;
+		if (key.equals("ActionMessage"))
+			return inventoryUpdateStatusMessage;
 		if(key.equals("UpdateStatusMessage"))
 			return inventoryUpdateStatusMessage;
 		if(key.equals("InventoryItemTypeList"))

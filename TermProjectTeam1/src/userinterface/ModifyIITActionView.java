@@ -74,6 +74,7 @@ public class ModifyIITActionView extends View
 		populateFields();
 
 		myModel.subscribe("UpdateStatusMessage", this);
+		myModel.subscribe("ActionMessage", this);
 	}
 
 
@@ -296,6 +297,16 @@ public class ModifyIITActionView extends View
 		{
 			displayMessage((String)value);
 		}
+		else
+			if (key.equals("ActionMessage") == true)
+			{
+				String val = (String)value;
+				if (val.startsWith("ERR") == true)
+					displayErrorMessage(val);
+				else
+					displayMessage(val);
+				
+			}
 	}
 
 	public void processAction(ActionEvent e)
