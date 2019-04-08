@@ -14,6 +14,9 @@ import userinterface.ViewFactory;
 public class Vendor extends EntityBase implements IView {
 
     private static final String myTableName = "Vendor";
+    private String vName;
+    private String vPhone;
+    private String vStatus;
 
     protected Properties dependencies;
 
@@ -112,8 +115,27 @@ public class Vendor extends EntityBase implements IView {
         return aNum.compareTo(bNum);
     }
 
+    //----------------------------------------------------------------
     public void stateChangeRequest(String key, Object value)
     {
+    	if (key.equals("VendorData") == true)
+    	
+    		System.out.println(value);
+
+    		vName = ((Properties) value).getProperty("vendorName");
+    		vPhone = ((Properties) value).getProperty("phoneNumber");
+    		vStatus = ((Properties) value).getProperty("status");
+    		
+    		System.out.println(vName + " - " + vPhone + " - " + vStatus); //DEBUG
+
+
+    		if(vName != null && vPhone != null && vStatus != null)
+    		{
+    	    	System.out.println("justin test 3");
+
+    			modifyVendor(this, vName, vPhone, vStatus);
+    		}
+    	
         myRegistry.updateSubscribers(key, this);
     }
 
@@ -188,6 +210,8 @@ public class Vendor extends EntityBase implements IView {
     //--------------------------------------------------------------------------
     public boolean modifyVendor(Vendor vendor, String name, String phone, String status)
     {
+    	System.out.println("justin test 4");
+
         persistentState.setProperty("vName", name);
         persistentState.setProperty("vPhone", phone);
         persistentState.setProperty("vStatus", status);

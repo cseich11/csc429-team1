@@ -28,6 +28,10 @@ public class ActionFactory
 		{
 			retValue = new SearchVendorAction();
 		}
+		else if(actionType.equals("ModifyVendor") == true)
+		{
+			retValue = new ModifyVendorAction();
+		}
 		return retValue;
 	}
 }

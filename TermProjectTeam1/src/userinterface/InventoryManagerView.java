@@ -72,14 +72,20 @@ public class InventoryManagerView extends View
 	//-------------------------------------------------------------
 	private Node createTitle()
 	{
+		HBox container = new HBox();
+		container.setAlignment(Pos.CENTER);
 		
 		Text titleText = new Text("       Restaurant Inventory System          ");
 		titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 		titleText.setTextAlignment(TextAlignment.CENTER);
 		titleText.setFill(Color.DARKGREEN);
-		
-	
-		return titleText;
+		titleText.setStrokeWidth(0.5);
+		titleText.setStroke(Color.GOLDENROD);  
+        titleText.setTextAlignment(TextAlignment.CENTER);	
+        
+        container.getChildren().add(titleText);
+
+        return container;
 	}
 
 	// Create the main form contents

@@ -4,6 +4,8 @@ package model;
 // system imports
 import java.util.Properties;
 import java.util.Vector;
+
+import exception.InvalidPrimaryKeyException;
 import javafx.scene.Scene;
 
 import impresario.IView;
@@ -19,6 +21,7 @@ public class VendorCollection  extends EntityBase implements IView
     private static final String myTableName = "Vendor";
 
     private Vector<Vendor> vendorList;
+    private Vendor v;
     // GUI Components
 
     // constructor for this class
@@ -126,7 +129,17 @@ public class VendorCollection  extends EntityBase implements IView
     //----------------------------------------------------------------
     public void stateChangeRequest(String key, Object value)
     {
+		if (key.equals("selectedVendor") == true)
+			try {
+		    	System.out.println((String) value);
 
+				v = new Vendor((String) value);
+			} catch (InvalidPrimaryKeyException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			v.createAndShowModifyVendorView();
+		
         myRegistry.updateSubscribers(key, this);
     }
 

@@ -2,6 +2,7 @@ package userinterface;
 
 //system imports
 import javafx.event.Event;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -17,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import model.Vendor;
 
 import java.util.Properties;
 
@@ -29,21 +31,21 @@ public class ModifyVendorView extends View
     protected TextField number;
     private Button doneButton;
     private Button submitButton;
-    private ComboBox status;
+    private ComboBox<String> status;
 
     // For showing error message
-    private VBox container;
+
     private MessageView statusLog;
 	
 	// constructor for this class -- takes a model object
 	//----------------------------------------------------------
-    public ModifyVendorView( IModel Vendor)
+    public ModifyVendorView( IModel ModifyVendorAction)
     {
 
-        super(Vendor, "ModifyVendorView");
+        super(ModifyVendorAction, "ModifyVendorView");
 
         // create a container for showing the contents
-        container = new VBox(10);
+        VBox container = new VBox(10);
 
         container.setPadding(new Insets(15, 5, 5, 5));
 		container.setStyle("-fx-background-color: WHITESMOKE;"); 
@@ -85,11 +87,9 @@ public class ModifyVendorView extends View
 
     // Create the main form contents
     //-------------------------------------------------------------
-    private VBox createFormContents()
+    private GridPane createFormContents()
     {
-		VBox vbox = new VBox(10);
-    	
-        GridPane grid = new GridPane();
+    	GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
@@ -100,7 +100,7 @@ public class ModifyVendorView extends View
         vName.setWrappingWidth(350);
         vName.setTextAlignment(TextAlignment.CENTER);
         vName.setFill(Color.GOLDENROD);
-        grid.add(name, 2, 0);
+        grid.add(vName, 2, 0);
 
         name = new TextField();
         name.setEditable(true);
@@ -117,46 +117,39 @@ public class ModifyVendorView extends View
         number.setEditable(true);
         grid.add(number, 2, 3);
 
-
         Text vStatus = new Text("STATUS");
         vStatus.setFont(Font.font("Arial", FontWeight.BOLD, 13));
         vStatus.setWrappingWidth(350);
         vStatus.setTextAlignment(TextAlignment.CENTER);
         vStatus.setFill(Color.GOLDENROD);
-        grid.add(vStatus, 2, 6);
+        grid.add(vStatus, 2, 4);
 		
 		status = new ComboBox();
         status.getItems().addAll("Active", "Inactive");
         status.setVisibleRowCount(2);
 		
-		HBox statusContainer = new HBox(10);
-		statusContainer.setAlignment(Pos.CENTER);	
-		statusContainer.getChildren().add(status);
-        grid.add(statusContainer, 2, 7);
+		HBox btnContainer = new HBox(10);
+        btnContainer.setAlignment(Pos.CENTER);	
+        btnContainer.getChildren().add(status);
+        grid.add(btnContainer, 2, 5);
 
-        submitButton = new Button("Submit");
- 		submitButton.setOnAction(e -> {
+        submitButton = new Button("SUBMIT");
+        submitButton.setOnAction(e -> {
  			clearErrorMessage(); 
 			// do the insert
 			processAction();
         });
 
-		doneButton = new Button("Done");
- 		doneButton.setOnAction(e -> {
- 			clearErrorMessage();
-			myModel.stateChangeRequest("CancelInsert", null);   
-        });
+        doneButton = new Button("DONE");
+        //TODO: Add method to send this to the Search Vendor Screen
+        
+        HBox btnContainer4 = new HBox(150);
+        btnContainer4.setAlignment(Pos.BOTTOM_CENTER);
+		btnContainer4.getChildren().add(submitButton);
+        btnContainer4.getChildren().add(doneButton);
+        grid.add(btnContainer4, 2, 8);
 
-		HBox btnContainer = new HBox(100);
-		btnContainer.setAlignment(Pos.CENTER);
-		btnContainer.getChildren().add(submitButton);
-		btnContainer.getChildren().add(doneButton);
-		
-
-		vbox.getChildren().add(grid);
-		vbox.getChildren().add(btnContainer);
-
-        return vbox;
+        return grid;
     }
 
     // Create the status log field
@@ -199,8 +192,27 @@ public class ModifyVendorView extends View
         statusLog.clearErrorMessage();
     }
 
-    private void processAction() {
-        //TODO: Call the modify method from Vendor class using the input from this view
-  
+    private void processAction() 
+    {
+    	clearErrorMessage();
+
+		String venNameEntered = name.getText();
+		String phoneNumEntered = number.getText();
+		String statusEntered = (String)status.getValue();
+		
+		processData(venNameEntered, phoneNumEntered, statusEntered);
+    }
+    
+    private void processData(String n, String num, String s) 
+    {
+    	Properties props = new Properties();
+		props.setProperty("vendorName", n);
+		props.setProperty("phoneNumber", num);
+		props.setProperty("status", s);
+		
+		System.out.println(n + " - " + num + " - " + s); //DEBUG
+		
+		myModel.stateChangeRequest("VendorData", props);
+		//populateFields();
     }
 }
