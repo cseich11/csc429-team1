@@ -76,7 +76,7 @@ public class AddNewIITAction extends Action
 		if(itemTypeName != null && units != null && unitMeasure != null && validityDays!= null && reorderPoint != null && notes != null && status != null)
 		{
 			iit = new InventoryItemType(props);
-			iit.update();
+			iit.add();
 			IITUpdateStatusMessage = (String)iit.getState("UpdateStatusMessage");
 		}
 	}

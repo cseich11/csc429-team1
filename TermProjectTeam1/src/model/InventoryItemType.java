@@ -287,6 +287,11 @@ import userinterface.WindowPosition;
 			updateStateInDatabase();
 		}
 		
+		public void add()
+		{
+			addInDatabase();
+		}
+		
 		//-----------------------------------------------------------------------------------
 		private void updateStateInDatabase() 
 		{
@@ -294,6 +299,38 @@ import userinterface.WindowPosition;
 			{
 				String itemTypeName = persistentState.getProperty("ItemTypeName");
 				String query = "SELECT * FROM " + myTableName + " WHERE (ItemTypeName = \"" + itemTypeName + "\")";
+				
+				Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
+		
+				// You must get one book at least
+				if (allDataRetrieved != null)
+				{
+					Properties whereClause = new Properties();
+					whereClause.setProperty("ItemTypeName",persistentState.getProperty("ItemTypeName"));
+					updatePersistentState(mySchema, persistentState, whereClause);
+					updateStatusMessage = "data for IIT : " + persistentState.getProperty("ItemTypeName") + " updated successfully in database!";
+				}
+				else
+				{
+						insertPersistentState(mySchema, persistentState);
+					persistentState.setProperty("ItemTypeName", itemTypeName);
+					updateStatusMessage = "data for new IIT : " +  persistentState.getProperty("ItemTypeName")
+						+ " installed successfully in database!";
+				}
+			}
+			catch (SQLException ex)
+			{
+				updateStatusMessage = "Error in installing IIT data in database!";
+			}
+			 System.out.println(updateStatusMessage);
+		}
+		
+		private void addInDatabase() 
+		{
+			try
+			{
+				String itemTypeName = persistentState.getProperty("ItemTypeName");
+				String query = "SELECT * FROM " + myTableName + " WHERE (ItemTypeName = " + itemTypeName + ")";
 				
 				Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 		
