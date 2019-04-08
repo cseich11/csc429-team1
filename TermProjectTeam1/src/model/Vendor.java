@@ -119,7 +119,7 @@ public class Vendor extends EntityBase implements IView {
     public void stateChangeRequest(String key, Object value)
     {
     	if (key.equals("VendorData") == true)
-    	
+    	{
     		System.out.println(value);
 
     		vName = ((Properties) value).getProperty("vendorName");
@@ -136,7 +136,8 @@ public class Vendor extends EntityBase implements IView {
     			modifyVendor(this, vName, vPhone, vStatus);
     		}
     	
-        myRegistry.updateSubscribers(key, this);
+            myRegistry.updateSubscribers(key, this);
+        }
     }
 
     /** Called via the IView relationship */

@@ -42,7 +42,7 @@ public class ModifyVendorAction extends Action
 	{
 		dependencies = new Properties();
 		dependencies.setProperty("ModifyVendor", "ActionError");
-		dependencies.setProperty("Cancel", "CancelAction");
+		dependencies.setProperty("CancelModify", "CancelAction");
 		dependencies.setProperty("OK", "CancelAction");
 		dependencies.setProperty("VendorData", "UpdateStatusMessage");
 
@@ -96,8 +96,8 @@ public class ModifyVendorAction extends Action
 			doYourJob();
 		else if (key.equals("VendorData") == true)
 			processAction((Properties)value);
-		else if (key.equals("VendorData") == true)
-			processAction((Properties)value);
+//		else if (key.equals("CancelInsert") == true)
+//			processAction((Properties)value);
 		
 
 		myRegistry.updateSubscribers(key, this);
