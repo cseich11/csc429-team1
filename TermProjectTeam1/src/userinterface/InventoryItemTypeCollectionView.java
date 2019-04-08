@@ -75,9 +75,9 @@ public class InventoryItemTypeCollectionView extends View
 		ObservableList<InventoryItemTypeTableModel> tableData = FXCollections.observableArrayList();
 		try
 		{
-			InventoryItemTypeCollection bookCollection = (InventoryItemTypeCollection)myModel.getState("InventoryItemTypeList");
+			InventoryItemTypeCollection iitCollection = (InventoryItemTypeCollection)myModel.getState("InventoryItemTypeList");
 
-	 		Vector entryList = (Vector)bookCollection.getState("InventoryItemTypes");
+	 		Vector entryList = (Vector)iitCollection.getState("InventoryItemTypes");
 			Enumeration entries = entryList.elements();
 
 			while (entries.hasMoreElements() == true)
@@ -164,7 +164,7 @@ public class InventoryItemTypeCollectionView extends View
 		TableColumn notesColumn = new TableColumn("Notes") ;
 		notesColumn.setMinWidth(100);
 		notesColumn.setCellValueFactory(
-	                new PropertyValueFactory<InventoryItemTypeTableModel, String>("reorderPoint"));
+	                new PropertyValueFactory<InventoryItemTypeTableModel, String>("notes"));
 		
 		TableColumn statusColumn = new TableColumn("Status") ;
 		statusColumn.setMinWidth(100);
@@ -176,7 +176,7 @@ public class InventoryItemTypeCollectionView extends View
 		
 
 		tableOfIITs.getColumns().addAll(nameColumn, 
-				unitsColumn, unitMeasureColumn, validityDaysColumn, reorderPointColumn, statusColumn);
+				unitsColumn, unitMeasureColumn, validityDaysColumn, reorderPointColumn, notesColumn, statusColumn);
 
 		tableOfIITs.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
