@@ -215,12 +215,23 @@ public class ModifyVendorView extends View
     private void processAction() 
     {
     	clearErrorMessage();
-
+    	
 		String venNameEntered = name.getText();
 		String phoneNumEntered = number.getText();
 		String statusEntered = (String)status.getValue();
+		boolean phoneC = true;
+		try {
+			Integer.parseInt(phoneNumEntered);
+		} catch(NumberFormatException e) {
+			phoneC = false;
+		}
 		
-		processData(venNameEntered, phoneNumEntered, statusEntered);
+		if(venNameEntered.length() == 0)
+			displayErrorMessage("Please Enter a Vendor Name");
+		else if(!phoneC || phoneNumEntered.length() == 0)
+			displayErrorMessage("Please Enter a Valid 10 digit Phone Number");
+		else
+			processData(venNameEntered, phoneNumEntered, statusEntered);
     }
     
     private void processData(String n, String num, String s) 

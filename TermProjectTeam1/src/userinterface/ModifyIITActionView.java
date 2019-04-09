@@ -320,12 +320,29 @@ public class ModifyIITActionView extends View
 		String reorderPointInput = reorderPoint.getText();
 		String notesInput = notes.getText();
 		String statusInput = status.getValue();
+		int u, v, r;
+		boolean uC = true, vC = true, rC = true;
+		try {
+			u = Integer.parseInt(unitsInput);
+		} catch(NumberFormatException d) {
+			uC = false;
+		}
+		try {
+			v = Integer.parseInt(validityDaysInput);
+		} catch(NumberFormatException f) {
+			vC = false;
+		}
+		try {
+			r = Integer.parseInt(reorderPointInput);
+		} catch(NumberFormatException g) {
+			rC = false;
+		}
 		
 		if(itemTypeNameInput.length() == 0)
 		{
 			displayErrorMessage("Please Enter an Item Type Name");
 		}
-		else if(unitsInput.length() == 0 || Integer.parseInt(unitsInput) < 0)
+		else if(!uC || unitsInput.length() == 0 || Integer.parseInt(unitsInput) < 0)
 		{
 			displayErrorMessage("Please Enter a nonnegative amount of units");
 		}
@@ -333,11 +350,11 @@ public class ModifyIITActionView extends View
 		{
 			displayErrorMessage("Please Enter a measure for units");
 		}
-		else if(validityDaysInput.length() == 0 || Integer.parseInt(unitsInput) < 0)
+		else if(!vC || validityDaysInput.length() == 0 || Integer.parseInt(unitsInput) < 0)
 		{
 			displayErrorMessage("Please Enter a nonnegative number for validity days");
 		}
-		else if(reorderPointInput.length() == 0 || Integer.parseInt(unitsInput) < 0)
+		else if(!rC || reorderPointInput.length() == 0 || Integer.parseInt(unitsInput) < 0)
 		{
 			displayErrorMessage("Please Enter a nonnegative number for reorder point");
 		}
