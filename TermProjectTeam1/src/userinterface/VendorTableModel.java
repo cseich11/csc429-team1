@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 //==============================================================================
 public class VendorTableModel
 {
-	private final SimpleStringProperty vID;
+	private final SimpleStringProperty vId;
 	private final SimpleStringProperty vName;
 	private final SimpleStringProperty vPhone;
 	private final SimpleStringProperty vStatus;
@@ -15,7 +15,7 @@ public class VendorTableModel
 	//----------------------------------------------------------------------------
 	public VendorTableModel(Vector<String> vendorData)
 	{
-		vID =  new SimpleStringProperty(vendorData.elementAt(0));
+		vId =  new SimpleStringProperty(vendorData.elementAt(0));
 		vName =  new SimpleStringProperty(vendorData.elementAt(1));
 		vPhone =  new SimpleStringProperty(vendorData.elementAt(2));
 		vStatus =  new SimpleStringProperty(vendorData.elementAt(3));
@@ -23,12 +23,12 @@ public class VendorTableModel
 
 	//----------------------------------------------------------------------------
 	public String getVendorId() {
-        return vID.get();
+        return vId.get();
     }
 
 	//----------------------------------------------------------------------------
-    public void setBookId(String id) {
-        vID.set(id);
+    public void setVendorId(String id) {
+        vId.set(id);
     }
 
     //----------------------------------------------------------------------------

@@ -18,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import model.InventoryManager;
 import model.SearchVendorAction;
 import model.Vendor;
 
@@ -145,15 +146,7 @@ public class ModifyVendorView extends View
         doneButton = new Button("DONE");
         doneButton.setOnAction(e -> {
  			clearErrorMessage();
-			//myModel.stateChangeRequest("Cancel", null);   
- 			try {
-				searchV = new SearchVendorAction();
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
- 			
- 			searchV.createAndShowViewModify();
+ 			InventoryManager newManager = new InventoryManager();
         });
         
         HBox btnContainer4 = new HBox(150);

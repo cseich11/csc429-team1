@@ -212,7 +212,7 @@ public class SearchVendorActionView extends View
 		Properties props = new Properties();
 		props.setProperty("vendorName", a);
 		props.setProperty("phoneNumber", t);
-		props.setProperty("status", t);
+		props.setProperty("status", s);
 		myModel.stateChangeRequest("VendorData", props);
 		populateFields();
 	}

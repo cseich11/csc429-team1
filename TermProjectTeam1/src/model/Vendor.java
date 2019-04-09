@@ -22,7 +22,8 @@ public class Vendor extends EntityBase implements IView {
 
     // GUI Components
     private String updateStatusMessage = "";
-
+    
+    //-----------------------------------------------------------------------------------
     public Vendor(String vendorId) throws InvalidPrimaryKeyException {
         super(myTableName);
 
@@ -70,6 +71,8 @@ public class Vendor extends EntityBase implements IView {
         }
     }
 
+    
+    //-----------------------------------------------------------------------------------
     public Vendor(Properties props)
     {
         super(myTableName);
@@ -211,8 +214,6 @@ public class Vendor extends EntityBase implements IView {
     //--------------------------------------------------------------------------
     public boolean modifyVendor(Vendor vendor, String name, String phone, String status)
     {
-    	System.out.println("justin test 4");
-
         persistentState.setProperty("vName", name);
         persistentState.setProperty("vPhone", phone);
         persistentState.setProperty("vStatus", status);

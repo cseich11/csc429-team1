@@ -60,7 +60,6 @@ public class SearchVendorAction extends Action
 
 		vName = props.getProperty("vendorName");
 		vPhone = props.getProperty("phoneNumber");
-		System.out.println(vName + " " + vPhone);
 		vc = new VendorCollection(vName,vPhone);
 		
 		vc.createAndShowVendorCollectionView();
@@ -95,7 +94,6 @@ public class SearchVendorAction extends Action
 			doYourJob();
 		else if (key.equals("VendorData") == true)
 		{
-			System.out.println("test");
 			processAction((Properties)value);
 		}
 		

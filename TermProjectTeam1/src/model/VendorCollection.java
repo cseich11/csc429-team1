@@ -30,7 +30,7 @@ public class VendorCollection  extends EntityBase implements IView
     {
         super(myTableName);
 		
-		vendorList = new Vector<Vendor>(); // new Vector<Book>();
+		vendorList = new Vector<Vendor>(); 
 		vendorList = findVendors(name, phone);
 		System.out.println(vendorList);
 		
@@ -195,6 +195,7 @@ public class VendorCollection  extends EntityBase implements IView
         }
     }
 
+    //-----------------------------------------------------------------------------------
     public Vendor getVendor(String name)
     {
         for (int cnt = 0; cnt < vendorList.size(); cnt++)
