@@ -193,8 +193,8 @@ public class SearchVendorActionView extends View
 			displayErrorMessage("Please enter an name");
 		else if(phoneNumEntered == null || phoneNumEntered.length() == 0)
 			displayErrorMessage("Please enter a phone number");
-		else if(phoneNumEntered.matches("^[0-9]+$") && phoneNumEntered.length() != 10) 
-			displayErrorMessage("Phone Number must be exactly 10-digits");
+		else if(!phoneNumEntered.matches("^[0-9]+$"))
+			displayErrorMessage("Phone number must be numerical");
 		else
 		{
 			String status = "Active";
