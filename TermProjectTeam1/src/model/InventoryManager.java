@@ -97,6 +97,14 @@ public class InventoryManager implements IView, IModel
 		{
 			doAction(key);
 		}
+		if (key.equals("AddVendor"))
+		{
+			doAction(key);
+		}
+		if (key.equals("SearchVendor"))
+		{
+			doAction(key);
+		}
 		else if (key.equals("CancelAction"))
 		{
 			createAndShowInventoryManagerView();

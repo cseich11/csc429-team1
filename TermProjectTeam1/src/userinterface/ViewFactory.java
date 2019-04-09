@@ -18,6 +18,17 @@ public class ViewFactory {
 			return new ModifyIITActionView(model);
 		if(viewName.equals("DeleteIITActionView"))
 			return new DeleteIITActionView(model);
+		if(viewName.equals("AddVendorIITActionView"))
+			return new AddVendorActionView(model);
+		if(viewName.equals("AddVendorActionView"))
+			return new AddVendorActionView(model);
+		if(viewName.equals("SearchVendorActionView"))
+			return new SearchVendorActionView(model);
+		if(viewName.equals("VendorCollectionView"))
+			return new VendorCollectionView(model);
+		if(viewName.equals("ModifyVendorView"))
+			return new ModifyVendorView(model);
+		
 		return null;
 	}
 }

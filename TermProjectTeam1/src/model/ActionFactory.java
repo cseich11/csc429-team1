@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 
 // project imports
 
-/** The class containing the ActionFactory for the Restaurant Inventory application */
 //==============================================================
 public class ActionFactory
 {
@@ -19,6 +18,12 @@ public class ActionFactory
 	public static Action createAction(String actionType)
 		throws Exception
 	{
+		if(actionType.equals("AddVendor"))
+			return new AddVendorAction();
+		if(actionType.equals("SearchVendor"))
+			return new SearchVendorAction();
+		if(actionType.equals("ModifyVendor"))
+			return new ModifyVendorAction();
 		if (actionType.equals("AddNewIIT"))
 			return new AddNewIITAction();
 		if(actionType.equals("SearchIIT"))

@@ -37,17 +37,17 @@ public class InventoryManagerView extends View
 {
 
 	// GUI stuff
-	private Button insertIITButton, searchIITButton, doneButton;
+	private Button insertIITButton, searchIITButton, doneButton, addVendorButton, searchVendorButton;
 
 	// For showing error message
 	private MessageView statusLog;
 
 	// constructor for this class -- takes a model object
 	//----------------------------------------------------------
-	public InventoryManagerView( IModel inventoryManager)
+	public InventoryManagerView( IModel InventoryManager)
 	{
 
-		super(inventoryManager, "InventoryManagerView");
+		super(InventoryManager, "InventoryManagerView");
 
 		// create a container for showing the contents
 		VBox container = new VBox(10);
@@ -72,14 +72,20 @@ public class InventoryManagerView extends View
 	//-------------------------------------------------------------
 	private Node createTitle()
 	{
+		HBox container = new HBox();
+		container.setAlignment(Pos.CENTER);
 		
 		Text titleText = new Text("       Restaurant Inventory System          ");
 		titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 		titleText.setTextAlignment(TextAlignment.CENTER);
 		titleText.setFill(Color.DARKGREEN);
-		
-	
-		return titleText;
+		titleText.setStrokeWidth(0.5);
+		titleText.setStroke(Color.GOLDENROD);  
+        titleText.setTextAlignment(TextAlignment.CENTER);	
+        
+        container.getChildren().add(titleText);
+
+        return container;
 	}
 
 	// Create the main form contents
@@ -102,6 +108,16 @@ public class InventoryManagerView extends View
         searchIITButton.setOnAction(e -> {
  			myModel.stateChangeRequest("SearchIIT", null);
         });
+        
+        addVendorButton = new Button("Insert Vendor");
+        addVendorButton.setOnAction(e -> {
+        	myModel.stateChangeRequest("AddVendor", null);
+        });
+        
+        searchVendorButton = new Button("Search Vendor");
+        searchVendorButton.setOnAction(e -> {
+        	myModel.stateChangeRequest("SearchVendor", null);
+        });
         	
 		doneButton = new Button("Done");
  		doneButton.setOnAction(e -> {
@@ -110,7 +126,7 @@ public class InventoryManagerView extends View
 
 		HBox btnContainer = new HBox(10);
 		btnContainer.setAlignment(Pos.BOTTOM_RIGHT);
-		btnContainer.getChildren().addAll(insertIITButton, searchIITButton, doneButton);
+		btnContainer.getChildren().addAll(insertIITButton, searchIITButton, addVendorButton, searchVendorButton, doneButton);
 		grid.add(btnContainer, 1, 3);
 
 		return grid;
