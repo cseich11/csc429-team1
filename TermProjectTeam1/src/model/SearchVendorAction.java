@@ -13,6 +13,7 @@ import exception.InvalidPrimaryKeyException;
 
 import userinterface.View;
 import userinterface.ViewFactory;
+import userinterface.WindowPosition;
 
 //==============================================================
 public class SearchVendorAction extends Action
@@ -104,7 +105,7 @@ public class SearchVendorAction extends Action
 
 
 	//------------------------------------------------------
-	protected Scene createView()
+	public Scene createView()
 	{
 
 		Scene currentScene = myViews.get("SearchVendorActionView");
@@ -149,5 +150,31 @@ public class SearchVendorAction extends Action
 		// make the view visible by installing it into the stage
 		swapToView(newScene);
 	}
+	
+	
+	//DELETE THIS HACK AFTER PRESENTING
+	public void createAndShowViewModify()
+	{
+		Scene currentScene = (Scene)myViews.get("SearchVendorActionView");
+		
+		if (currentScene == null)
+		{
+			// create our initial view
+			View newView = ViewFactory.createView("SearchVendorActionView", this); // USE VIEW FACTORY
+			currentScene = new Scene(newView);
+			myViews.put("SearchVendorActionView", currentScene);
+		}
+				
 
+		// make the view visible by installing it into the frame
+		//swapToView(currentScene);
+
+
+		myStage.setScene(currentScene);
+		myStage.sizeToScene();
+		
+			
+		//Place in center
+		WindowPosition.placeCenter(myStage);
+	}
 }

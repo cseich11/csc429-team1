@@ -205,7 +205,7 @@ public class AddVendorActionView extends View
 		Properties props = new Properties();
 		props.setProperty("vName", a);
 		props.setProperty("vPhone", t);
-		props.setProperty("vStatus", t);
+		props.setProperty("vStatus", s);
 		myModel.stateChangeRequest("VendorData", props);
 		populateFields();
 	}

@@ -61,6 +61,7 @@ public class AddVendorAction extends Action
 
 		if(vName != null && vPhone != null && vStatus != null)
 		{
+			System.out.println(vName + " - " + vPhone + " - " + vStatus);
 			v = new Vendor(props);
 			v.update();
 			addVendorStatusMessage = (String)v.getState("UpdateStatusMessage");

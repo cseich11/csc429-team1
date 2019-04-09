@@ -42,7 +42,7 @@ public class ModifyVendorAction extends Action
 	{
 		dependencies = new Properties();
 		dependencies.setProperty("ModifyVendor", "ActionError");
-		dependencies.setProperty("CancelModify", "CancelAction");
+		dependencies.setProperty("Cancel", "CancelAction");
 		dependencies.setProperty("OK", "CancelAction");
 		dependencies.setProperty("VendorData", "UpdateStatusMessage");
 

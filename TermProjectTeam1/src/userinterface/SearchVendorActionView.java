@@ -142,7 +142,7 @@ public class SearchVendorActionView extends View
 		doneButton = new Button("Done");
  		doneButton.setOnAction(e -> {
  			clearErrorMessage();
-			myModel.stateChangeRequest("CancelInsert", null);   
+			myModel.stateChangeRequest("Cancel", null);   
         });
 
 		HBox btnContainer = new HBox(100);

@@ -18,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import model.SearchVendorAction;
 import model.Vendor;
 
 import java.util.Properties;
@@ -36,6 +37,7 @@ public class ModifyVendorView extends View
     // For showing error message
 
     private MessageView statusLog;
+    SearchVendorAction searchV;
 	
 	// constructor for this class -- takes a model object
 	//----------------------------------------------------------
@@ -143,7 +145,15 @@ public class ModifyVendorView extends View
         doneButton = new Button("DONE");
         doneButton.setOnAction(e -> {
  			clearErrorMessage();
-			myModel.stateChangeRequest("CancelModify", null);   
+			//myModel.stateChangeRequest("Cancel", null);   
+ 			try {
+				searchV = new SearchVendorAction();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+ 			
+ 			searchV.createAndShowViewModify();
         });
         
         HBox btnContainer4 = new HBox(150);
