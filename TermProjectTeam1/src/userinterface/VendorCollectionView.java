@@ -157,7 +157,7 @@ public class VendorCollectionView extends View
 		TableColumn vendorIdColumn = new TableColumn("Vendor ID") ;
 		vendorIdColumn.setMinWidth(10);
 		vendorIdColumn.setCellValueFactory(
-	                new PropertyValueFactory<VendorTableModel, String>("vID"));
+	                new PropertyValueFactory<VendorTableModel, String>("vId"));
 		
 		TableColumn nameColumn = new TableColumn("Name") ;
 		nameColumn.setMinWidth(70);
@@ -167,7 +167,7 @@ public class VendorCollectionView extends View
 		TableColumn phoneColumn = new TableColumn("Phone Number") ;
 		phoneColumn.setMinWidth(250);
 		phoneColumn.setCellValueFactory(
-	                new PropertyValueFactory<VendorTableModel, String>("vPhone"));
+	                new PropertyValueFactory<VendorTableModel, String>("vendorPhone"));
 		
 
 		TableColumn statusColumn = new TableColumn("Status") ;
