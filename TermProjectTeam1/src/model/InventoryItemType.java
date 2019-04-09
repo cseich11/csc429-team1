@@ -61,7 +61,7 @@ import userinterface.WindowPosition;
 					// copy all the retrieved data into persistent state
 					Properties retrievedIITData = allDataRetrieved.elementAt(0);
 					persistentState = new Properties();
-					System.out.println(retrievedIITData);
+//					System.out.println(retrievedIITData);
 	
 					Enumeration allKeys = retrievedIITData.propertyNames();
 					while (allKeys.hasMoreElements() == true)
@@ -354,7 +354,7 @@ import userinterface.WindowPosition;
 			{
 				updateStatusMessage = "Error in installing IIT data in database!";
 			}
-			 System.out.println(updateStatusMessage);
+//			 System.out.println(updateStatusMessage);
 		}
 	
 	

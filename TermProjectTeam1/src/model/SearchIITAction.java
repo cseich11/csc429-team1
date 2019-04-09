@@ -112,7 +112,7 @@ public class SearchIITAction extends Action
 		if (key.equals("ActionMessage"))
 			return inventoryUpdateStatusMessage;
 		if(key.equals("UpdateStatusMessage"))
-			return inventoryUpdateStatusMessage;
+			return iitUpdateStatusMessage;
 		if(key.equals("InventoryItemTypeList"))
 			return list;
 		if(key.equals("IITData"))
@@ -162,6 +162,10 @@ public class SearchIITAction extends Action
 		{
 			iit.persistentState.setProperty("Status", "Inactive");
 			iit.update();
+			iitUpdateStatusMessage = (String)iit.getState("UpdateStatusMessage");
+			list = new InventoryItemTypeCollection();
+			list.findAllIITWithNameNotes(itemTypeNameSearched, notesSearched);
+			createAndShowIITListView();
 		}
 		else if (key.equals("IITData") == true)
 			processAction((Properties)value);
