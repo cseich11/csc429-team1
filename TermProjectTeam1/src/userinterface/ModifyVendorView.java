@@ -141,7 +141,10 @@ public class ModifyVendorView extends View
         });
 
         doneButton = new Button("DONE");
-        //TODO: Add method to send this to the Search Vendor Screen
+        doneButton.setOnAction(e -> {
+ 			clearErrorMessage();
+			myModel.stateChangeRequest("CancelModify", null);   
+        });
         
         HBox btnContainer4 = new HBox(150);
         btnContainer4.setAlignment(Pos.BOTTOM_CENTER);
