@@ -325,21 +325,21 @@ public class ModifyIITActionView extends View
 		{
 			displayErrorMessage("Please Enter an Item Type Name");
 		}
-		else if(unitsInput.length() == 0)
+		else if(unitsInput.length() == 0 || Integer.parseInt(unitsInput) < 0)
 		{
-			displayErrorMessage("Please Enter an amount of units");
+			displayErrorMessage("Please Enter a nonnegative amount of units");
 		}
 		else if(unitMeasureInput.length() == 0)
 		{
 			displayErrorMessage("Please Enter a measure for units");
 		}
-		else if(validityDaysInput.length() == 0)
+		else if(validityDaysInput.length() == 0 || Integer.parseInt(unitsInput) < 0)
 		{
-			displayErrorMessage("Please Enter validity days");
+			displayErrorMessage("Please Enter a nonnegative number for validity days");
 		}
-		else if(reorderPointInput.length() == 0)
+		else if(reorderPointInput.length() == 0 || Integer.parseInt(unitsInput) < 0)
 		{
-			displayErrorMessage("Please Enter a reorder point");
+			displayErrorMessage("Please Enter a nonnegative number for reorder point");
 		}
 //		else if(notesInput.length() == 0)
 //		{

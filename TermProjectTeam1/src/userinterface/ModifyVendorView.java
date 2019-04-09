@@ -65,7 +65,7 @@ public class ModifyVendorView extends View
         getChildren().add(container);
 
         // STEP 0: Be sure you tell your model what keys you are interested in
-        myModel.subscribe("LoginError", this);
+        myModel.subscribe("UpdateStatusMessage", this);
     }
 
     // Create the label (Text) for the title of the screen
@@ -129,6 +129,7 @@ public class ModifyVendorView extends View
 		
 		status = new ComboBox();
         status.getItems().addAll("Active", "Inactive");
+        status.getSelectionModel().selectFirst();
         status.setVisibleRowCount(2);
 		
 		HBox btnContainer = new HBox(10);
@@ -173,10 +174,14 @@ public class ModifyVendorView extends View
     {
         // STEP 6: Be sure to finish the end of the 'perturbation'
         // by indicating how the view state gets updated.
-        if (key.equals("LoginError") == true)
+        if (key.equals("UpdateStatusMessage") == true)
         {
             // display the passed text
-            displayErrorMessage((String)value);
+        	String val = (String)value;
+			if (val.startsWith("ERR") == true)
+				displayErrorMessage(val);
+			else
+				displayMessage(val);
         }
     }
 
@@ -188,6 +193,15 @@ public class ModifyVendorView extends View
     {
         statusLog.displayErrorMessage(message);
     }
+    
+    /**
+	 * Display info message
+	 */
+	//----------------------------------------------------------
+	public void displayMessage(String message)
+	{
+		statusLog.displayMessage(message);
+	}
 
     /**
      * Clear error message

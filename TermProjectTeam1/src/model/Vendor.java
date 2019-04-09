@@ -176,15 +176,15 @@ public class Vendor extends EntityBase implements IView {
                 whereClause.setProperty("vId",
                         persistentState.getProperty("vId"));
                 updatePersistentState(mySchema, persistentState, whereClause);
-                updateStatusMessage = "Vendor data for book id : " + persistentState.getProperty("vId") + " updated successfully in database!";
+                updateStatusMessage = "Vendor: " + persistentState.getProperty("vId") + " updated in database!";
             }
             else
             {
                 Integer vendorsId =
                         insertAutoIncrementalPersistentState(mySchema, persistentState);
                 persistentState.setProperty("vId", "" + vendorsId.intValue());
-                updateStatusMessage = "Vendor with ID: " +  persistentState.getProperty("vID")
-                        + " inserted successfully!";
+                updateStatusMessage = "Vendor with ID: " +  persistentState.getProperty("vId")
+                        + " inserted!";
             }
         }
         catch (SQLException ex)
