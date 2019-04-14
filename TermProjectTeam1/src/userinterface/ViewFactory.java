@@ -28,6 +28,8 @@ public class ViewFactory {
 			return new VendorCollectionView(model);
 		if(viewName.equals("ModifyVendorView"))
 			return new ModifyVendorView(model);
+		if(viewName.equals("ProcessInvoiceActionView"))
+			return new ProcessInvoiceActionView(model);
 		
 		return null;
 	}

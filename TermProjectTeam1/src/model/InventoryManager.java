@@ -66,6 +66,7 @@ public class InventoryManager implements IView, IModel
 		dependencies.setProperty("AddIIT", "ActionError");
 		dependencies.setProperty("SearchIIT", "ActionError");
 		dependencies.setProperty("ModifyIIT", "ActionError");
+		dependencies.setProperty("ProcessInvoice", "ActionError");
 
 		myRegistry.setDependencies(dependencies);
 	}
@@ -102,6 +103,10 @@ public class InventoryManager implements IView, IModel
 			doAction(key);
 		}
 		if (key.equals("SearchVendor"))
+		{
+			doAction(key);
+		}
+		if (key.equals("ProcessInvoice"))
 		{
 			doAction(key);
 		}

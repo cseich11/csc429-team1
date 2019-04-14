@@ -37,7 +37,7 @@ public class InventoryManagerView extends View
 {
 
 	// GUI stuff
-	private Button insertIITButton, searchIITButton, doneButton, addVendorButton, searchVendorButton;
+	private Button insertIITButton, searchIITButton, doneButton, addVendorButton, searchVendorButton, processInvoiceButton;
 
 	// For showing error message
 	private MessageView statusLog;
@@ -117,6 +117,11 @@ public class InventoryManagerView extends View
         searchVendorButton = new Button("Search Vendor");
         searchVendorButton.setOnAction(e -> {
         	myModel.stateChangeRequest("SearchVendor", null);
+        });
+        
+        processInvoiceButton = new Button("Process Invoice");
+        processInvoiceButton.setOnAction(e -> {
+        	myModel.stateChangeRequest("ProcessInvoice", null);
         });
         	
 		doneButton = new Button("Done");
