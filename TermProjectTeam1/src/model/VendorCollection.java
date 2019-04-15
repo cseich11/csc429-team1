@@ -169,24 +169,7 @@ public class VendorCollection  extends EntityBase implements IView
     }
 
     //------------------------------------------------------
-    protected void createAndShowVendorCollectionView()
-    {
-
-        Scene localScene = myViews.get("VendorCollectionView");
-
-        if (localScene == null)
-        {
-            // create our new view
-            View newView = ViewFactory.createView("VendorCollectionView", this);
-            localScene = new Scene(newView);
-            myViews.put("VendorCollectionView", localScene);
-        }
-        // make the view visible by installing it into the frame
-        swapToView(localScene);
-		
-    }
-
-    //-----------------------------------------------------------------------------------
+   
     protected void initializeSchema(String tableName)
     {
         if (mySchema == null)

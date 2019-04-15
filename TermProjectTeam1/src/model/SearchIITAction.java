@@ -115,6 +115,8 @@ public class SearchIITAction extends Action
 			return iitUpdateStatusMessage;
 		if(key.equals("InventoryItemTypeList"))
 			return list;
+		if(key.equals("showSubmitButton"))
+			return false;
 		if(key.equals("IITData"))
 		{
 			String[] iitData = {itemTypeName, units, unitMeasure, validityDays, reorderPoint, notes, status};
@@ -132,10 +134,13 @@ public class SearchIITAction extends Action
 
 		if(key.equals("DoYourJob"))
 			doYourJob();
+		
 		else if(key.equals("IITData"))
 			processAction((String[])value);
+		
 		else if(key.equals("CancelInventoryItemTypeList"))
 			swapToView(createView());
+		
 		else if(key.equals("ModifyIIT")) {
 			try {
 				iit = new InventoryItemType((String)value);
@@ -145,8 +150,10 @@ public class SearchIITAction extends Action
 			}
 			createAndShowModifyIITView();
 		}
+		
 		else if(key.equals("ModifyIITData"))
 			processAction((Properties)value);
+		
 		else if(key.equals("ConfirmDeleteIIT")) {
 			try {
 				iit = new InventoryItemType((String)value);
@@ -156,8 +163,10 @@ public class SearchIITAction extends Action
 			}
 			createAndShowDeleteIITView();
 		}
+		
 		else if(key.equals("CancelModify"))
 			createAndShowIITListView();
+		
 		else if(key.equals("Delete"))
 		{
 			iit.persistentState.setProperty("Status", "Inactive");
@@ -167,6 +176,7 @@ public class SearchIITAction extends Action
 			list.findAllIITWithNameNotes(itemTypeNameSearched, notesSearched);
 			createAndShowIITListView();
 		}
+		
 		else if (key.equals("IITData") == true)
 			processAction((Properties)value);
 

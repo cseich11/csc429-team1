@@ -12,9 +12,10 @@ import userinterface.ViewFactory;
 
 public class ProcessInvoiceAction extends Action{
 	
-	private String vName, vPhone;
+	private String vId, vName, vPhone, vStatus, itemTypeNameSearched, notesSearched;
 	private String actionErrorMessage = "";
 	private String processInvoiceStatusMessage = "";
+	private String addVendorStatusMessage = "";
 	
 	private InventoryItemType iit;
 	private InventoryItemTypeCollection iitList;
@@ -35,14 +36,34 @@ public class ProcessInvoiceAction extends Action{
 	{
 		dependencies = new Properties();
 		dependencies.setProperty("Cancel", "CancelAction");
-		dependencies.setProperty("SearchVesndor", "ActionError");
+		dependencies.setProperty("SearchVendor", "ActionError");
 		dependencies.setProperty("OK", "CancelAction");
-		//dependencies.setProperty("ModifyIITData", "ActionMessage");
 		dependencies.setProperty("VendorData", "UpdateStatusMessage");
+		dependencies.setProperty("SearchIIT", "ActionError");
+		dependencies.setProperty("ModifyIITData", "ActionMessage");
+		dependencies.setProperty("IITData", "UpdateStatusMessage");
+		dependencies.setProperty("ModifyVendor", "ActionError");
+
 
 		myRegistry.setDependencies(dependencies);
 	}
 
+	
+	//----------------------------------------------------------
+	public void processAction(String[] data)
+	{
+		if(data.length == 2 && data[0] != null && data[1] != null)
+		{
+			iitList = new InventoryItemTypeCollection();
+			itemTypeNameSearched = data[0]; notesSearched = data[1];
+			iitList.findAllIITWithNameNotes(itemTypeNameSearched, notesSearched);
+			
+			
+			
+			createAndShowIITListView();
+		}
+	}
+	
 	/**
 	 * This method encapsulates all the logic of creating the account,
 	 * verifying ownership, crediting, etc. etc.
@@ -57,6 +78,25 @@ public class ProcessInvoiceAction extends Action{
 		
 		createAndShowVendorCollectionView();
 	}
+	
+	public void processActionModify(Properties props)
+	{
+		props.setProperty("vId", vId);
+		vName = props.getProperty("vendorName");
+		vPhone = props.getProperty("phoneNumber");
+		vStatus = props.getProperty("status");
+		
+		
+		System.out.println(vName + " - " + vPhone + " - " + vStatus);
+
+		if(vName != null && vPhone != null && vStatus != null)
+		{
+			ven = new Vendor(props);
+			ven.update();
+			addVendorStatusMessage = (String)ven.getState("UpdateStatusMessage");
+		}
+	}
+	
 
 	//-----------------------------------------------------------
 	public Object getState(String key)
@@ -65,17 +105,24 @@ public class ProcessInvoiceAction extends Action{
 			return actionErrorMessage;
 		if (key.equals("ActionMessage"))
 			return processInvoiceStatusMessage;
+		if(key.equals("InventoryItemTypeList"))
+			return iitList;
+		if(key.equals("showSubmitButton"))
+			return true;
+		
 //		if(key.equals("UpdateStatusMessage"))
 //			return iitUpdateStatusMessage;
+		
 		if(key.equals("VendorList"))
 			return venList;
-		if(key.equals("VendorData"))
+		if(key.equals("VendorData") || key.equals("SearchVendor"))
 		{
 			String[] vendorData = {vName, vPhone};
 			return vendorData;
 		}
 		if (iit != null)
 			return iit.getState(key);
+		
 		return null;
 	}
 
@@ -91,7 +138,38 @@ public class ProcessInvoiceAction extends Action{
 		else if(key.equals("VendorData"))
 			processAction((Properties)value);
 		
-		else if(key.equals("ProcessInvoice"))
+		else if(key.equals("ModifyVendor")) {
+			try {
+				vId = (String) value;
+				ven = new Vendor(vId);
+			} catch (InvalidPrimaryKeyException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			createAndShowModifyVendorView();
+		}
+		
+		else if(key.equals("ModifyVendorData"))
+			processActionModify((Properties) value);
+		
+		else if(key.equals("AddVIIT"))
+		{
+			vId = (String) value;
+		
+			try {
+				ven = new Vendor(vId);
+			} catch (InvalidPrimaryKeyException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			createAndShowSearchIITActionView();
+		}
+		
+		else if(key.equals("IITData"))
+			processAction((String[]) value);
+			
+		
 			
 		
 
@@ -136,4 +214,35 @@ public class ProcessInvoiceAction extends Action{
 		
     }
 	
+	//-----------------------------------------------------------
+	protected void createAndShowSearchIITActionView()
+	{
+		View newView = ViewFactory.createView("SearchIITActionView", this);
+		Scene currentScene = new Scene(newView);
+		myViews.put("SearchIITActionView", currentScene);
+
+		swapToView(currentScene);
+	}
+	
+	//-----------------------------------------------------------
+	protected void createAndShowIITListView()
+	{
+		View newView = ViewFactory.createView("InventoryItemTypeCollectionView", this);
+		Scene currentScene = new Scene(newView);
+		myViews.put("InventoryItemTypeCollectionView", currentScene);
+
+		swapToView(currentScene);
+	}
+	
+	//-----------------------------------------------------------
+	protected void createAndShowModifyVendorView()
+	{
+		View newView = ViewFactory.createView("ModifyVendorView", this);
+		Scene newScene = new Scene(newView);
+
+		myViews.put("ModifyVendorView", newScene);
+
+		// make the view visible by installing it into the stage
+		swapToView(newScene);
+	}
 }

@@ -42,10 +42,10 @@ public class ModifyVendorView extends View
 	
 	// constructor for this class -- takes a model object
 	//----------------------------------------------------------
-    public ModifyVendorView( IModel ModifyVendorAction)
+    public ModifyVendorView( IModel model)
     {
 
-        super(ModifyVendorAction, "ModifyVendorView");
+        super(model, "ModifyVendorView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -243,7 +243,7 @@ public class ModifyVendorView extends View
 		
 		System.out.println(n + " - " + num + " - " + s); //DEBUG
 		
-		myModel.stateChangeRequest("VendorData", props);
+		myModel.stateChangeRequest("ModifyVendorData", props);
 		//populateFields();
     }
 }

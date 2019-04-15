@@ -62,7 +62,7 @@ public class SearchVendorAction extends Action
 		vPhone = props.getProperty("phoneNumber");
 		vc = new VendorCollection(vName,vPhone);
 		
-		vc.createAndShowVendorCollectionView();
+		createAndShowVendorCollectionView();
 	}
 
 
@@ -78,6 +78,10 @@ public class SearchVendorAction extends Action
 //		{
 //			return addVendorStatusMessage;
 //		}
+		else if(key.equals("VendorList"))
+		{
+			return vc;
+		}
 		else if(key.equals("SearchVendor"))
 		{
 			String[] vData = {vName, vPhone};
@@ -125,29 +129,45 @@ public class SearchVendorAction extends Action
 
 
 	//------------------------------------------------------
-	protected void createAndShowView()
+	protected Scene createAndShowView()
 	{
-		Scene newScene;
-		
-		if(vc != null)
+
+		Scene currentScene = myViews.get("SearchVendorActionView");
+
+		if (currentScene == null)
 		{
+			// create our initial view
 			View newView = ViewFactory.createView("SearchVendorActionView", this);
-			newScene = new Scene(newView);
-	
-			myViews.put("SearchVendorActionView", newScene);
+			currentScene = new Scene(newView);
+			myViews.put("SearchVendorActionView", currentScene);
+
+			return currentScene;
 		}
 		else
 		{
-			View newView = ViewFactory.createView("VendorCollectionView", this);
-			newScene = new Scene(newView);
-	
-			myViews.put("VendorCollectionView", newScene);
-			
+			return currentScene;
 		}
-
-		// make the view visible by installing it into the stage
-		swapToView(newScene);
 	}
+	
+	//------------------------------------------------------
+	 protected void createAndShowVendorCollectionView()
+	    {
+
+	        Scene localScene = myViews.get("VendorCollectionView");
+
+	        if (localScene == null)
+	        {
+	            // create our new view
+	            View newView = ViewFactory.createView("VendorCollectionView", this);
+	            localScene = new Scene(newView);
+	            myViews.put("VendorCollectionView", localScene);
+	        }
+	        // make the view visible by installing it into the frame
+	        swapToView(localScene);
+			
+	    }
+
+	    //-----------------------------------------------------------------------------------
 	
 	
 	//DELETE THIS HACK AFTER PRESENTING

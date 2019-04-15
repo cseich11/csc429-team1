@@ -170,8 +170,10 @@ public class Vendor extends EntityBase implements IView {
     {
         try
         {
+        	System.out.println(persistentState.getProperty("vId")); //DEBUG
             if (persistentState.getProperty("vId") != null)
             {
+            	
                 Properties whereClause = new Properties();
                 whereClause.setProperty("vId",
                         persistentState.getProperty("vId"));
