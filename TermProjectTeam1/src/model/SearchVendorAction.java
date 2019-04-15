@@ -45,7 +45,7 @@ public class SearchVendorAction extends Action
 		dependencies = new Properties();
 		dependencies.setProperty("SearchVendor", "ActionError");
 		dependencies.setProperty("Cancel", "CancelAction");
-		dependencies.setProperty("CancelInsert", "CancelAction");
+		dependencies.setProperty("CancelSearchVendor", "CancelAction");
 		dependencies.setProperty("OK", "CancelAction");
 		dependencies.setProperty("VendorData", "UpdateStatusMessage");
 

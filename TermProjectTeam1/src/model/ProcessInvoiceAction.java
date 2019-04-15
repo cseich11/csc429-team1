@@ -86,8 +86,13 @@ public class ProcessInvoiceAction extends Action{
 
 		if(key.equals("DoYourJob"))
 			doYourJob();
+		else if(key.equals("CancelVendorList"))
+			swapToView(createView());
 		else if(key.equals("VendorData"))
 			processAction((Properties)value);
+		
+		else if(key.equals("ProcessInvoice"))
+			
 		
 
 		myRegistry.updateSubscribers(key, this);
