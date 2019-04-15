@@ -30,7 +30,7 @@ public class ActionFactory
 			return new SearchIITAction();
 		if(actionType.equals("ModifyIIT"))
 			return new ModifyIITAction();
-		if(actionType.equals("ProcessVender"))
+		if(actionType.equals("ProcessInvoice"))
 			return new ProcessInvoiceAction();
 		return null;
 	}

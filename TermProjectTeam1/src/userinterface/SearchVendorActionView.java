@@ -44,9 +44,9 @@ public class SearchVendorActionView extends View
 
 	// constructor for this class -- takes a model object
 	//----------------------------------------------------------
-	public SearchVendorActionView(IModel SearchVendorAction)
+	public SearchVendorActionView(IModel action)
 	{
-		super(SearchVendorAction, "SearchVendorActionView");
+		super(action, "SearchVendorActionView");
 
 		// create a container for showing the contents
 		VBox container = new VBox(10);
