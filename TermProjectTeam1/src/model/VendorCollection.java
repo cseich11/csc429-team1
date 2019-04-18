@@ -32,8 +32,12 @@ public class VendorCollection  extends EntityBase implements IView
 		
 		vendorList = new Vector<Vendor>(); 
 		vendorList = findVendors(name, phone);
-		System.out.println(vendorList);
-		
+//		System.out.println(vendorList);
+    }
+    
+    public VendorCollection()
+    {
+    	super(myTableName);
     }
 
     //----------------------------------------------------------------------------------
@@ -69,6 +73,35 @@ public class VendorCollection  extends EntityBase implements IView
 
         return (vendorList);
     }
+    
+    public Vector<Vendor> findAllVendors()
+	{
+		String query = "SELECT * FROM " + myTableName + " WHERE vStatus = 'Active'";
+		
+		Vector allDataRetrieved = getSelectQueryResult(query);
+		
+//		System.out.println(query + "\n");
+
+		if (allDataRetrieved != null)
+		{
+			vendorList = new Vector<Vendor>();
+
+			for (int i = 0; i < allDataRetrieved.size(); i++)
+			{
+				Properties nextVendorData = (Properties)allDataRetrieved.elementAt(i);
+
+				Vendor vendor = new Vendor(nextVendorData);
+
+				if (vendor != null)
+				{
+					addVendor(vendor);
+				}
+				
+			}
+			
+		}
+		return vendorList;
+	}
 
     private void addVendor(Vendor a)
     {

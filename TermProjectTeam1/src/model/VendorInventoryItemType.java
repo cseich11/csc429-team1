@@ -19,9 +19,9 @@ import userinterface.WindowPosition;
 	
 	/** The class containing the Book for the application */
 	//==============================================================
-	public class InventoryItemType extends EntityBase implements IView
+	public class VendorInventoryItemType extends EntityBase implements IView
 	{
-		private static final String myTableName = "InventoryItemType";
+		private static final String myTableName = "VendorInventoryItemType";
 		
 		public Scene prevScene = myStage.getScene();
 	
@@ -35,61 +35,61 @@ import userinterface.WindowPosition;
 		
 		// constructor for this class
 		//----------------------------------------------------------
-		public InventoryItemType(String itemTypeName)
-			throws InvalidPrimaryKeyException
-		{
-			super(myTableName);
-	
-			setDependencies();
-			String query = "SELECT * FROM " + myTableName + " WHERE (ItemTypeName = \"" + itemTypeName + "\")";
-	
-			Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
-	
-			// You must get one book at least
-			if (allDataRetrieved != null)
+		public VendorInventoryItemType(String viitId)
+				throws InvalidPrimaryKeyException
 			{
-				int size = allDataRetrieved.size();
-	
-				// There should be EXACTLY one account. More than that is an error
-				if (size != 1)
+				super(myTableName);
+		
+				setDependencies();
+				String query = "SELECT * FROM " + myTableName + " WHERE (Id = " + viitId + ")";
+		
+				Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
+		
+				// You must get one viit at least
+				if (allDataRetrieved != null)
 				{
-					throw new InvalidPrimaryKeyException("Multiple InventoryItemTypes matching : "
-						+ itemTypeName + " found.");
+					int size = allDataRetrieved.size();
+		
+					// There should be EXACTLY one viit. More than that is an error
+					if (size != 1)
+					{
+						throw new InvalidPrimaryKeyException("Multiple VIIT's matching id : "
+							+ viitId + " found.");
+					}
+					else
+					{
+						// copy all the retrieved data into persistent state
+						Properties retrievedVIITData = allDataRetrieved.elementAt(0);
+						persistentState = new Properties();
+						System.out.println(retrievedVIITData);
+		
+						Enumeration allKeys = retrievedVIITData.propertyNames();
+						while (allKeys.hasMoreElements() == true)
+						{
+							String nextKey = (String)allKeys.nextElement();
+							String nextValue = retrievedVIITData.getProperty(nextKey);
+							// accountNumber = Integer.parseInt(retrievedAccountData.getProperty("accountNumber"));
+		
+							if (nextValue != null)
+							{
+								persistentState.setProperty(nextKey, nextValue);
+							}
+						}
+		
+					}
 				}
+				// If no viit found for this viitId, throw an exception
 				else
 				{
-					// copy all the retrieved data into persistent state
-					Properties retrievedIITData = allDataRetrieved.elementAt(0);
-					persistentState = new Properties();
-//					System.out.println(retrievedIITData);
-	
-					Enumeration allKeys = retrievedIITData.propertyNames();
-					while (allKeys.hasMoreElements() == true)
-					{
-						String nextKey = (String)allKeys.nextElement();
-						String nextValue = retrievedIITData.getProperty(nextKey);
-						// accountNumber = Integer.parseInt(retrievedAccountData.getProperty("accountNumber"));
-	
-						if (nextValue != null)
-						{
-							persistentState.setProperty(nextKey, nextValue);
-						}
-					}
-	
+					throw new InvalidPrimaryKeyException("No VIIT matching id : "
+						+ viitId + " found.");
 				}
 			}
-			// If no book found for this bookId, throw an exception
-			else
-			{
-				throw new InvalidPrimaryKeyException("No IIT matching : "
-					+ itemTypeName + " found.");
-			}
-		}
 	
 		// Can also be used to create a NEW Book (if the system it is part of
 		// allows for a new book to be set up)
 		//----------------------------------------------------------
-		public InventoryItemType(Properties props)
+		public VendorInventoryItemType(Properties props)
 		{
 			super(myTableName);
 			
@@ -117,15 +117,15 @@ import userinterface.WindowPosition;
 //		}
 		
 		//------------------------------------------------------------
-		public void createAndShowIITView()
+		public void createAndShowVIITView()
 		{
 			
-			Scene currentScene = (Scene)myViews.get("IITView");
+			Scene currentScene = (Scene)myViews.get("VIITView");
 
 			if (currentScene == null)
 			{
 				// create our initial view
-				View newView = ViewFactory.createView("IITView", this); // USE VIEW FACTORY
+				View newView = ViewFactory.createView("VIITView", this); // USE VIEW FACTORY
 				currentScene = new Scene(newView);
 				myViews.put("IITView", currentScene);
 			}
@@ -141,7 +141,7 @@ import userinterface.WindowPosition;
 			
 			if (newScene == null)
 			{
-				System.out.println("InventoryItemType.swapToView(): Missing view for display");
+				System.out.println("VendorInventoryItemType.swapToView(): Missing view for display");
 				new Event(Event.getLeafLevelClassName(this), "swapToView",
 					"Missing view for display ", Event.ERROR);
 				return;
@@ -195,7 +195,7 @@ import userinterface.WindowPosition;
 	
 	
 		//----------------------------------------------------------
-		public void processNewIIT(Properties prop)
+		public void processNewVIIT(Properties prop)
 		{
 			Enumeration allKeys = prop.propertyNames();
 			while (allKeys.hasMoreElements() == true)
@@ -273,7 +273,7 @@ import userinterface.WindowPosition;
 ////		}
 ////		
 ////		//-----------------------------------------------------------------------------------
-		public static int compare(InventoryItemType a, InventoryItemType b)
+		public static int compare(VendorInventoryItemType a, VendorInventoryItemType b)
 		{
 			String aNum = (String)a.getState("ItemTypeName");
 			String bNum = (String)b.getState("ItemTypeName");
@@ -287,75 +287,70 @@ import userinterface.WindowPosition;
 			updateStateInDatabase();
 		}
 		
-		public void add()
-		{
-			addInDatabase();
-		}
+//		public void add()
+//		{
+//			addInDatabase();
+//		}
 		
 		//-----------------------------------------------------------------------------------
 		private void updateStateInDatabase() 
 		{
 			try
 			{
-				String itemTypeName = persistentState.getProperty("ItemTypeName");
-				String query = "SELECT * FROM " + myTableName + " WHERE (ItemTypeName = \"" + itemTypeName + "\")";
-				
-				Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
-		
-				// You must get one book at least
-				if (allDataRetrieved != null)
+				if (persistentState.getProperty("Id") != null)
 				{
 					Properties whereClause = new Properties();
-					whereClause.setProperty("ItemTypeName",persistentState.getProperty("ItemTypeName"));
+					whereClause.setProperty("Id",persistentState.getProperty("Id"));
 					updatePersistentState(mySchema, persistentState, whereClause);
-					updateStatusMessage = "ItemType: " + persistentState.getProperty("ItemTypeName") + " updated in database!";
+					updateStatusMessage = "Data for VIIT number : " + persistentState.getProperty("Id") + " updated successfully in database!";
 				}
 				else
 				{
-						insertPersistentState(mySchema, persistentState);
-					persistentState.setProperty("ItemTypeName", itemTypeName);
-					updateStatusMessage = "New ItemType: " +  persistentState.getProperty("ItemTypeName")
-						+ " added to database!";
+					Integer viitId =
+						insertAutoIncrementalPersistentState(mySchema, persistentState);
+					persistentState.setProperty("Id", "" + viitId.intValue());
+					updateStatusMessage = "data for new VIIT : " +  persistentState.getProperty("Id")
+						+ " installed successfully in database!";
 				}
 			}
 			catch (SQLException ex)
 			{
-				updateStatusMessage = "Error in installing IIT data in database!";
+				updateStatusMessage = "Error in installing VIIT in database!";
 			}
 //			 System.out.println(updateStatusMessage);
 		}
 		
-		private void addInDatabase() 
-		{
-			try
-			{
-				String itemTypeName = persistentState.getProperty("ItemTypeName");
-				String query = "SELECT * FROM " + myTableName + " WHERE (ItemTypeName = " + itemTypeName + ")";
-				
-				Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
-		
-				// You must get one book at least
-				if (allDataRetrieved != null)
-				{
-					Properties whereClause = new Properties();
-					whereClause.setProperty("ItemTypeName",persistentState.getProperty("ItemTypeName"));
-					updatePersistentState(mySchema, persistentState, whereClause);
-					updateStatusMessage = "Item: " + persistentState.getProperty("ItemTypeName") + " updated in database!";
-				}
-				else
-				{
-						insertPersistentState(mySchema, persistentState);
-					persistentState.setProperty("ItemTypeName", itemTypeName);
-					updateStatusMessage = "New Item: " +  persistentState.getProperty("ItemTypeName")
-						+ " added to database!";
-				}
-			}
-			catch (SQLException ex)
-			{
-				updateStatusMessage = "Error in installing IIT data in database!";
-			}
+//		private void addInDatabase() 
+//		{
+//			try
+//			{
+//				String itemTypeName = persistentState.getProperty("ItemTypeName");
+//				String query = "SELECT * FROM " + myTableName + " WHERE (ItemTypeName = " + itemTypeName + ")";
+//				
+//				Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
+//		
+//				// You must get one book at least
+//				if (allDataRetrieved != null)
+//				{
+//					Properties whereClause = new Properties();
+//					whereClause.setProperty("ItemTypeName",persistentState.getProperty("ItemTypeName"));
+//					updatePersistentState(mySchema, persistentState, whereClause);
+//					updateStatusMessage = "Item: " + persistentState.getProperty("ItemTypeName") + " updated in database!";
+//				}
+//				else
+//				{
+//						insertPersistentState(mySchema, persistentState);
+//					persistentState.setProperty("ItemTypeName", itemTypeName);
+//					updateStatusMessage = "New Item: " +  persistentState.getProperty("ItemTypeName")
+//						+ " added to database!";
+//				}
+//			}
+//			catch (SQLException ex)
+//			{
+//				updateStatusMessage = "Error in installing IIT data in database!";
+//			}
 //			 System.out.println(updateStatusMessage);
-		}
+//		}
 	
 	
 		/**
@@ -367,8 +362,8 @@ import userinterface.WindowPosition;
 		{
 			Vector<String> v = new Vector<String>();
 			
-			v.addElement(persistentState.getProperty("ItemTypeName"));
-			v.addElement(persistentState.getProperty("Units"));
+			v.addElement(persistentState.getProperty("Id"));
+			v.addElement(persistentState.getProperty("InventoryItemTypeName"));
 			v.addElement(persistentState.getProperty("UnitMeasure"));
 			v.addElement(persistentState.getProperty("ValidityDays"));
 			v.addElement(persistentState.getProperty("ReorderPoint"));

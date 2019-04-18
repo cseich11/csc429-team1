@@ -59,11 +59,11 @@ public class InventoryItemTypeCollection extends EntityBase implements IView
 	
 	public void findAllIIT()
 	{
-		String query = "SELECT * FROM " + myTableName;
+		String query = "SELECT * FROM " + myTableName + " WHERE Status = 'Active'";
 		
 		Vector allDataRetrieved = getSelectQueryResult(query);
 		
-		System.out.println(query + "\n");
+//		System.out.println(query + "\n");
 
 		if (allDataRetrieved != null)
 		{
