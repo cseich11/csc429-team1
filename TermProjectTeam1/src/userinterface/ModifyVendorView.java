@@ -228,7 +228,7 @@ public class ModifyVendorView extends View
 		
 		if(venNameEntered.length() == 0)
 			displayErrorMessage("Please Enter a Vendor Name");
-		else if(!phoneC || phoneNumEntered.length() == 0)
+		else if(!phoneC || phoneNumEntered.length() != 10)
 			displayErrorMessage("Please Enter a Valid 10 digit Phone Number");
 		else
 			processData(venNameEntered, phoneNumEntered, statusEntered);

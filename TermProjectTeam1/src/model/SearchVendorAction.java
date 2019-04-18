@@ -60,7 +60,8 @@ public class SearchVendorAction extends Action
 
 		vName = props.getProperty("vendorName");
 		vPhone = props.getProperty("phoneNumber");
-		vc = new VendorCollection(vName,vPhone);
+		vc = new VendorCollection();
+		vc.findVendors(vName, vPhone);
 		
 		createAndShowVendorCollectionView();
 	}
@@ -153,15 +154,9 @@ public class SearchVendorAction extends Action
 	 protected void createAndShowVendorCollectionView()
 	    {
 
-	        Scene localScene = myViews.get("VendorCollectionView");
-
-	        if (localScene == null)
-	        {
-	            // create our new view
-	            View newView = ViewFactory.createView("VendorCollectionView", this);
-	            localScene = new Scene(newView);
-	            myViews.put("VendorCollectionView", localScene);
-	        }
+	        View newView = ViewFactory.createView("VendorCollectionView", this);
+	        Scene localScene = new Scene(newView);
+	        myViews.put("VendorCollectionView", localScene);
 	        // make the view visible by installing it into the frame
 	        swapToView(localScene);
 			
