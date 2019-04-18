@@ -12,7 +12,7 @@ import userinterface.ViewFactory;
 
 public class ProcessInvoiceAction extends Action{
 	
-	private String vId, vName, vPhone, vStatus, itemTypeNameSearched, notesSearched;
+	private String vId, vName, vPhone, vStatus, itemTypeNameSearched, notesSearched, notesEntered, barcodeEntered, iitNameEntered;
 	private String actionErrorMessage = "";
 	private String processInvoiceStatusMessage = "";
 	private String addVendorStatusMessage = "";
@@ -79,6 +79,8 @@ public class ProcessInvoiceAction extends Action{
 		createAndShowVendorCollectionView();
 	}
 	
+	
+	//-----------------------------------------------------------
 	public void processActionModify(Properties props)
 	{
 		props.setProperty("vId", vId);
@@ -95,6 +97,20 @@ public class ProcessInvoiceAction extends Action{
 			ven.update();
 			addVendorStatusMessage = (String)ven.getState("UpdateStatusMessage");
 		}
+	}
+	
+	
+	
+	//-----------------------------------------------------------
+	public void processInvoiceAction(Properties props)
+	{
+
+		iitNameEntered = props.getProperty("i");
+		barcodeEntered = props.getProperty("b");
+		notesEntered = props.getProperty("n");
+		
+		
+		createAndShowVendorCollectionView();
 	}
 	
 
@@ -133,10 +149,23 @@ public class ProcessInvoiceAction extends Action{
 
 		if(key.equals("DoYourJob"))
 			doYourJob();
+		
 		else if(key.equals("CancelVendorList"))
 			swapToView(createView());
+		
 		else if(key.equals("VendorData"))
 			processAction((Properties)value);
+		
+		else if(key.equals("ProcessInvoice")) 
+		{
+			vId = (String) value;
+			createAndShowSubmitInvoiceView();
+		}
+		
+		else if(key.equals("InvoiceData")) 
+		{
+			processInvoiceAction((Properties)value);
+		}
 		
 		else if(key.equals("ModifyVendor")) {
 			try {
@@ -245,4 +274,16 @@ public class ProcessInvoiceAction extends Action{
 		// make the view visible by installing it into the stage
 		swapToView(newScene);
 	}
+	
+	protected void createAndShowSubmitInvoiceView()
+	{
+		View newView = ViewFactory.createView("SubmitInvoiceView", this);
+		Scene newScene = new Scene(newView);
+
+		myViews.put("SubmitInvoiceView", newScene);
+
+		// make the view visible by installing it into the stage
+		swapToView(newScene);
+	}
+	
 }
