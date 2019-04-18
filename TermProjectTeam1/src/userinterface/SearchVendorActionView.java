@@ -196,8 +196,8 @@ public class SearchVendorActionView extends View
 			displayErrorMessage("Phone number must be numerical");
 		else
 		{
-			String status = "Active";
-			processData(venNameEntered, phoneNumEntered, status);
+			String[] dataEntered = {venNameEntered, phoneNumEntered};
+			processData(dataEntered);
 		}
 	}
 
@@ -206,14 +206,9 @@ public class SearchVendorActionView extends View
 	 * Action is to pass this info on to the action object.
 	 */
 	//----------------------------------------------------------
-	private void processData(String a, String t, String s)
+	private void processData(String[] data)
 	{
-		Properties props = new Properties();
-		props.setProperty("vendorName", a);
-		props.setProperty("phoneNumber", t);
-		props.setProperty("status", s);
-		myModel.stateChangeRequest("VendorData", props);
-		populateFields();
+		myModel.stateChangeRequest("VendorData", data);
 	}
 
 	

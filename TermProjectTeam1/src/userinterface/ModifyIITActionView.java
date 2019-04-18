@@ -121,7 +121,7 @@ public class ModifyIITActionView extends View
 		grid.add(iitNameLabel, 0, 1);
 
 		itemTypeName = new TextField();
-		itemTypeName.setEditable(true);
+		itemTypeName.setEditable(false);
 		grid.add(itemTypeName, 1, 1);
 		itemTypeName.setOnAction(new EventHandler<ActionEvent>() {
 
