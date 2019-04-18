@@ -74,7 +74,8 @@ public class ProcessInvoiceAction extends Action{
 
 		vName = props.getProperty("vendorName");
 		vPhone = props.getProperty("phoneNumber");
-		venList = new VendorCollection(vName,vPhone);
+		venList = new VendorCollection();
+		venList.findVendors(vName, vPhone);
 		
 		createAndShowVendorCollectionView();
 	}

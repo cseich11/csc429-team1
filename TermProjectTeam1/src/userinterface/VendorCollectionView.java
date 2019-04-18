@@ -52,7 +52,7 @@ public class VendorCollectionView extends View
     // GUI stuff
 	protected TableView<VendorTableModel> vendorTable;
 
-    private Button doneButtonSearchBook, processInvoiceButton, addVIITButton, deleteVIITButton, modifyVendorButton;
+    private Button doneButton, processInvoiceButton, addVIITButton, deleteVIITButton, modifyVendorButton;
     private Button selectVendorButton;
     private HBox btnContainer;
 
@@ -195,8 +195,8 @@ public class VendorCollectionView extends View
 		scrollPane.setPrefSize(190, 200);
 		scrollPane.setContent(vendorTable);
 
-        doneButtonSearchBook = new Button("DONE");
-        doneButtonSearchBook.setOnAction(new EventHandler<ActionEvent>() {
+        doneButton = new Button("DONE");
+        doneButton.setOnAction(new EventHandler<ActionEvent>() {
         	
         	 @Override
     		    public void handle(ActionEvent e) {
@@ -216,7 +216,7 @@ public class VendorCollectionView extends View
 		
 		btnContainer = new HBox(10);
 		btnContainer.setAlignment(Pos.CENTER);
-		btnContainer.getChildren().add(doneButtonSearchBook);
+		btnContainer.getChildren().add(doneButton);
 
 		
 		vbox.getChildren().add(grid);

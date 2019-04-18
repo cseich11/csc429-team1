@@ -34,7 +34,6 @@ public class SearchVendorActionView extends View
 
 	// GUI components
 	protected TextField venName, phoneNum;
-	private ComboBox<String> status;
 
 	private Button submitButton;
 	private Button doneButton;
@@ -190,10 +189,10 @@ public class SearchVendorActionView extends View
 //		}
 
 		if (venNameEntered == null || venNameEntered.length() == 0)
-			displayErrorMessage("Please enter an name");
+			displayErrorMessage("Please enter a name");
 		else if(phoneNumEntered == null || phoneNumEntered.length() == 0)
 			displayErrorMessage("Please enter a phone number");
-		else if(!phoneNumEntered.matches("^[0-9]+$"))
+		else if(!phoneNumEntered.matches("^[0-9]{10}$"))
 			displayErrorMessage("Phone number must be numerical");
 		else
 		{
