@@ -28,10 +28,12 @@ public class ActionFactory
 			return new AddNewIITAction();
 		if(actionType.equals("SearchIIT"))
 			return new SearchIITAction();
+		if(actionType.equals("SearchII"))
+			return new SearchIIAction();
 		if(actionType.equals("ModifyIIT"))
 			return new ModifyIITAction();
-		if(actionType.equals("AddVIIT"))
-			return new AddVIITAction();
+//		if(actionType.equals("AddVIIT"))
+//			return new AddVIITAction();
 		return null;
 	}
 }
