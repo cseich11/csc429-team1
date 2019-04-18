@@ -24,9 +24,12 @@ public class SearchVendorAction extends Action
 	
 	private String vName;
 	private String vPhone;
-//	private String vStatus;
+	private String vNameSearched;
+	private String numberSearched;
+	private String updateStatusMessage = "";
+	private String vStatus;
 	
-//	private Vendor v;
+	private Vendor v;
 	
 	private VendorCollection vc;
 	
@@ -55,15 +58,39 @@ public class SearchVendorAction extends Action
 
 	
 	//----------------------------------------------------------
+	public void processAction(String[] data)
+	{
+		if(data.length == 2 && data[0] != null && data[1] != null)
+		{
+			vc = new VendorCollection();
+			vNameSearched = data[0]; numberSearched = data[1];
+			vc.findVendors(vNameSearched, numberSearched);
+			createAndShowVendorCollectionView();
+		}
+	}
+	
+	/**
+	 * This method encapsulates all the logic of updating the iit
+	 */
+	//----------------------------------------------------------
 	public void processAction(Properties props)
 	{
 
 		vName = props.getProperty("vendorName");
 		vPhone = props.getProperty("phoneNumber");
-		vc = new VendorCollection();
-		vc.findVendors(vName, vPhone);
-		
-		createAndShowVendorCollectionView();
+		vStatus = props.getProperty("status");
+
+		if(vName != null && vPhone != null && vStatus != null)
+		{
+			v.persistentState.setProperty("vName", vName);
+			v.persistentState.setProperty("vPhone", vPhone);
+			v.persistentState.setProperty("vStatus", vStatus);
+			v.update();
+			updateStatusMessage = (String)v.getState("UpdateStatusMessage");
+			//list = new InventoryItemTypeCollection();
+			//list.findAllIITWithNameNotes(itemTypeNameSearched, notesSearched);
+			//createAndShowIITListView();
+		}
 	}
 
 
@@ -71,38 +98,44 @@ public class SearchVendorAction extends Action
 	public Object getState(String key)
 	{
 		if (key.equals("ActionError") == true)
-		{
 			return actionErrorMessage;
-		}
-//		else
-//		if (key.equals("UpdateStatusMessage") == true)
-//		{
-//			return addVendorStatusMessage;
-//		}
-		else if(key.equals("VendorList"))
-		{
+		if(key.equals("VendorList"))
 			return vc;
-		}
-		else if(key.equals("SearchVendor"))
+		if(key.equals("SearchVendor"))
 		{
 			String[] vData = {vName, vPhone};
 			return vData;
 		}
-		
+		if(key.equals("UpdateStatusMessage"))
+			return updateStatusMessage;
+		if (v != null)
+			return v.getState(key);
 		return null;
 	}
 
 	//-----------------------------------------------------------
 	public void stateChangeRequest(String key, Object value)
 	{
-		if (key.equals("DoYourJob") == true)
+		if (key.equals("DoYourJob"))
 			doYourJob();
-		else if (key.equals("VendorData") == true)
-		{
-			processAction((Properties)value);
+		else if (key.equals("VendorData"))
+			processAction((String[])value);
+		else if(key.equals("CancelVendorList"))
+			swapToView(createView());
+		else if(key.equals("ModifyVendor")) {
+			try{
+				v = new Vendor((String)value);
+			} catch (InvalidPrimaryKeyException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			createAndShowModifyVendorView();
 		}
+		else if(key.equals("CancelModify"))
+			createAndShowVendorCollectionView();
+		else if(key.equals("ModifyVendorData"))
+			processAction((Properties)value);
 		
-
 		myRegistry.updateSubscribers(key, this);
 	}
 
@@ -189,5 +222,17 @@ public class SearchVendorAction extends Action
 			
 		//Place in center
 		WindowPosition.placeCenter(myStage);
+	}
+	
+	//-----------------------------------------------------------
+	protected void createAndShowModifyVendorView()
+	{
+		View newView = ViewFactory.createView("ModifyVendorView", this);
+		Scene newScene = new Scene(newView);
+		
+		myViews.put("ModifyVendorView", newScene);
+
+		// make the view visible by installing it into the stage
+		swapToView(newScene);
 	}
 }
