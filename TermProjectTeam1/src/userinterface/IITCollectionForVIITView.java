@@ -34,7 +34,7 @@ import model.InventoryItemTypeCollection;
 import model.InventoryManager;
 
 //==============================================================================
-public class IITCollectionForAddVIITView extends View
+public class IITCollectionForVIITView extends View
 {
 	protected TableView<InventoryItemTypeTableModel> tableOfIITs;
 	protected Button doneButton, selectButton;
@@ -44,7 +44,7 @@ public class IITCollectionForAddVIITView extends View
 
 
 	//--------------------------------------------------------------------------
-	public IITCollectionForAddVIITView(IModel model)
+	public IITCollectionForVIITView(IModel model)
 	{
 		super(model, "InventoryItemTypeCollectionView");
 		// create a container for showing the contents

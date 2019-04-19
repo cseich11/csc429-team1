@@ -28,10 +28,10 @@ public class ViewFactory {
 			return new VendorCollectionView(model);
 		if(viewName.equals("ModifyVendorView"))
 			return new ModifyVendorView(model);
-		if(viewName.equals("IITCollectionForAddVIITView"))
-			return new IITCollectionForAddVIITView(model);
-		if(viewName.equals("VendorCollectionForAddVIITView"))
-			return new VendorCollectionForAddVIITView(model);
+		if(viewName.equals("IITCollectionForVIITView"))
+			return new IITCollectionForVIITView(model);
+		if(viewName.equals("VendorCollectionVIITView"))
+			return new VendorCollectionForVIITView(model);
 		if(viewName.equals("PriceView"))
 			return new PriceView(model);
 		return null;

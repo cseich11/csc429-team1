@@ -13,7 +13,7 @@ import userinterface.ViewFactory;
 
 /** The class containing the AddVendorInventoryItemTypesAction for the Library application */
 //==============================================================
-public class AddVIITAction extends Action
+public class DeleteVIITAction extends Action
 {
 	private InventoryItemTypeCollection iitList; 
 	private VendorCollection vendorList; 
@@ -38,7 +38,7 @@ public class AddVIITAction extends Action
 	 *
 	 */
 	//----------------------------------------------------------
-	public AddVIITAction()
+	public DeleteVIITAction()
 		throws Exception
 	{
 		super();
@@ -126,7 +126,7 @@ public class AddVIITAction extends Action
 		// DEBUG System.out.println("SearchInventoryItemTypesAction.sCR: key: " + key);
 
 		if(key.equals("DoYourJob"))
-			showIITList();
+			showVendorList();
 //		else if(key.equals("CancelInventoryItemTypeList"))
 //			swapToView(createView());
 //		else if (key.equals("IITData") == true)
@@ -139,7 +139,7 @@ public class AddVIITAction extends Action
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			showVendorList();
+			createAndShowPriceView();
 		}
 		else if(key.equals("SelectedVendor"))
 		{
@@ -149,7 +149,7 @@ public class AddVIITAction extends Action
 			} catch (InvalidPrimaryKeyException e) {
 				e.printStackTrace();
 			}
-			createAndShowPriceView();
+			showIITList();
 		}
 		if(key.equals("VIITData"))
 		{
