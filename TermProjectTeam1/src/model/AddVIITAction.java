@@ -209,7 +209,7 @@ public class AddVIITAction extends Action
 	{
 		View newView = ViewFactory.createView("IITCollectionForVIITView", this);
 		Scene currentScene = new Scene(newView);
-		myViews.put("IITCollectionForVIITView", currentScene);
+		myViews.put("IITCollectionForAddVIITView", currentScene);
 
 		swapToView(currentScene);
 	}

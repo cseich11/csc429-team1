@@ -32,6 +32,8 @@ public class ActionFactory
 			return new ModifyIITAction();
 		if(actionType.equals("AddVIIT"))
 			return new AddVIITAction();
+		if(actionType.equals("DeleteVIIT"))
+			return new DeleteVIITAction();
 		return null;
 	}
 }
