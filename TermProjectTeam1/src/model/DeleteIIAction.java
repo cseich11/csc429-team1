@@ -86,10 +86,10 @@ public class DeleteIIAction extends Action
 		{
 			return IIUpdateStatusMessage;
 		}
-		else if(key.equals("IITData"))
+		else if(key.equals("IIData"))
 		{
-			String[] iitData = {barcode, inventoryItemTypeName, vendor, dateRecieved, dateLastUsed, notes, status};
-			return iitData;
+			String[] iiData = {barcode, inventoryItemTypeName, vendor, dateRecieved, dateLastUsed, notes, status};
+			return iiData;
 		}
 		
 		return null;

@@ -4,6 +4,7 @@ package model;
 // system imports
 import javafx.scene.Scene;
 import java.util.Properties;
+import java.util.Vector;
 
 import exception.InvalidPrimaryKeyException;
 import userinterface.View;
@@ -13,7 +14,8 @@ import userinterface.ViewFactory;
 //==============================================================
 public class SearchIIAction extends Action
 {
-	private InventoryItemTypeCollection list; 
+	private static final String myTableName = "InventoryItem";
+	//private InventoryItemTypeCollection list; 
 
 	// GUI Components
 	private int barcode = 0;
@@ -52,9 +54,9 @@ public class SearchIIAction extends Action
 	 * verifying ownership, crediting, etc. etc.
 	 */
 	//----------------------------------------------------------
-	public void processAction(int bCode)
+	public void processAction(String bCode)
 	{
-		if(bCode != 0)
+		if(bCode.length() != 0)
 			createAndShowDeleteIIView();
 	}
 	
@@ -98,23 +100,18 @@ public class SearchIIAction extends Action
 		if(key.equals("DoYourJob"))
 			doYourJob();
 		else if(key.equals("IIData"))
-			processAction((int)value);
-		else if(key.equals("ConfirmDeleteII")) {
+			processAction((String)value);
+		else if(key.equals("GetII"))
+		{
 			try {
 				ii = new InventoryItem((String)value);
 			} catch (InvalidPrimaryKeyException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			createAndShowDeleteIIView();
-		}
-		else if(key.equals("Delete"))
-		{
-			ii.persistentState.setProperty("Status", "Used");
-			ii.update();
-			iiUpdateStatusMessage = (String)ii.getState("UpdateStatusMessage");
-//			list = new InventoryItemTypeCollection();
-//			list.findAllIITWithNameNotes(itemTypeNameSearched, notesSearched);
-//			createAndShowIITListView();
+			
+			//System.out.println(ii.persistentState.getProperty("InventoryItemTypeName"));
+			getInventoryItem();
 		}
 		else if (key.equals("IIData") == true)
 			processAction((Properties)value);
@@ -162,11 +159,17 @@ public class SearchIIAction extends Action
 	
 	protected void createAndShowDeleteIIView()
 	{
+		System.out.println("test");
 		View newView = ViewFactory.createView("DeleteIIActionView", this);
 		Scene currentScene = new Scene(newView);
 		myViews.put("DeleteIIActionView", currentScene);
 
 		swapToView(currentScene);
 	}
-
+	
+	protected void getInventoryItem()
+	{
+		
+	}
+	
 }

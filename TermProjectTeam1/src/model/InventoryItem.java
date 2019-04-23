@@ -15,7 +15,7 @@ import java.util.Vector;
 
 public class InventoryItem extends EntityBase implements IView {
     private static final String myTableName = "InventoryItem";
-    private String Barcode;
+    private int Barcode;
     private String InventoryItemTypeName;
     private String Vendor;
     private String DateRecieved;
@@ -33,7 +33,8 @@ public class InventoryItem extends EntityBase implements IView {
         super(myTableName);
 
         setDependencies();
-        String query = "SELECT * FROM " + myTableName + " WHERE Barcode = '" + barcode + "'";
+        String query = "SELECT * FROM " + myTableName + " WHERE Barcode = \"" + barcode + "\"";
+
 
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 
@@ -50,13 +51,13 @@ public class InventoryItem extends EntityBase implements IView {
                         + barcode + " found.");
             } else {
                 // copy all the retrieved data into persistent state
-                Properties retrievedVendorData = allDataRetrieved.elementAt(0);
+                Properties retrievedIIData = allDataRetrieved.elementAt(0);
                 persistentState = new Properties();
 
-                Enumeration allKeys = retrievedVendorData.propertyNames();
+                Enumeration allKeys = retrievedIIData.propertyNames();
                 while (allKeys.hasMoreElements() == true) {
                     String nextKey = (String) allKeys.nextElement();
-                    String nextValue = retrievedVendorData.getProperty(nextKey);
+                    String nextValue = retrievedIIData.getProperty(nextKey);
 
                     if (nextValue != null) {
                         persistentState.setProperty(nextKey, nextValue);
@@ -69,6 +70,25 @@ public class InventoryItem extends EntityBase implements IView {
         else {
             throw new InvalidPrimaryKeyException("No inventory item matching barcode : "
                     + barcode + " found.");
+        }
+    }
+    
+    public InventoryItem(Properties props)
+    {
+        super(myTableName);
+
+        setDependencies();
+        persistentState = new Properties();
+        Enumeration allKeys = props.propertyNames();
+        while (allKeys.hasMoreElements() == true)
+        {
+            String nextKey = (String)allKeys.nextElement();
+            String nextValue = props.getProperty(nextKey);
+
+            if (nextValue != null)
+            {
+                persistentState.setProperty(nextKey, nextValue);
+            }
         }
     }
 
