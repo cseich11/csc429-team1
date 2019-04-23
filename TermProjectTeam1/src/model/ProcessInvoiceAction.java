@@ -69,11 +69,11 @@ public class ProcessInvoiceAction extends Action{
 	 * verifying ownership, crediting, etc. etc.
 	 */
 	//----------------------------------------------------------
-	public void processAction(Properties props)
+	public void processActionSearch(String[] data)
 	{
 
-		vName = props.getProperty("vendorName");
-		vPhone = props.getProperty("phoneNumber");
+		vName = data[0];
+		vPhone = data[1];
 		venList = new VendorCollection();
 		venList.findVendors(vName, vPhone);
 		
@@ -155,7 +155,7 @@ public class ProcessInvoiceAction extends Action{
 			swapToView(createView());
 		
 		else if(key.equals("VendorData"))
-			processAction((Properties)value);
+			processActionSearch((String[]) value);
 		
 		else if(key.equals("ProcessInvoice")) 
 		{
