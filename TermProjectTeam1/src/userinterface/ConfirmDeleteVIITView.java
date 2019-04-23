@@ -26,14 +26,13 @@ import impresario.IModel;
 
 
 //==============================================================
-public class DeleteVIITActionView extends View
+public class ConfirmDeleteVIITView extends View
 {
 
 	// Model
-
+	private String vendorName;
+	private String itemTypeName;
 	// GUI components
-	private TextField itemTypeNameSearch;
-
 	private Button submitButton;
 	private Button cancelButton;
 
@@ -42,9 +41,9 @@ public class DeleteVIITActionView extends View
 
 	// constructor for this class -- takes a model object
 	//----------------------------------------------------------
-	public DeleteVIITActionView(IModel action)
+	public ConfirmDeleteVIITView(IModel action)
 	{
-		super(action, "DeleteVIITActionView");
+		super(action, "ConfirmDeleteVIITView");
 
 		// create a container for showing the contents
 		VBox container = new VBox(10);
@@ -91,7 +90,8 @@ public class DeleteVIITActionView extends View
         	grid.setVgap(10);
         	grid.setPadding(new Insets(25, 25, 25, 25));
 
-		Label confirmDeleteLabel = new Label("Are you sure you want to delete this Vendor-Inventory-Item-Type?");
+		Label confirmDeleteLabel = new Label("Are you sure you want to delete the Vendor-Inventory-Item-Type?");
+//				+ " with Vendor Name = " + vendorName + "and ItemTypeName = " + itemTypeName + "?");
 		grid.add(confirmDeleteLabel, 0, 0);
 
 		submitButton = new Button("Confirm");
@@ -148,6 +148,7 @@ public class DeleteVIITActionView extends View
 //		{
 			//processData(itemTypeNameEntered);
 			myModel.stateChangeRequest("Delete", null);
+			displayMessage((String)myModel.getState("UpdateStatusMessage"));
 			
 //		}
 	}

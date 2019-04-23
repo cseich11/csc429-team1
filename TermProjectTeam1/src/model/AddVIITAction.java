@@ -176,6 +176,8 @@ public class AddVIITAction extends Action
 			props.setProperty("VendorPrice", vendorPrice);
 			props.setProperty("DateOfLastUpdate", java.time.LocalDate.now() + "");
 			processAction(props);
+			createAndShowVendorSearch();
+			
 		}
 		
 //		else if(key.equals("ModifyIITData"))
@@ -225,7 +227,7 @@ public class AddVIITAction extends Action
 	{
 		View newView = ViewFactory.createView("IITCollectionForVIITView", this);
 		Scene currentScene = new Scene(newView);
-		myViews.put("IITCollectionForAddVIITView", currentScene);
+		myViews.put("IITCollectionForVIITView", currentScene);
 
 		swapToView(currentScene);
 	}
@@ -250,9 +252,9 @@ public class AddVIITAction extends Action
 	
 	protected void createAndShowIITs()
 	{
-		View newView = ViewFactory.createView("IITCollectionForAddVIITView", this);
+		View newView = ViewFactory.createView("IITCollectionForVIITView", this);
 		Scene currentScene = new Scene(newView);
-		myViews.put("IITCollectionForAddVIITView", currentScene);
+		myViews.put("IITCollectionForVIITView", currentScene);
 
 		swapToView(currentScene);
 	}

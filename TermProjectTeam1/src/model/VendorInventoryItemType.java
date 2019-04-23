@@ -92,7 +92,7 @@ import userinterface.WindowPosition;
 				super(myTableName);
 		
 				setDependencies();
-				String query = "SELECT * FROM " + myTableName + " WHERE (VendorId = " + vendorId + ") && (InventoryItemTypeName = " + itemTypeName + ")";
+				String query = "SELECT * FROM " + myTableName + " WHERE (VendorId = " + vendorId + " AND InventoryItemTypeName = \"" + itemTypeName + "\")";
 		
 				Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 		
@@ -159,13 +159,40 @@ import userinterface.WindowPosition;
 			}
 		}
 		
-//		public Book()
-//		{
-//			super(myTableName);
-//			
-//			setDependencies();
-//			persistentState = new Properties();
-//		}
+		public void delete()
+		{
+			try
+			{
+				String vendorId = persistentState.getProperty("VendorId");
+				String itemTypeName = persistentState.getProperty("InventoryItemTypeName");
+				String query = "SELECT * FROM " + myTableName + " WHERE (VendorId = " + vendorId + " AND InventoryItemTypeName = \"" + itemTypeName + "\")";
+				
+				Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
+		
+				// You must get one book at least
+				if (allDataRetrieved != null)
+				{
+					Properties whereClause = new Properties();
+					whereClause.setProperty("InventoryItemTypeName",persistentState.getProperty("InventoryItemTypeName"));
+					whereClause.setProperty("VendorId",persistentState.getProperty("VendorId"));
+					deletePersistentState(mySchema, whereClause);
+					updateStatusMessage = "VIIT: " + persistentState.getProperty("Id") + " removed from database!";
+				}
+//				else
+//				{
+//						insertPersistentState(mySchema, persistentState);
+//					persistentState.setProperty("ItemTypeName", itemTypeName);
+//					updateStatusMessage = "New Item: " +  persistentState.getProperty("ItemTypeName")
+//						+ " added to database!";
+//				}
+			}
+			catch (SQLException ex)
+			{
+				updateStatusMessage = "Error in installing IIT data in database!";
+			}
+//			 System.out.println(updateStatusMessage);
+		}
+		
 		
 		//------------------------------------------------------------
 		public void createAndShowVIITView()

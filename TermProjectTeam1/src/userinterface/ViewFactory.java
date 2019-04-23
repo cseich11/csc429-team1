@@ -36,10 +36,8 @@ public class ViewFactory {
 			return new SearchIITForVIITView(model);
 		if(viewName.equals("SearchVendorsForVIITView"))
 			return new SearchVendorsForVIITView(model);
-		if(viewName.equals("IITCollectionForAddVIITView"))
-			return new IITCollectionForAddVIITView(model);
-		if(viewName.equals("VendorCollectionForAddVIITView"))
-			return new VendorCollectionForAddVIITView(model);
+		if(viewName.equals("ConfirmDeleteVIITView"))
+			return new ConfirmDeleteVIITView(model);
 		if(viewName.equals("PriceView"))
 			return new PriceView(model);
 		return null;

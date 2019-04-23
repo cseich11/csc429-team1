@@ -145,11 +145,17 @@ public class DeleteVIITAction extends Action
 		{
 			try {
 				iit = new InventoryItemType((String)value);
+				viit = new VendorInventoryItemType(vendor.persistentState.getProperty("vId"), iit.persistentState.getProperty("ItemTypeName"));
 			} catch (InvalidPrimaryKeyException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			createAndShowPriceView();
+			createAndShowConfirmDeleteView();
+		}
+		else if(key.equals("Delete"))
+		{
+			viit.delete();
+			viitUpdateStatusMessage = (String)viit.getState("UpdateStatusMessage");
 		}
 		else if(key.equals("SelectedVendor"))
 		{
@@ -167,16 +173,25 @@ public class DeleteVIITAction extends Action
 		}
 		else if(key.equals("IITData"))
 			showIITList((String[])value);
-		if(key.equals("VIITData"))
-		{
-			String vendorPrice = (String)value;
-			Properties props = new Properties();
-			props.setProperty("VendorId", vendor.persistentState.getProperty("vId"));
-			props.setProperty("InventoryItemTypeName", iit.persistentState.getProperty("ItemTypeName"));
-			props.setProperty("VendorPrice", vendorPrice);
-			props.setProperty("DateOfLastUpdate", java.time.LocalDate.now() + "");
-			processAction(props);
-		}
+//		if(key.equals("VIITData"))
+//		{
+//			String vendorPrice = (String)value;
+//			Properties props = new Properties();
+//			props.setProperty("VendorId", vendor.persistentState.getProperty("vId"));
+//			props.setProperty("InventoryItemTypeName", iit.persistentState.getProperty("ItemTypeName"));
+//			props.setProperty("VendorPrice", vendorPrice);
+//			props.setProperty("DateOfLastUpdate", java.time.LocalDate.now() + "");
+//			processAction(props);
+//		}
+//		else if(key.equals("ConfirmDeleteVIIT")) {
+//			try {
+//				iit = new InventoryItemType((String)value);
+//			} catch (InvalidPrimaryKeyException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			createAndShowDeleteIITView();
+//		}
 		
 //		else if(key.equals("ModifyIITData"))
 //			processAction((Properties)value);
@@ -221,15 +236,6 @@ public class DeleteVIITAction extends Action
 		}
 	}
 	
-	protected void createAndShowIITListView()
-	{
-		View newView = ViewFactory.createView("IITCollectionForAddVIITView", this);
-		Scene currentScene = new Scene(newView);
-		myViews.put("IITCollectionForAddVIITView", currentScene);
-
-		swapToView(currentScene);
-	}
-	
 	protected void createAndShowVendorSearch()
 	{
 		View newView = ViewFactory.createView("SearchVendorsForVIITView", this);
@@ -241,18 +247,18 @@ public class DeleteVIITAction extends Action
 	
 	protected void createAndShowVendors()
 	{
-		View newView = ViewFactory.createView("VendorCollectionForAddVIITView", this);
+		View newView = ViewFactory.createView("VendorCollectionForVIITView", this);
 		Scene currentScene = new Scene(newView);
-		myViews.put("VendorCollectionForAddVIITView", currentScene);
+		myViews.put("VendorCollectionForVIITView", currentScene);
 
 		swapToView(currentScene);
 	}
 	
 	protected void createAndShowIITs()
 	{
-		View newView = ViewFactory.createView("IITCollectionForAddVIITView", this);
+		View newView = ViewFactory.createView("IITCollectionForVIITView", this);
 		Scene currentScene = new Scene(newView);
-		myViews.put("IITCollectionForAddVIITView", currentScene);
+		myViews.put("IITCollectionForVIITView", currentScene);
 
 		swapToView(currentScene);
 	}
@@ -266,11 +272,11 @@ public class DeleteVIITAction extends Action
 		swapToView(currentScene);
 	}
 	
-	protected void createAndShowPriceView()
+	protected void createAndShowConfirmDeleteView()
 	{
-		View newView = ViewFactory.createView("PriceView", this);
+		View newView = ViewFactory.createView("ConfirmDeleteVIITView", this);
 		Scene currentScene = new Scene(newView);
-		myViews.put("PriceView", currentScene);
+		myViews.put("ConfirmDeleteVIITView", currentScene);
 
 		swapToView(currentScene);
 	}
