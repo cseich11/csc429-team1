@@ -4,6 +4,10 @@ package model;
 // system imports
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -47,6 +51,7 @@ public class SearchVendorAction extends Action
 	{
 		dependencies = new Properties();
 		dependencies.setProperty("SearchVendor", "ActionError");
+		dependencies.setProperty("ProcessInvoice", "ActionError");
 		dependencies.setProperty("Cancel", "CancelAction");
 		dependencies.setProperty("CancelSearchVendor", "CancelAction");
 		dependencies.setProperty("OK", "CancelAction");
@@ -55,7 +60,8 @@ public class SearchVendorAction extends Action
 		dependencies.setProperty("ModifyIITData", "ActionMessage");
 		dependencies.setProperty("IITData", "UpdateStatusMessage");
 		dependencies.setProperty("ModifyVendor", "ActionError");
-
+		dependencies.setProperty("InvoiceData", "ActionError");
+		dependencies.setProperty("InvoiceData", "UpdateStatusMessage");
 
 		myRegistry.setDependencies(dependencies);
 	}
@@ -122,9 +128,17 @@ public class SearchVendorAction extends Action
 		iitNameEntered = props.getProperty("i");
 		barcodeEntered = props.getProperty("b");
 		notesEntered = props.getProperty("n");
-			
-			
-		createAndShowVendorCollectionView();
+		
+		try {
+			iit = new InventoryItemType(iitNameEntered);
+		} catch(InvalidPrimaryKeyException e) {
+			actionErrorMessage = "Inventory Item Type does not exist for this Vendor";
+		}
+		
+		DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+		Date date = new Date();
+		String curDate = format.format(date);
+		
 	}	
 
 

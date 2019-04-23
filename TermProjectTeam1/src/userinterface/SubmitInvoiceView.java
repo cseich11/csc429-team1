@@ -64,6 +64,7 @@ public class SubmitInvoiceView extends View
 		populateFields();
 		
 		myModel.subscribe("UpdateStatusMessage", this);
+		myModel.subscribe("ActionError", this);
 	}
 
 
@@ -181,7 +182,8 @@ public class SubmitInvoiceView extends View
 	//-------------------------------------------------------------
 	public void populateFields()
 	{
-		iitNameField.setText("");
+		if(iitNameField.getText() == null)
+			iitNameField.setText("");
 		barcodeField.setText("");
 		notesField.setText("");
 	}
@@ -208,7 +210,7 @@ public class SubmitInvoiceView extends View
 			displayErrorMessage("Please enter an item type name");
 		else if(barcodeEntered == null || barcodeEntered.length() == 0)
 			displayErrorMessage("Please enter a barcode for the item on the invoice");
-		else if(!barcodeEntered.matches("^[0-9]+$"))
+		else if(!barcodeEntered.matches("^[0-9]{9}$"))
 			displayErrorMessage("Barcode entered must be numerical");
 		else
 		{
@@ -241,6 +243,10 @@ public class SubmitInvoiceView extends View
 	{
 		if(key.equals("UpdateStatusMessage"))
 		{
+			String msg = (String)value;
+			displayMessage(msg);
+		}
+		else if(key.equals("ActionError")) {
 			String msg = (String)value;
 			displayMessage(msg);
 		}
