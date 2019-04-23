@@ -119,10 +119,10 @@ public class InventoryManagerView extends View
         	myModel.stateChangeRequest("SearchVendor", null);
         });
         
-        processInvoiceButton = new Button("Process Invoice");
-        processInvoiceButton.setOnAction(e -> {
-        	myModel.stateChangeRequest("ProcessInvoice", null);
-        });
+        //processInvoiceButton = new Button("Process Invoice");
+        //processInvoiceButton.setOnAction(e -> {
+        	//myModel.stateChangeRequest("ProcessInvoice", null);
+        //});
         	
 		doneButton = new Button("Done");
  		doneButton.setOnAction(e -> {
@@ -131,8 +131,7 @@ public class InventoryManagerView extends View
 
 		HBox btnContainer = new HBox(10);
 		btnContainer.setAlignment(Pos.BOTTOM_RIGHT);
-		btnContainer.getChildren().addAll(insertIITButton, searchIITButton, addVendorButton, searchVendorButton, doneButton,
-				processInvoiceButton);
+		btnContainer.getChildren().addAll(insertIITButton, searchIITButton, addVendorButton, searchVendorButton, doneButton);
 		grid.add(btnContainer, 1, 3);
 
 		return grid;
