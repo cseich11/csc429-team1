@@ -62,24 +62,32 @@ public class AddVIITAction extends Action
 	 * This method encapsulates all the logic of updating the iit
 	 */
 	//----------------------------------------------------------
-	public void showIITList()
+	public void showIITList(String data[])
 	{
-
-		iitList = new InventoryItemTypeCollection();
-		iitList.findAllIIT();
-		createAndShowIITListView();
+		if(data.length == 2 && data[0] != null && data[1] != null)
+		{
+			iitList = new InventoryItemTypeCollection();
+			String itemTypeNameSearched = data[0]; String notesSearched = data[1];
+			iitList.findAllIITWithNameNotes(itemTypeNameSearched, notesSearched);
+			createAndShowIITs();
+		}
+//		iitList = new InventoryItemTypeCollection();
+//		iitList.findAllIIT();
+//		createAndShowIITListView();
 //		viitUpdateStatusMessage = (String)iit.getState("UpdateStatusMessage");
 			//list = new InventoryItemTypeCollection();
 			//list.findAllIITWithNameNotes(itemTypeNameSearched, notesSearched);
 			//createAndShowIITListView();
 	}
 
-	public void showVendorList()
+	public void showVendorList(Properties props)
 	{
-
+		String vName = props.getProperty("vendorName");
+		String vPhone = props.getProperty("phoneNumber");
 		vendorList = new VendorCollection();
-		vendorList.findAllVendors();
-		createAndShowVendorListView();
+		vendorList.findVendors(vName, vPhone);
+		createAndShowVendors();
+		
 //		viitUpdateStatusMessage = (String)iit.getState("UpdateStatusMessage");
 			//list = new InventoryItemTypeCollection();
 			//list.findAllIITWithNameNotes(itemTypeNameSearched, notesSearched);
@@ -120,13 +128,15 @@ public class AddVIITAction extends Action
 		}
 	}
 	
+	
+	
 	//-----------------------------------------------------------
 	public void stateChangeRequest(String key, Object value)
 	{
 		// DEBUG System.out.println("SearchInventoryItemTypesAction.sCR: key: " + key);
 
 		if(key.equals("DoYourJob"))
-			showIITList();
+			createAndShowVendorSearch();
 //		else if(key.equals("CancelInventoryItemTypeList"))
 //			swapToView(createView());
 //		else if (key.equals("IITData") == true)
@@ -139,7 +149,7 @@ public class AddVIITAction extends Action
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			showVendorList();
+			createAndShowPriceView();
 		}
 		else if(key.equals("SelectedVendor"))
 		{
@@ -149,8 +159,14 @@ public class AddVIITAction extends Action
 			} catch (InvalidPrimaryKeyException e) {
 				e.printStackTrace();
 			}
-			createAndShowPriceView();
+			createAndShowIITSearch();
 		}
+		else if (key.equals("VendorData") == true)
+		{
+			showVendorList((Properties)value);
+		}
+		else if(key.equals("IITData"))
+			showIITList((String[])value);
 		if(key.equals("VIITData"))
 		{
 			String vendorPrice = (String)value;
@@ -214,11 +230,38 @@ public class AddVIITAction extends Action
 		swapToView(currentScene);
 	}
 	
-	protected void createAndShowVendorListView()
+	protected void createAndShowVendorSearch()
+	{
+		View newView = ViewFactory.createView("SearchVendorsForVIITView", this);
+		Scene currentScene = new Scene(newView);
+		myViews.put("SearchVendorsForVIITView", currentScene);
+
+		swapToView(currentScene);
+	}
+	
+	protected void createAndShowVendors()
 	{
 		View newView = ViewFactory.createView("VendorCollectionForVIITView", this);
 		Scene currentScene = new Scene(newView);
 		myViews.put("VendorCollectionForVIITView", currentScene);
+
+		swapToView(currentScene);
+	}
+	
+	protected void createAndShowIITs()
+	{
+		View newView = ViewFactory.createView("IITCollectionForAddVIITView", this);
+		Scene currentScene = new Scene(newView);
+		myViews.put("IITCollectionForAddVIITView", currentScene);
+
+		swapToView(currentScene);
+	}
+	
+	protected void createAndShowIITSearch()
+	{
+		View newView = ViewFactory.createView("SearchIITForVIITView", this);
+		Scene currentScene = new Scene(newView);
+		myViews.put("SearchIITForVIITView", currentScene);
 
 		swapToView(currentScene);
 	}
