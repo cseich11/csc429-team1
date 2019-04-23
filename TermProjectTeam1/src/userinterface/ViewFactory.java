@@ -12,12 +12,16 @@ public class ViewFactory {
 			return new AddNewIITActionView(model);
 		if(viewName.equals("SearchIITActionView"))
 			return new SearchIITActionView(model);
+		if(viewName.equals("SearchIIActionView"))
+			return new SearchIIActionView(model);
 		if(viewName.equals("InventoryItemTypeCollectionView"))
 			return new InventoryItemTypeCollectionView(model);
 		if(viewName.equals("ModifyIITActionView"))
 			return new ModifyIITActionView(model);
 		if(viewName.equals("DeleteIITActionView"))
 			return new DeleteIITActionView(model);
+		if(viewName.equals("DeleteIIActionView"))
+			return new DeleteIIActionView(model);
 		if(viewName.equals("AddVendorIITActionView"))
 			return new AddVendorActionView(model);
 		if(viewName.equals("AddVendorActionView"))
@@ -32,8 +36,6 @@ public class ViewFactory {
 			return new ProcessInvoiceActionView(model);
 		if(viewName.equals("SubmitInvoiceView"))
 			return new SubmitInvoiceView(model);
-		
-		
 		return null;
 	}
 }
