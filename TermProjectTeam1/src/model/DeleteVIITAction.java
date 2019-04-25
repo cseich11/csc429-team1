@@ -146,11 +146,13 @@ public class DeleteVIITAction extends Action
 			try {
 				iit = new InventoryItemType((String)value);
 				viit = new VendorInventoryItemType(vendor.persistentState.getProperty("vId"), iit.persistentState.getProperty("ItemTypeName"));
+				createAndShowConfirmDeleteView();
 			} catch (InvalidPrimaryKeyException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				viitUpdateStatusMessage = "This is not a valid VIIT"; 
+				createAndShowIITSearch();
 			}
-			createAndShowConfirmDeleteView();
+			
 		}
 		else if(key.equals("Delete"))
 		{
@@ -173,28 +175,6 @@ public class DeleteVIITAction extends Action
 		}
 		else if(key.equals("IITData"))
 			showIITList((String[])value);
-//		if(key.equals("VIITData"))
-//		{
-//			String vendorPrice = (String)value;
-//			Properties props = new Properties();
-//			props.setProperty("VendorId", vendor.persistentState.getProperty("vId"));
-//			props.setProperty("InventoryItemTypeName", iit.persistentState.getProperty("ItemTypeName"));
-//			props.setProperty("VendorPrice", vendorPrice);
-//			props.setProperty("DateOfLastUpdate", java.time.LocalDate.now() + "");
-//			processAction(props);
-//		}
-//		else if(key.equals("ConfirmDeleteVIIT")) {
-//			try {
-//				iit = new InventoryItemType((String)value);
-//			} catch (InvalidPrimaryKeyException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			createAndShowDeleteIITView();
-//		}
-		
-//		else if(key.equals("ModifyIITData"))
-//			processAction((Properties)value);
 		myRegistry.updateSubscribers(key, this);
 	}
 	
@@ -238,9 +218,9 @@ public class DeleteVIITAction extends Action
 	
 	protected void createAndShowVendorSearch()
 	{
-		View newView = ViewFactory.createView("SearchVendorsForVIITView", this);
+		View newView = ViewFactory.createView("SearchVendorActionView", this);
 		Scene currentScene = new Scene(newView);
-		myViews.put("SearchVendorsForVIITView", currentScene);
+		myViews.put("SearchVendorActionView", currentScene);
 
 		swapToView(currentScene);
 	}
@@ -265,9 +245,9 @@ public class DeleteVIITAction extends Action
 	
 	protected void createAndShowIITSearch()
 	{
-		View newView = ViewFactory.createView("SearchIITForVIITView", this);
+		View newView = ViewFactory.createView("SearchIITActionView", this);
 		Scene currentScene = new Scene(newView);
-		myViews.put("SearchIITForVIITView", currentScene);
+		myViews.put("SearchIITActionView", currentScene);
 
 		swapToView(currentScene);
 	}
