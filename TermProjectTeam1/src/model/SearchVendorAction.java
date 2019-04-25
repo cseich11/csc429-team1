@@ -132,7 +132,7 @@ public class SearchVendorAction extends Action
 		notesEntered = props.getProperty("n");
 		
 		try {
-			viit = new VendorInventoryItemType(iitNameEntered, vId);
+			viit = new VendorInventoryItemType(vId, iitNameEntered);
 			DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
 			Date date = new Date();
 			String curDate = format.format(date);
