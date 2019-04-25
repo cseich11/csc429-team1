@@ -36,6 +36,18 @@ public class ViewFactory {
 			return new ProcessInvoiceActionView(model);
 		if(viewName.equals("SubmitInvoiceView"))
 			return new SubmitInvoiceView(model);
+		if(viewName.equals("IITCollectionForVIITView"))
+			return new IITCollectionForVIITView(model);
+		if(viewName.equals("VendorCollectionForVIITView"))
+			return new VendorCollectionForVIITView(model);
+		if(viewName.equals("SearchIITForVIITView"))
+			return new SearchIITForVIITView(model);
+		if(viewName.equals("SearchVendorsForVIITView"))
+			return new SearchVendorsForVIITView(model);
+		if(viewName.equals("ConfirmDeleteVIITView"))
+			return new ConfirmDeleteVIITView(model);
+		if(viewName.equals("PriceView"))
+			return new PriceView(model);
 		return null;
 	}
 }

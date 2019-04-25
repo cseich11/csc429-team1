@@ -86,13 +86,13 @@ import userinterface.WindowPosition;
 				}
 			}
 		
-		public VendorInventoryItemType(String iitName, String vId)
+		public VendorInventoryItemType(String vendorId, String itemTypeName)
 				throws InvalidPrimaryKeyException
 			{
 				super(myTableName);
 		
 				setDependencies();
-				String query = "SELECT * FROM " + myTableName + " WHERE (VendorId = " + vId + ") AND (InventoryItemTypeName = \"" + iitName + "\")";
+				String query = "SELECT * FROM " + myTableName + " WHERE (VendorId = " + vendorId + " AND InventoryItemTypeName = \"" + itemTypeName + "\")";
 		
 				Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 		
@@ -104,7 +104,8 @@ import userinterface.WindowPosition;
 					// There should be EXACTLY one viit. More than that is an error
 					if (size != 1)
 					{
-						throw new InvalidPrimaryKeyException("Multiple VIIT's found.");
+						throw new InvalidPrimaryKeyException("Multiple VIIT's matching id : "
+							+ vendorId + " and " + itemTypeName + " found.");
 					}
 					else
 					{
@@ -131,7 +132,8 @@ import userinterface.WindowPosition;
 				// If no viit found for this viitId, throw an exception
 				else
 				{
-					throw new InvalidPrimaryKeyException("No VIIT found.");
+					throw new InvalidPrimaryKeyException("No VIIT matching id : "
+						+ vendorId + " and " + itemTypeName + " found.");
 				}
 			}
 	
@@ -157,13 +159,40 @@ import userinterface.WindowPosition;
 			}
 		}
 		
-//		public Book()
-//		{
-//			super(myTableName);
-//			
-//			setDependencies();
-//			persistentState = new Properties();
-//		}
+		public void delete()
+		{
+			try
+			{
+				String vendorId = persistentState.getProperty("VendorId");
+				String itemTypeName = persistentState.getProperty("InventoryItemTypeName");
+				String query = "SELECT * FROM " + myTableName + " WHERE (VendorId = " + vendorId + " AND InventoryItemTypeName = \"" + itemTypeName + "\")";
+				
+				Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
+		
+				// You must get one book at least
+				if (allDataRetrieved != null)
+				{
+					Properties whereClause = new Properties();
+					whereClause.setProperty("InventoryItemTypeName",persistentState.getProperty("InventoryItemTypeName"));
+					whereClause.setProperty("VendorId",persistentState.getProperty("VendorId"));
+					deletePersistentState(mySchema, whereClause);
+					updateStatusMessage = "VIIT: " + persistentState.getProperty("Id") + " removed from database!";
+				}
+//				else
+//				{
+//						insertPersistentState(mySchema, persistentState);
+//					persistentState.setProperty("ItemTypeName", itemTypeName);
+//					updateStatusMessage = "New Item: " +  persistentState.getProperty("ItemTypeName")
+//						+ " added to database!";
+//				}
+			}
+			catch (SQLException ex)
+			{
+				updateStatusMessage = "Error in installing IIT data in database!";
+			}
+//			 System.out.println(updateStatusMessage);
+		}
+		
 		
 		//------------------------------------------------------------
 		public void createAndShowVIITView()

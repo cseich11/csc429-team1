@@ -13,7 +13,7 @@ import userinterface.ViewFactory;
 
 /** The class containing the AddVendorInventoryItemTypesAction for the Library application */
 //==============================================================
-public class AddVIITAction extends Action
+public class DeleteVIITAction extends Action
 {
 	private InventoryItemTypeCollection iitList; 
 	private VendorCollection vendorList; 
@@ -38,7 +38,7 @@ public class AddVIITAction extends Action
 	 *
 	 */
 	//----------------------------------------------------------
-	public AddVIITAction()
+	public DeleteVIITAction()
 		throws Exception
 	{
 		super();
@@ -145,11 +145,17 @@ public class AddVIITAction extends Action
 		{
 			try {
 				iit = new InventoryItemType((String)value);
+				viit = new VendorInventoryItemType(vendor.persistentState.getProperty("vId"), iit.persistentState.getProperty("ItemTypeName"));
 			} catch (InvalidPrimaryKeyException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			createAndShowPriceView();
+			createAndShowConfirmDeleteView();
+		}
+		else if(key.equals("Delete"))
+		{
+			viit.delete();
+			viitUpdateStatusMessage = (String)viit.getState("UpdateStatusMessage");
 		}
 		else if(key.equals("SelectedVendor"))
 		{
@@ -167,18 +173,25 @@ public class AddVIITAction extends Action
 		}
 		else if(key.equals("IITData"))
 			showIITList((String[])value);
-		if(key.equals("VIITData"))
-		{
-			String vendorPrice = (String)value;
-			Properties props = new Properties();
-			props.setProperty("VendorId", vendor.persistentState.getProperty("vId"));
-			props.setProperty("InventoryItemTypeName", iit.persistentState.getProperty("ItemTypeName"));
-			props.setProperty("VendorPrice", vendorPrice);
-			props.setProperty("DateOfLastUpdate", java.time.LocalDate.now() + "");
-			processAction(props);
-			createAndShowVendorSearch();
-			
-		}
+//		if(key.equals("VIITData"))
+//		{
+//			String vendorPrice = (String)value;
+//			Properties props = new Properties();
+//			props.setProperty("VendorId", vendor.persistentState.getProperty("vId"));
+//			props.setProperty("InventoryItemTypeName", iit.persistentState.getProperty("ItemTypeName"));
+//			props.setProperty("VendorPrice", vendorPrice);
+//			props.setProperty("DateOfLastUpdate", java.time.LocalDate.now() + "");
+//			processAction(props);
+//		}
+//		else if(key.equals("ConfirmDeleteVIIT")) {
+//			try {
+//				iit = new InventoryItemType((String)value);
+//			} catch (InvalidPrimaryKeyException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			createAndShowDeleteIITView();
+//		}
 		
 //		else if(key.equals("ModifyIITData"))
 //			processAction((Properties)value);
@@ -223,15 +236,6 @@ public class AddVIITAction extends Action
 		}
 	}
 	
-	protected void createAndShowIITListView()
-	{
-		View newView = ViewFactory.createView("IITCollectionForVIITView", this);
-		Scene currentScene = new Scene(newView);
-		myViews.put("IITCollectionForVIITView", currentScene);
-
-		swapToView(currentScene);
-	}
-	
 	protected void createAndShowVendorSearch()
 	{
 		View newView = ViewFactory.createView("SearchVendorsForVIITView", this);
@@ -268,11 +272,11 @@ public class AddVIITAction extends Action
 		swapToView(currentScene);
 	}
 	
-	protected void createAndShowPriceView()
+	protected void createAndShowConfirmDeleteView()
 	{
-		View newView = ViewFactory.createView("PriceView", this);
+		View newView = ViewFactory.createView("ConfirmDeleteVIITView", this);
 		Scene currentScene = new Scene(newView);
-		myViews.put("PriceView", currentScene);
+		myViews.put("ConfirmDeleteVIITView", currentScene);
 
 		swapToView(currentScene);
 	}

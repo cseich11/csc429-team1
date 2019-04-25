@@ -36,6 +36,8 @@ public class ActionFactory
 			return new ProcessInvoiceAction();
 		if(actionType.equals("AddVIIT"))
 			return new AddVIITAction();
+		if(actionType.equals("DeleteVIIT"))
+			return new DeleteVIITAction();
 		return null;
 	}
 }
