@@ -25,7 +25,7 @@ import java.util.Properties;
 import impresario.IModel;
 //import model.SearchVendorAction;
 
-/** The class containing the Deposit Amount View  for the ATM application */
+/** The class containing the Search Vender View  for the Restaurant application */
 //==============================================================
 public class SearchVendorActionView extends View
 {
@@ -181,18 +181,12 @@ public class SearchVendorActionView extends View
 
 		String venNameEntered = venName.getText();
 		String phoneNumEntered = phoneNum.getText();
-//		boolean isNum = true; 
-//		try {
-//			Integer.parseInt(phoneNumEntered);
-//		} catch(NumberFormatException e) {
-//			isNum = false;
-//		}
 
 		if (venNameEntered == null || venNameEntered.length() == 0)
 			displayErrorMessage("Please enter a name");
 		else if(phoneNumEntered == null || phoneNumEntered.length() == 0)
 			displayErrorMessage("Please enter a phone number");
-		else if(!phoneNumEntered.matches("^[0-9]{10}$"))
+		else if(!phoneNumEntered.matches("^[0-9]+$"))
 			displayErrorMessage("Phone number must be numerical");
 		else
 		{
@@ -202,7 +196,7 @@ public class SearchVendorActionView extends View
 	}
 
 	/**
-	 * Process amount entered by user.
+	 * Process data entered by user.
 	 * Action is to pass this info on to the action object.
 	 */
 	//----------------------------------------------------------

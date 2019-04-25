@@ -206,8 +206,8 @@ public class SubmitInvoiceView extends View
 //			isNum = false;
 //		}
 
-		if (iitNameEntered == null || iitNameEntered.length() == 0)
-			displayErrorMessage("Please enter an item type name");
+		if (iitNameEntered == null || iitNameEntered.length() == 0 || !(iitNameEntered.matches("[a-zA-Z]+")))
+			displayErrorMessage("Please enter a valid item type name");
 		else if(barcodeEntered == null || barcodeEntered.length() == 0)
 			displayErrorMessage("Please enter a barcode for the item on the invoice");
 		else if(!barcodeEntered.matches("^[0-9]{9}$"))
