@@ -173,9 +173,14 @@ public class InventoryItem extends EntityBase implements IView {
     protected void initializeSchema(String tableName)
     {
     	if (mySchema == null)
-		{
-			mySchema = getSchemaInfo(tableName);
-		}
+        {
+            mySchema = getSchemaInfo(tableName);
+        }
+    }
+    
+    public String getStatus()
+    {
+    	return persistentState.getProperty("Status");
     }
 
     public void stateChangeRequest(String key, Object value)

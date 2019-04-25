@@ -18,9 +18,10 @@ public class SearchIIAction extends Action
 	//private InventoryItemCollection list; 
 
 	// GUI Components
-	private int barcode = 0;
+	private String barcode = "";
 	private String actionErrorMessage = "";
-	private String iiUpdateStatusMessage = "";
+//	private String inventoryUpdateStatusMessage = "";
+//	private String iiUpdateStatusMessage = "";
 	
 	private InventoryItem ii;
 	
@@ -49,31 +50,13 @@ public class SearchIIAction extends Action
 	}
 
 	/**
-	 * This method encapsulates all the logic of creating the account,
-	 * verifying ownership, crediting, etc. etc.
-	 */
-	//----------------------------------------------------------
-	public void processAction(String bCode)
-	{
-		if(bCode.length() != 0)
-			createAndShowDeleteIIView();
-	}
-	
-	/**
 	 * This method encapsulates all the logic of updating the ii
 	 */
 	//----------------------------------------------------------
 	public void processAction(Properties props)
 	{
-
-		barcode = Integer.parseInt(props.getProperty("Barcode"));
-
-		if(barcode != 0)
-		{
-			ii.persistentState.setProperty("Barcode", "" + barcode);
-			ii.update();
-			iiUpdateStatusMessage = (String)ii.getState("UpdateStatusMessage");
-		}
+		if(props.getProperty("Status").equals("Available"))
+			createAndShowDeleteIIView();
 	}
 
 	//-----------------------------------------------------------
@@ -81,8 +64,6 @@ public class SearchIIAction extends Action
 	{
 		if (key.equals("ActionError"))
 			return actionErrorMessage;
-		if (key.equals("UpdateStatusMessage"))
-			return iiUpdateStatusMessage;
 		if(key.equals("IIData"))
 			return barcode;
 		
@@ -94,26 +75,24 @@ public class SearchIIAction extends Action
 	//-----------------------------------------------------------
 	public void stateChangeRequest(String key, Object value)
 	{
-		// DEBUG System.out.println("SearchInventoryItemTypesAction.sCR: key: " + key);
-
 		if(key.equals("DoYourJob"))
 			doYourJob();
 		else if(key.equals("IIData"))
-			processAction((String)value);
+			processAction((Properties)value);
 		else if(key.equals("GetII"))
 		{
 			try {
 				ii = new InventoryItem((String)value);
 			} catch (InvalidPrimaryKeyException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			//System.out.println(ii.persistentState.getProperty("InventoryItemTypeName"));
-			getInventoryItem();
+			if(ii.getStatus().equals("Available"))
+				createAndShowDeleteIIView();
+			else
+				System.out.println("ERRORROROROROR");
 		}
-		else if (key.equals("IIData") == true)
-			processAction((Properties)value);
+		else if(key.equals("IIDelete"))
+			processActionDelete((Properties)value);
 
 		myRegistry.updateSubscribers(key, this);
 	}
@@ -124,13 +103,12 @@ public class SearchIIAction extends Action
 	{
 		stateChangeRequest(key, value);
 	}
-
 	
-//	public void deleteIIT()
-//	{
-//		iit.persistentState.setProperty("Status", "Inactive");
-//		iit.update();
-//	}
+	public void processActionDelete(Properties props)
+	{
+		ii.persistentState.setProperty("Status", "Used");
+		ii.update();
+	}
 	
 	/**
 	 * Create the view of this class. And then the super-class calls
@@ -158,17 +136,10 @@ public class SearchIIAction extends Action
 	
 	protected void createAndShowDeleteIIView()
 	{
-		System.out.println("test");
 		View newView = ViewFactory.createView("DeleteIIActionView", this);
 		Scene currentScene = new Scene(newView);
 		myViews.put("DeleteIIActionView", currentScene);
 
 		swapToView(currentScene);
 	}
-	
-	protected void getInventoryItem()
-	{
-		
-	}
-	
 }
