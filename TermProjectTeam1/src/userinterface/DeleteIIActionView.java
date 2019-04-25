@@ -32,8 +32,6 @@ public class DeleteIIActionView extends View
 	// Model
 
 	// GUI components
-	private TextField itemTypeNameSearch;
-
 	private Button submitButton;
 	private Button cancelButton;
 
@@ -97,7 +95,6 @@ public class DeleteIIActionView extends View
 		submitButton = new Button("Confirm");
  		submitButton.setOnAction(e -> {
  			clearErrorMessage(); 
-			// do the delete
 			processAction(e);
         });
 
@@ -136,20 +133,7 @@ public class DeleteIIActionView extends View
 	//-------------------------------------------------------------
 	public void processAction(Event evt)
 	{
-		// DEBUG: System.out.println("DepositAmountView.processAction()");
-
-		clearErrorMessage();
-
-		//String itemTypeNameEntered = itemTypeNameSearch.getText();
-		
-//		if(titleEntered == null || titleEntered.length() == 0)
-//			displayErrorMessage("Please enter a title");
-//		else
-//		{
-			//processData(itemTypeNameEntered);
-			myModel.stateChangeRequest("Delete", null);
-			
-//		}
+		myModel.stateChangeRequest("IIDelete", null);
 	}
 
 	/**
@@ -157,10 +141,10 @@ public class DeleteIIActionView extends View
 	 * Action is to pass this info on to the action object.
 	 */
 	//----------------------------------------------------------
-	private void processData(String it)
-	{
-		myModel.stateChangeRequest("IIT Data", it);
-	}
+//	private void processData(String it)
+//	{
+//		myModel.stateChangeRequest("IIT Data", it);
+//	}
 
 	
 

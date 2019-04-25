@@ -15,13 +15,6 @@ import java.util.Vector;
 
 public class InventoryItem extends EntityBase implements IView {
     private static final String myTableName = "InventoryItem";
-    private int Barcode;
-    private String InventoryItemTypeName;
-    private String Vendor;
-    private String DateRecieved;
-    private String DateLastUsed;
-    private String Notes;
-    private String Status;
 
     protected Properties dependencies;
 
@@ -33,7 +26,7 @@ public class InventoryItem extends EntityBase implements IView {
         super(myTableName);
 
         setDependencies();
-        String query = "SELECT * FROM " + myTableName + " WHERE Barcode = \"" + barcode + "\"";
+        String query = "SELECT * FROM " + myTableName + " WHERE Barcode = " + barcode + "";
 
 
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
@@ -177,16 +170,19 @@ public class InventoryItem extends EntityBase implements IView {
     //-----------------------------------------------------------------------------------
     protected void initializeSchema(String tableName)
     {
-
+    	if (mySchema == null)
+        {
+            mySchema = getSchemaInfo(tableName);
+        }
+    }
+    
+    public String getStatus()
+    {
+    	return persistentState.getProperty("Status");
     }
 
     public void stateChangeRequest(String key, Object value)
     {
-
-    }
-
-    public void deleteInventoryItem() {
-        String query = "DELETE FROM " + myTableName + " WHERE (Barcode = " + Barcode + ")";
-        getSelectQueryResult(query);
+    	myRegistry.updateSubscribers(key, this);
     }
 }
