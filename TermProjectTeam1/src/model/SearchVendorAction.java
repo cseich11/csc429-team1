@@ -36,6 +36,8 @@ public class SearchVendorAction extends Action
 	private InventoryItemType iit;
 	private InventoryItemTypeCollection iitList;
 	private VendorCollection vc;
+	private InventoryItem ii;
+	private VendorInventoryItemType viit;
 	
 
 	
@@ -61,7 +63,7 @@ public class SearchVendorAction extends Action
 		dependencies.setProperty("IITData", "UpdateStatusMessage");
 		dependencies.setProperty("ModifyVendor", "ActionError");
 		dependencies.setProperty("InvoiceData", "ActionError");
-		dependencies.setProperty("InvoiceData", "UpdateStatusMessage");
+		//dependencies.setProperty("InvoiceData", "UpdateStatusMessage");
 
 		myRegistry.setDependencies(dependencies);
 	}
@@ -130,14 +132,26 @@ public class SearchVendorAction extends Action
 		notesEntered = props.getProperty("n");
 		
 		try {
-			iit = new InventoryItemType(iitNameEntered);
+			viit = new VendorInventoryItemType(iitNameEntered, vId);
+			DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+			Date date = new Date();
+			String curDate = format.format(date);
+			
+			Properties prop = new Properties();
+			prop.setProperty("Barcode", barcodeEntered);
+			prop.setProperty("InventoryItemTypeName", iitNameEntered);
+			prop.setProperty("Vendor", vId);
+			prop.setProperty("DateRecieved", curDate);
+			prop.setProperty("DateLastUsed", curDate);
+			prop.setProperty("Notes", notesEntered);
+			prop.setProperty("Status", "Available");
+			ii = new InventoryItem(prop);
+			ii.update();
+			updateStatusMessage = (String)ii.getState("UpdateStatusMessage");
 		} catch(InvalidPrimaryKeyException e) {
 			actionErrorMessage = "Inventory Item Type does not exist for this Vendor";
 		}
 		
-		DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
-		Date date = new Date();
-		String curDate = format.format(date);
 		
 	}	
 
@@ -147,21 +161,21 @@ public class SearchVendorAction extends Action
 	{
 		if (key.equals("ActionError") == true)
 			return actionErrorMessage;
-		if(key.equals("VendorList"))
+		else if(key.equals("VendorList"))
 			return vc;
-		if(key.equals("VendorData") || key.equals("SearchVendor"))
+		else if(key.equals("VendorData") || key.equals("SearchVendor"))
 		{
 			String[] vData = {vName, vPhone};
 			return vData;
 		}
-		if(key.equals("UpdateStatusMessage"))
+		else if(key.equals("UpdateStatusMessage"))
 			return updateStatusMessage;
-		if (v != null)
+		else if (v != null)
 			return v.getState(key);
-		
-		if (iit != null)
+		else if (iit != null)
 			return iit.getState(key);
-		return null;
+		else
+			return null;
 	}
 
 	//-----------------------------------------------------------

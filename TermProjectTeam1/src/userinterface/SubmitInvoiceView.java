@@ -226,9 +226,9 @@ public class SubmitInvoiceView extends View
 	private void processData(String i, String b, String n)
 	{
 		Properties props = new Properties();
-		props.setProperty("iitNameEntered", i);
-		props.setProperty("barcodeEntered", b);
-		props.setProperty("notesEntered", n);
+		props.setProperty("i", i);
+		props.setProperty("b", b);
+		props.setProperty("n", n);
 		myModel.stateChangeRequest("InvoiceData", props);
 		populateFields();
 	}

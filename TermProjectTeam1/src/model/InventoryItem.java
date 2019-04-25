@@ -15,13 +15,8 @@ import java.util.Vector;
 
 public class InventoryItem extends EntityBase implements IView {
     private static final String myTableName = "InventoryItem";
-    private int Barcode;
-    private String InventoryItemTypeName;
-    private String Vendor;
-    private String DateRecieved;
-    private String DateLastUsed;
-    private String Notes;
-    private String Status;
+	
+	public Scene prevScene = myStage.getScene();
 
     protected Properties dependencies;
 
@@ -33,7 +28,7 @@ public class InventoryItem extends EntityBase implements IView {
         super(myTableName);
 
         setDependencies();
-        String query = "SELECT * FROM " + myTableName + " WHERE Barcode = \"" + barcode + "\"";
+        String query = "SELECT * FROM " + myTableName + " WHERE Barcode = " + barcode + "";
 
 
         Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
@@ -75,22 +70,22 @@ public class InventoryItem extends EntityBase implements IView {
     
     public InventoryItem(Properties props)
     {
-        super(myTableName);
+		super(myTableName);
+		
+		setDependencies();
+		persistentState = new Properties();
+		Enumeration allKeys = props.propertyNames();
+		while (allKeys.hasMoreElements() == true)
+		{
+			String nextKey = (String)allKeys.nextElement();
+			String nextValue = props.getProperty(nextKey);
 
-        setDependencies();
-        persistentState = new Properties();
-        Enumeration allKeys = props.propertyNames();
-        while (allKeys.hasMoreElements() == true)
-        {
-            String nextKey = (String)allKeys.nextElement();
-            String nextValue = props.getProperty(nextKey);
-
-            if (nextValue != null)
-            {
-                persistentState.setProperty(nextKey, nextValue);
-            }
-        }
-    }
+			if (nextValue != null)
+			{
+				persistentState.setProperty(nextKey, nextValue);
+			}
+		}
+	}
 
     //-----------------------------------------------------------------------------------
     private void setDependencies() {
@@ -162,7 +157,7 @@ public class InventoryItem extends EntityBase implements IView {
         }
         catch (SQLException ex)
         {
-            updateStatusMessage = "Error in installing book data in database!";
+            updateStatusMessage = "Error in installing item data in database!";
         }
         System.out.println(updateStatusMessage);
     }
@@ -177,16 +172,14 @@ public class InventoryItem extends EntityBase implements IView {
     //-----------------------------------------------------------------------------------
     protected void initializeSchema(String tableName)
     {
-
+    	if (mySchema == null)
+		{
+			mySchema = getSchemaInfo(tableName);
+		}
     }
 
     public void stateChangeRequest(String key, Object value)
     {
-
-    }
-
-    public void deleteInventoryItem() {
-        String query = "DELETE FROM " + myTableName + " WHERE (Barcode = " + Barcode + ")";
-        getSelectQueryResult(query);
+    	myRegistry.updateSubscribers(key, this);
     }
 }

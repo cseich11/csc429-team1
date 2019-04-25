@@ -15,12 +15,11 @@ import userinterface.ViewFactory;
 public class SearchIIAction extends Action
 {
 	private static final String myTableName = "InventoryItem";
-	//private InventoryItemTypeCollection list; 
+	//private InventoryItemCollection list; 
 
 	// GUI Components
 	private int barcode = 0;
 	private String actionErrorMessage = "";
-//	private String inventoryUpdateStatusMessage = "";
 	private String iiUpdateStatusMessage = "";
 	
 	private InventoryItem ii;
@@ -67,13 +66,13 @@ public class SearchIIAction extends Action
 	public void processAction(Properties props)
 	{
 
-		barcode = props.getProperty("Barcode");
+		barcode = Integer.parseInt(props.getProperty("Barcode"));
 
 		if(barcode != 0)
 		{
-			ii.persistentState.setProperty("Barcode", barcode);
+			ii.persistentState.setProperty("Barcode", "" + barcode);
 			ii.update();
-//			inventoryUpdateStatusMessage = (String)ii.getState("UpdateStatusMessage");
+			iiUpdateStatusMessage = (String)ii.getState("UpdateStatusMessage");
 		}
 	}
 
@@ -82,8 +81,8 @@ public class SearchIIAction extends Action
 	{
 		if (key.equals("ActionError"))
 			return actionErrorMessage;
-//		if (key.equals("ActionMessage"))
-//			return inventoryUpdateStatusMessage;
+		if (key.equals("UpdateStatusMessage"))
+			return iiUpdateStatusMessage;
 		if(key.equals("IIData"))
 			return barcode;
 		
