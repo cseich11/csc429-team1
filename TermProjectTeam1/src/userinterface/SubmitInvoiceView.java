@@ -206,7 +206,7 @@ public class SubmitInvoiceView extends View
 //			isNum = false;
 //		}
 
-		if (iitNameEntered == null || iitNameEntered.length() == 0 || !(iitNameEntered.matches("[a-zA-Z]+")))
+		if (iitNameEntered == null || iitNameEntered.length() == 0)
 			displayErrorMessage("Please enter a valid item type name");
 		else if(barcodeEntered == null || barcodeEntered.length() == 0)
 			displayErrorMessage("Please enter a barcode for the item on the invoice");
@@ -236,20 +236,19 @@ public class SubmitInvoiceView extends View
 	
 
 	/**
-	 * Required by interface
+	 * Update method
 	 */
 	//---------------------------------------------------------
 	public void updateState(String key, Object value)
 	{
-		if(key.equals("UpdateStatusMessage"))
+		clearErrorMessage();
+
+		if (key.equals("UpdateStatusMessage") == true)
 		{
-			String msg = (String)value;
-			displayMessage(msg);
+			displayMessage((String)value);
 		}
-		else if(key.equals("ActionError")) {
-			String msg = (String)value;
-			displayMessage(msg);
-		}
+		else if (key.equals("ActionError"))
+			displayErrorMessage((String)value);
 	}
 
 	/**

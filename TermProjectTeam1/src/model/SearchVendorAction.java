@@ -7,6 +7,9 @@ import javafx.scene.Scene;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Vector;
@@ -63,7 +66,7 @@ public class SearchVendorAction extends Action
 		dependencies.setProperty("IITData", "UpdateStatusMessage");
 		dependencies.setProperty("ModifyVendor", "ActionError");
 		dependencies.setProperty("InvoiceData", "ActionError");
-		//dependencies.setProperty("InvoiceData", "UpdateStatusMessage");
+		dependencies.setProperty("InvoiceData", "UpdateStatusMessage");
 
 		myRegistry.setDependencies(dependencies);
 	}
@@ -133,9 +136,10 @@ public class SearchVendorAction extends Action
 		
 		try {
 			viit = new VendorInventoryItemType(vId, iitNameEntered);
-			DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
-			Date date = new Date();
+			DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate date = LocalDate.now();
 			String curDate = format.format(date);
+			System.out.println(curDate);
 			
 			Properties prop = new Properties();
 			prop.setProperty("Barcode", barcodeEntered);
