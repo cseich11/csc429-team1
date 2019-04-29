@@ -340,7 +340,7 @@ public class AddNewIITActionView extends View
 		{
 			displayErrorMessage("Please Enter a measure for units");
 		}
-		else if(!vC || validityDaysInput.length() == 0 || Integer.parseInt(validityDaysInput) < 0)
+		else if(!vC || validityDaysInput.length() == 0 || Integer.parseInt(validityDaysInput) < -1)
 		{
 			displayErrorMessage("Please Enter a nonnegative number for validity days");
 		}
