@@ -350,11 +350,11 @@ public class ModifyIITActionView extends View
 		{
 			displayErrorMessage("Please Enter a measure for units");
 		}
-		else if(!vC || validityDaysInput.length() == 0 || Integer.parseInt(unitsInput) < 0)
+		else if(!vC || validityDaysInput.length() == 0 || Integer.parseInt(validityDaysInput) < -1)
 		{
-			displayErrorMessage("Please Enter a nonnegative number for validity days");
+			displayErrorMessage("Please Enter a  number for validity days >= -1");
 		}
-		else if(!rC || reorderPointInput.length() == 0 || Integer.parseInt(unitsInput) < 0)
+		else if(!rC || reorderPointInput.length() == 0 || Integer.parseInt(reorderPointInput) < 0)
 		{
 			displayErrorMessage("Please Enter a nonnegative number for reorder point");
 		}
