@@ -21,6 +21,7 @@ public class DeleteVIITAction extends Action
 	private String inventoryItemTypeName;
 	private String vendorId;
 	private String vendorPrice;
+	private String[] data;
 
 	// GUI Components
 	
@@ -84,6 +85,7 @@ public class DeleteVIITAction extends Action
 	{
 		String vName = props.getProperty("vendorName");
 		String vPhone = props.getProperty("phoneNumber");
+		System.out.println(vName + " - " + vPhone);
 		vendorList = new VendorCollection();
 		vendorList.findVendors(vName, vPhone);
 		createAndShowVendors();
@@ -171,7 +173,12 @@ public class DeleteVIITAction extends Action
 		}
 		else if (key.equals("VendorData") == true)
 		{
-			showVendorList((Properties)value);
+			data = (String[]) value;
+			System.out.println(data[0] + " - " + data[1]);
+			Properties props = new Properties();
+			props.setProperty("vendorName", data[0]);
+			props.setProperty("phoneNumber", data[1]);
+			showVendorList((Properties)props);
 		}
 		else if(key.equals("IITData"))
 			showIITList((String[])value);
