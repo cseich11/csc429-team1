@@ -20,7 +20,7 @@ public class SearchIIAction extends Action
 	// GUI Components
 	private String barcode = "";
 	private String actionErrorMessage = "";
-//	private String inventoryUpdateStatusMessage = "";
+	private String updateStatusMessage = "";
 //	private String iiUpdateStatusMessage = "";
 	
 	private InventoryItem ii;
@@ -45,6 +45,8 @@ public class SearchIIAction extends Action
 		dependencies.setProperty("SearchII", "ActionError");
 		dependencies.setProperty("OK", "CancelAction");
 		dependencies.setProperty("IIData", "UpdateStatusMessage");
+		dependencies.setProperty("GetII", "ActionError");
+		dependencies.setProperty("IIDelete", "UpdateStatusMessage");
 
 		myRegistry.setDependencies(dependencies);
 	}
@@ -83,13 +85,14 @@ public class SearchIIAction extends Action
 		{
 			try {
 				ii = new InventoryItem((String)value);
+				if(ii.getStatus().equals("Available"))
+					createAndShowDeleteIIView();
+				else
+					actionErrorMessage = "Inventory Item does not exist";
 			} catch (InvalidPrimaryKeyException e) {
-				e.printStackTrace();
+				actionErrorMessage = "Inventory Item does not exist";
 			}
-			if(ii.getStatus().equals("Available"))
-				createAndShowDeleteIIView();
-			else
-				System.out.println("ERRORROROROROR");
+			
 		}
 		else if(key.equals("IIDelete"))
 			processActionDelete((Properties)value);
@@ -107,7 +110,9 @@ public class SearchIIAction extends Action
 	public void processActionDelete(Properties props)
 	{
 		ii.persistentState.setProperty("Status", "Used");
+		
 		ii.update();
+		updateStatusMessage = "Item: " + ii.persistentState.getProperty("Barcode") + " marked as used";
 	}
 	
 	/**

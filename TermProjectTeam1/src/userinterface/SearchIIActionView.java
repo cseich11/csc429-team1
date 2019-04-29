@@ -61,6 +61,8 @@ public class SearchIIActionView extends View
 		populateFields();
 		
 		myModel.subscribe("UpdateStatusMessage", this);
+		myModel.subscribe("ActionError", this);
+		
 	}
 
 
@@ -144,8 +146,10 @@ public class SearchIIActionView extends View
 		clearErrorMessage();
 
 		String dataEntered = barcodeSearch.getText();
-		
-		processData(dataEntered);
+		if(!dataEntered.matches("^[0-9]{9}$"))
+			displayErrorMessage("Please enter a valid 9 digit Barcode");
+		else
+			processData(dataEntered);
 	}
 
 	/**
@@ -170,6 +174,11 @@ public class SearchIIActionView extends View
 		{
 			String msg = (String)value;
 			displayMessage(msg);
+		}
+		else if(key.equals("ActionError"))
+		{
+			String msg = (String)value;
+			displayErrorMessage(msg);
 		}
 	}
 
