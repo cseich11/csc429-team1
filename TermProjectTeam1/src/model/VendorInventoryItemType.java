@@ -86,6 +86,21 @@ import userinterface.WindowPosition;
 				}
 			}
 		
+		public boolean checkVIITExists(String vendorId, String itemTypeName)
+		{
+		
+			setDependencies();
+			String query = "SELECT * FROM VendorInventoryItemType WHERE (VendorId = " + vendorId + " AND InventoryItemTypeName = \"" + itemTypeName + "\")";
+		
+			Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
+		
+			// You must get one viit at least
+			if (allDataRetrieved.size() != 0)
+			{
+				return true;
+			}
+			return false;
+		}
 		public VendorInventoryItemType(String vendorId, String itemTypeName)
 				throws InvalidPrimaryKeyException
 			{
@@ -136,6 +151,11 @@ import userinterface.WindowPosition;
 						+ vendorId + " and " + itemTypeName + " found.");
 				}
 			}
+		
+		public VendorInventoryItemType()
+		{
+			super(myTableName);
+		}
 	
 		// Can also be used to create a NEW Book (if the system it is part of
 		// allows for a new book to be set up)

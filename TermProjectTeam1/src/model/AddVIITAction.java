@@ -149,13 +149,23 @@ public class AddVIITAction extends Action
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			createAndShowPriceView();
+			viit = new VendorInventoryItemType();
+			if(viit.checkVIITExists(vendor.persistentState.getProperty("vId"),iit.persistentState.getProperty("ItemTypeName")))
+			{
+				viitUpdateStatusMessage = "This VIIT already Exists!";
+				createAndShowVendorSearch();
+			}
+			else
+			{
+				createAndShowPriceView();
+			}
 		}
 		else if(key.equals("SelectedVendor"))
 		{
 			try
 			{
 				vendor = new Vendor((String)value);
+				viitUpdateStatusMessage = "";
 			} catch (InvalidPrimaryKeyException e) {
 				e.printStackTrace();
 			}
@@ -234,9 +244,9 @@ public class AddVIITAction extends Action
 	
 	protected void createAndShowVendorSearch()
 	{
-		View newView = ViewFactory.createView("SearchVendorsForVIITView", this);
+		View newView = ViewFactory.createView("SearchVendorActionView", this);
 		Scene currentScene = new Scene(newView);
-		myViews.put("SearchVendorsForVIITView", currentScene);
+		myViews.put("SearchVendorActionView", currentScene);
 
 		swapToView(currentScene);
 	}
@@ -261,9 +271,9 @@ public class AddVIITAction extends Action
 	
 	protected void createAndShowIITSearch()
 	{
-		View newView = ViewFactory.createView("SearchIITForVIITView", this);
+		View newView = ViewFactory.createView("SearchIITActionView", this);
 		Scene currentScene = new Scene(newView);
-		myViews.put("SearchIITForVIITView", currentScene);
+		myViews.put("SearchIITActionView", currentScene);
 
 		swapToView(currentScene);
 	}
