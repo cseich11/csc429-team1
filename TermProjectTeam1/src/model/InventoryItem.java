@@ -203,7 +203,7 @@ public class InventoryItem extends EntityBase implements IView {
 			super(myTableName);
 	
 			setDependencies();
-			String query = "SELECT * FROM " + myTableName + " WHERE (Barcode = \"" + barcode + "\")";
+			String query = "SELECT * FROM " + myTableName + " WHERE (Barcode = " + barcode + ")";
 	
 			Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 	
@@ -321,12 +321,12 @@ public class InventoryItem extends EntityBase implements IView {
 			try
 			{
 				String barcode = (String)persistentState.getProperty("Barcode");
-				String query = "SELECT * FROM " + myTableName + " WHERE (Barcode IS " + barcode + ")";
+				String query = "SELECT * FROM " + myTableName + " WHERE (Barcode = " + barcode + ")";
 				
 				Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
 		
 				// You must get one book at least
-				if (allDataRetrieved != null)
+				if (allDataRetrieved != null && !allDataRetrieved.isEmpty())
 				{
 					Properties whereClause = new Properties();
 					whereClause.setProperty("Barcode",persistentState.getProperty("Barcode"));
