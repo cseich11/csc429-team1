@@ -94,8 +94,10 @@ public class SearchIIAction extends Action
 			}
 			
 		}
-		else if(key.equals("IIDelete"))
+		else if(key.equals("IIDelete")) {
 			processActionDelete((Properties)value);
+			swapToView(createView());
+		}
 
 		myRegistry.updateSubscribers(key, this);
 	}
@@ -110,9 +112,9 @@ public class SearchIIAction extends Action
 	public void processActionDelete(Properties props)
 	{
 		ii.persistentState.setProperty("Status", "Used");
-		
-		ii.update();
 		updateStatusMessage = "Item: " + ii.persistentState.getProperty("Barcode") + " marked as used";
+		ii.update();
+		
 	}
 	
 	/**
