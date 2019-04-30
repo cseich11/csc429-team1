@@ -66,7 +66,6 @@ public class ModifyVendorView extends View
 		populateFields();
 
 		myModel.subscribe("UpdateStatusMessage", this);
-		myModel.subscribe("ActionMessage", this);
     }
 
     // Create the label (Text) for the title of the screen

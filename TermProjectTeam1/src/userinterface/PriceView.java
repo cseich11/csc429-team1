@@ -163,9 +163,9 @@ public class PriceView extends View
 		String priceEntered = priceInput.getText();
 
 		if (priceEntered == null || priceEntered.length() == 0)
-			displayErrorMessage("Please enter an valid Price");
-		else if(!priceEntered.matches("^0.[0-9]{2}$") && !priceEntered.matches("^[^0][0-9]+(.[0-9]{2})?$"))  
-			displayErrorMessage("Please enter a valid price");
+			displayErrorMessage("Please enter an valid Price (e.g. 5.00)");
+		else if(!priceEntered.matches("^0\\.[0-9]{2}$") && !priceEntered.matches("^[1-9][0-9]*\\.[0-9]{2}$"))  
+			displayErrorMessage("Please enter a valid Price (e.g. 5.00)");
 		else
 		{
 			processData(priceEntered);

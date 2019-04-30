@@ -73,7 +73,7 @@ public class ModifyIITAction extends Action
 		notes = props.getProperty("Notes");
 		status = props.getProperty("Status");
 
-		if(itemTypeName != null && units != null && unitMeasure != null && validityDays!= null && reorderPoint != null && notes != null && status != null)
+		if(itemTypeName != null && units != null && unitMeasure != null && validityDays != null && reorderPoint != null && notes != null && status != null)
 		{
 			iit = new InventoryItemType(props);
 			iit.update();

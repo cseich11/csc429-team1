@@ -80,10 +80,10 @@ public class AddVIITAction extends Action
 			//createAndShowIITListView();
 	}
 
-	public void showVendorList(Properties props)
+	public void showVendorList(String[] data)
 	{
-		String vName = props.getProperty("vendorName");
-		String vPhone = props.getProperty("phoneNumber");
+		String vName = data[0];
+		String vPhone = data[1];
 		vendorList = new VendorCollection();
 		vendorList.findVendors(vName, vPhone);
 		createAndShowVendors();
@@ -173,7 +173,7 @@ public class AddVIITAction extends Action
 		}
 		else if (key.equals("VendorData") == true)
 		{
-			showVendorList((Properties)value);
+			showVendorList((String[])value);
 		}
 		else if(key.equals("IITData"))
 			showIITList((String[])value);

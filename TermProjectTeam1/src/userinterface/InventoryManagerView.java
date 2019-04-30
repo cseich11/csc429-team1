@@ -104,17 +104,17 @@ public class InventoryManagerView extends View
  			myModel.stateChangeRequest("AddNewIIT", null);
         });
         
-        searchIITButton = new Button("Lookup Inventory Item Types");
+        searchIITButton = new Button("Search Inventory Item Type");
         searchIITButton.setOnAction(e -> {
  			myModel.stateChangeRequest("SearchIIT", null);
         });
         
-        searchIIButton = new Button("Lookup Inventory Items");
+        searchIIButton = new Button("Search Inventory Item");
         searchIIButton.setOnAction(e -> {
  			myModel.stateChangeRequest("SearchII", null);
         });
         
-        addVendorButton = new Button("Insert Vendor");
+        addVendorButton = new Button("Add New Vendor");
         addVendorButton.setOnAction(e -> {
         	myModel.stateChangeRequest("AddVendor", null);
         });
