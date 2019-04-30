@@ -85,6 +85,7 @@ public class SearchIIAction extends Action
 		{
 			try {
 				ii = new InventoryItem((String)value);
+				System.out.println(ii.persistentState.getProperty("Status"));
 				if(ii.getStatus().equals("Available"))
 					createAndShowDeleteIIView();
 				else
@@ -111,9 +112,19 @@ public class SearchIIAction extends Action
 	
 	public void processActionDelete(Properties props)
 	{
-		ii.persistentState.setProperty("Status", "Used");
-		updateStatusMessage = "Item: " + ii.persistentState.getProperty("Barcode") + " marked as used";
-		ii.update();
+		System.out.println(ii.persistentState.getProperty("ValidityDays").equals("-1"));
+		if(ii.persistentState.getProperty("ValidityDays").equals("-1") || ii.persistentState.getProperty("CalcExpired").equals("0"))
+		{
+			ii.persistentState.setProperty("Status", "Used");
+			updateStatusMessage = "Item: " + ii.persistentState.getProperty("Barcode") + " marked as used";
+			ii.update();
+		}
+		else if(ii.persistentState.getProperty("CalcExpired").equals("1"))
+		{
+			ii.persistentState.setProperty("Status", "Expired");
+			updateStatusMessage = "Item: " + ii.persistentState.getProperty("Barcode") + " is expired.";
+			ii.update();
+		}
 		
 	}
 	

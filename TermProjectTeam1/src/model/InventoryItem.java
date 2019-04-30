@@ -203,9 +203,11 @@ public class InventoryItem extends EntityBase implements IView {
 			super(myTableName);
 	
 			setDependencies();
-			String query = "SELECT * FROM " + myTableName + " WHERE (Barcode = " + barcode + ")";
+			String query = "SELECT InventoryItem.*, InventoryItemType.ValidityDays, IF(ValidityDays = '-1' , 0 , DATE_ADD(DateRecieved, INTERVAL ValidityDays DAY) <= CURRENT_DATE) as CalcExpired FROM " + myTableName + " LEFT JOIN InventoryItemType ON InventoryItemTypeName = ItemTypeName WHERE (Barcode = " + barcode + ")";
 	
 			Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
+			
+			System.out.println(allDataRetrieved);
 	
 			// You must get one book at least
 			if (allDataRetrieved != null)
@@ -223,7 +225,6 @@ public class InventoryItem extends EntityBase implements IView {
 					// copy all the retrieved data into persistent state
 					Properties retrievedIITData = allDataRetrieved.elementAt(0);
 					persistentState = new Properties();
-//					System.out.println(retrievedIITData);
 	
 					Enumeration allKeys = retrievedIITData.propertyNames();
 					while (allKeys.hasMoreElements() == true)
@@ -321,15 +322,16 @@ public class InventoryItem extends EntityBase implements IView {
 			try
 			{
 				String barcode = (String)persistentState.getProperty("Barcode");
-				String query = "SELECT * FROM " + myTableName + " WHERE (Barcode = " + barcode + ")";
+				String query = "SELECT InventoryItem.*, InventoryItemType.ValidityDays, IF(ValidityDays = '-1' , 0 , DATE_ADD(DateRecieved, INTERVAL ValidityDays DAY) <= CURRENT_DATE) as CalcExpired FROM " + myTableName + " LEFT JOIN InventoryItemType ON InventoryItemTypeName = ItemTypeName WHERE (Barcode = " + barcode + ")";
 				
 				Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
-		
+				
 				// You must get one book at least
 				if (allDataRetrieved != null && !allDataRetrieved.isEmpty())
 				{
 					Properties whereClause = new Properties();
 					whereClause.setProperty("Barcode",persistentState.getProperty("Barcode"));
+					System.out.println(persistentState);
 					updatePersistentState(mySchema, persistentState, whereClause);
 					updateStatusMessage = "Item: " + persistentState.getProperty("Barcode") + " updated in database!";
 				}
