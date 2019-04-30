@@ -43,8 +43,6 @@ public class SearchIIActionView extends View
 	{
 		super(action, "SearchIIActionView");
 
-		System.out.println("testss");
-
 		// create a container for showing the contents
 		VBox container = new VBox(10);
 		container.setPadding(new Insets(15, 5, 5, 5));

@@ -331,7 +331,13 @@ public class InventoryItem extends EntityBase implements IView {
 					Properties whereClause = new Properties();
 					whereClause.setProperty("Barcode",persistentState.getProperty("Barcode"));
 					updatePersistentState(mySchema, persistentState, whereClause);
-					updateStatusMessage = "Item: " + persistentState.getProperty("Barcode") + " updated in database!";
+
+					if(persistentState.getProperty("Status").equals("Expired"))
+						updateStatusMessage = "Item: " + persistentState.getProperty("Barcode") + " marked as Expired!";
+					else if(persistentState.getProperty("Status").equals("Used"))
+						updateStatusMessage = "Item: " + persistentState.getProperty("Barcode") + " marked as Used!";
+					else
+						updateStatusMessage = "Item: " + persistentState.getProperty("Barcode") + " updated in database!";
 				}
 				else
 				{
