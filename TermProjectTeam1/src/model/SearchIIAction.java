@@ -3,6 +3,9 @@ package model;
 
 // system imports
 import javafx.scene.Scene;
+
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -111,9 +114,30 @@ public class SearchIIAction extends Action
 	
 	public void processActionDelete(Properties props)
 	{
-		ii.persistentState.setProperty("Status", "Used");
-		updateStatusMessage = "Item: " + ii.persistentState.getProperty("Barcode") + " marked as used";
-		ii.update();
+		try {
+			InventoryItemType iit = new InventoryItemType(ii.persistentState.getProperty("InventoryItemTypeName"));
+			
+			String vDays = iit.persistentState.getProperty("ValidityDays");
+			
+			boolean isExpired = !(Date.valueOf(ii.persistentState.getProperty("DateRecieved")).toLocalDate().plusDays(Integer.parseInt(iit.persistentState.getProperty("ValidityDays"))).isAfter(LocalDate.now()));
+			
+			if(vDays.equals("-1") || !isExpired)
+			{
+				ii.persistentState.setProperty("Status", "Used");
+				updateStatusMessage = "Item: " + ii.persistentState.getProperty("Barcode") + " marked as used";
+				ii.update();
+			}
+			else
+			{
+				ii.persistentState.setProperty("Status", "Expired");
+				updateStatusMessage = "Item: " + ii.persistentState.getProperty("Barcode") + " marked as expired";
+				ii.update();
+			}
+			
+			
+		} catch (InvalidPrimaryKeyException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
