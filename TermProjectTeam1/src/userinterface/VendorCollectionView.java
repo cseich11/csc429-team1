@@ -52,18 +52,19 @@ public class VendorCollectionView extends View
     // GUI stuff
 	protected TableView<VendorTableModel> vendorTable;
 
-    private Button doneButtonSearchBook;
+    private Button doneButton, processInvoiceButton, addVIITButton, deleteVIITButton, modifyVendorButton;
     private Button selectVendorButton;
+    private HBox btnContainer;
 
     // For showing error message
     private MessageView statusLog;
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public VendorCollectionView( IModel wsc)
+    public VendorCollectionView( IModel model)
     {
 
-        super(wsc, "VendorCollectionView");
+        super(model, "VendorCollectionView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -174,6 +175,8 @@ public class VendorCollectionView extends View
 		statusColumn.setMinWidth(20);
 		statusColumn.setCellValueFactory(
 	                new PropertyValueFactory<VendorTableModel, String>("status"));
+		
+		
 
 		vendorTable.getColumns().addAll(vendorIdColumn, 
 				 nameColumn, phoneColumn, statusColumn);
@@ -182,39 +185,38 @@ public class VendorCollectionView extends View
 			@Override
 			public void handle(MouseEvent event)
 			{
-				if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
-					processVendorSelected();
+				if (event.isPrimaryButtonDown() && event.getClickCount() >=1 ){
+					addButtonsForSelected();
 				}
 			}
 		});
+
 		ScrollPane scrollPane = new ScrollPane();
 		scrollPane.setPrefSize(190, 200);
 		scrollPane.setContent(vendorTable);
 
-        doneButtonSearchBook = new Button("DONE");
-        doneButtonSearchBook.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent e) {
-            	InventoryManager newLibrarian = new InventoryManager();
-            }
+        doneButton = new Button("DONE");
+        doneButton.setOnAction(new EventHandler<ActionEvent>() {
+        	
+        	 @Override
+    		    public void handle(ActionEvent e) {
+				/**
+				 * Process the Cancel button.
+				 * The ultimate result of this action is that the transaction will tell the teller to
+				 * to switch to the transaction choice view. BUT THAT IS NOT THIS VIEW'S CONCERN.
+				 * It simply tells its model (controller) that the transaction was canceled, and leaves it
+				 * to the model to decide to tell the teller to do the switch back.
+				 */
+    		    	//----------------------------------------------------------
+    		    	clearErrorMessage();
+    		    	myModel.stateChangeRequest("CancelVendorList", null); 
+    		    }
         });
         
-        selectVendorButton = new Button("SELECT");
-        selectVendorButton.setOnAction(e -> {
- 			clearErrorMessage(); 
-			// do the insert
-			processVendorSelected();
-        });
-        // HBox btnContainer4 = new HBox(10);
-        // btnContainer4.setAlignment(Pos.BOTTOM_CENTER);
-        // btnContainer4.getChildren().add(doneButtonSearchBook);
-        // grid.add(btnContainer4, 0, 5);
 		
-		HBox btnContainer = new HBox(10);
+		btnContainer = new HBox(10);
 		btnContainer.setAlignment(Pos.CENTER);
-		btnContainer.getChildren().add(doneButtonSearchBook);
-		btnContainer.getChildren().add(selectVendorButton);
+		btnContainer.getChildren().add(doneButton);
 
 		
 		vbox.getChildren().add(grid);
@@ -229,19 +231,46 @@ public class VendorCollectionView extends View
 	}
 	
 	//--------------------------------------------------------------------------
-	
-	protected void processVendorSelected()
+	protected void addButtonsForSelected()
 	{
 		VendorTableModel selectedItem = vendorTable.getSelectionModel().getSelectedItem();
 		
 		if(selectedItem != null)
 		{
-			System.out.println("1");
-			String selectedVendorId = selectedItem.getVendorId();
+			if(btnContainer.getChildren().contains(processInvoiceButton) && btnContainer.getChildren().contains(modifyVendorButton)
+					&& btnContainer.getChildren().contains(addVIITButton) && btnContainer.getChildren().contains(deleteVIITButton)) 
+			{
+				btnContainer.getChildren().remove(processInvoiceButton);
+				btnContainer.getChildren().remove(modifyVendorButton);
+				btnContainer.getChildren().remove(addVIITButton);
+				btnContainer.getChildren().remove(deleteVIITButton);
+			}
+			System.out.println(selectedItem.getVendorId());
+			String selectedVendorID = selectedItem.getVendorId();
+			
+			processInvoiceButton = new Button("Process Invoice");
+			processInvoiceButton.setOnAction(e -> {
+				myModel.stateChangeRequest("ProcessInvoice", selectedVendorID);
+			});
+			modifyVendorButton = new Button("Modify Vendor");
+			modifyVendorButton.setOnAction(e -> {
+				myModel.stateChangeRequest("ModifyVendor", selectedVendorID);
+			});
+			addVIITButton = new Button("Add VIIT");
+			addVIITButton.setOnAction(e -> {
+				myModel.stateChangeRequest("AddVIIT", selectedVendorID);
+			});
+			deleteVIITButton = new Button("Delete VIIT");
+			deleteVIITButton.setOnAction(e -> {
+				myModel.stateChangeRequest("DeleteVIIT", selectedVendorID);
+			});
+			btnContainer.getChildren().addAll(processInvoiceButton, modifyVendorButton, addVIITButton, deleteVIITButton);
 
-			myModel.stateChangeRequest("selectedVendor", selectedVendorId);
+			myModel.stateChangeRequest("IITSelected", selectedVendorID);
+			
 		}
 	}
+
     // Create the status log field
     //-------------------------------------------------------------
     private MessageView createStatusLog(String initialMessage)

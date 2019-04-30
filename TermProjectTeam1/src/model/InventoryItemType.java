@@ -35,8 +35,7 @@ import userinterface.WindowPosition;
 		
 		// constructor for this class
 		//----------------------------------------------------------
-		public InventoryItemType(String itemTypeName)
-			throws InvalidPrimaryKeyException
+		public InventoryItemType(String itemTypeName) throws InvalidPrimaryKeyException
 		{
 			super(myTableName);
 	

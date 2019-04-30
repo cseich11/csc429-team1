@@ -7,7 +7,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -19,34 +18,32 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-import java.util.Properties;
-
 // project imports
 import impresario.IModel;
-//import model.SearchVendorAction;
 
-/** The class containing the Deposit Amount View  for the ATM application */
+/** The class containing the Deposit Amount View  for the Library application */
 //==============================================================
-public class SearchVendorsForVIITView extends View
+public class SearchIIActionView extends View
 {
 
 	// Model
 
 	// GUI components
-	protected TextField venName, phoneNum;
-	private ComboBox<String> status;
+	private TextField barcodeSearch;
 
-	private Button submitButton;
-	private Button doneButton;
+	private Button searchButton;
+	private Button cancelButton;
 
 	// For showing error message
 	private MessageView statusLog;
 
 	// constructor for this class -- takes a model object
 	//----------------------------------------------------------
-	public SearchVendorsForVIITView(IModel AddVIITAction)
+	public SearchIIActionView(IModel action)
 	{
-		super(AddVIITAction, "AddVIITAction");
+		super(action, "SearchIIActionView");
+
+		System.out.println("testss");
 
 		// create a container for showing the contents
 		VBox container = new VBox(10);
@@ -57,13 +54,15 @@ public class SearchVendorsForVIITView extends View
 		container.getChildren().add(createFormContent());
 
 		// Error message area
-		container.getChildren().add(createStatusLog("                          \n                            "));
+		container.getChildren().add(createStatusLog("                          "));
 
 		getChildren().add(container);
 
 		populateFields();
 		
 		myModel.subscribe("UpdateStatusMessage", this);
+		myModel.subscribe("ActionError", this);
+		
 	}
 
 
@@ -72,18 +71,13 @@ public class SearchVendorsForVIITView extends View
 	private Node createTitle()
 	{
 		
-		HBox container = new HBox();
-		container.setAlignment(Pos.CENTER);	
-
-        Text titleText = new Text("Search For Vendor");
-        titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-		titleText.setStrokeWidth(0.5);
-		titleText.setStroke(Color.GOLDENROD);  
-        titleText.setTextAlignment(TextAlignment.CENTER);
-        titleText.setFill(Color.DARKGREEN);
-		container.getChildren().add(titleText);
-
-        return container;
+		Text titleText = new Text("       Inventory Item Search          ");
+		titleText.setWrappingWidth(300);
+		titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+		titleText.setTextAlignment(TextAlignment.CENTER);
+		titleText.setFill(Color.DARKGREEN);
+		
+		return titleText;
 	}
 
 	// Create the main form content
@@ -93,62 +87,34 @@ public class SearchVendorsForVIITView extends View
 		VBox vbox = new VBox(10);
 
 		GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(25, 40, 1, 25));
+        	grid.setAlignment(Pos.CENTER);
+       		grid.setHgap(10);
+        	grid.setVgap(10);
+        	grid.setPadding(new Insets(25, 25, 25, 25));
 
+		Label barcodeSearchLabel = new Label("Barcode: ");
+		grid.add(barcodeSearchLabel, 0, 0);
 
+		barcodeSearch = new TextField();
+		grid.add(barcodeSearch, 1, 0);
 
-
-        Text vendorName = new Text("Enter Vendor Name:");
-		vendorName.setFont(Font.font("Arial", FontWeight.BOLD, 13));
-        vendorName.setWrappingWidth(350);
-        vendorName.setTextAlignment(TextAlignment.CENTER);
-        vendorName.setFill(Color.GOLDENROD);
-        grid.add(vendorName, 1, 0);
-
-		venName = new TextField();
-		venName.setEditable(true);
-		venName.setOnAction(e -> {
-			processAction(e);
-		});
-		grid.add(venName, 1, 1);
-		
-		
-		
-		Text phoneNumber = new Text("Enter Phone Number:");
-		phoneNumber.setFont(Font.font("Arial", FontWeight.BOLD, 13));
-        phoneNumber.setWrappingWidth(350);
-        phoneNumber.setTextAlignment(TextAlignment.CENTER);
-        phoneNumber.setFill(Color.GOLDENROD);
-        grid.add(phoneNumber, 1, 2);
-		
-		phoneNum = new TextField();
-		phoneNum.setOnAction(e -> {
-			processAction(e);
-		});
-		grid.add(phoneNum, 1, 3);
-		
-		
-		
-		submitButton = new Button("Submit");
- 		submitButton.setOnAction(e -> {
+		searchButton = new Button("Search");
+ 		searchButton.setOnAction(e -> {
  			clearErrorMessage(); 
-			// do the insert
+			// do the search
 			processAction(e);
         });
 
-		doneButton = new Button("Done");
- 		doneButton.setOnAction(e -> {
+		cancelButton = new Button("Back");
+ 		cancelButton.setOnAction(e -> {
  			clearErrorMessage();
-			myModel.stateChangeRequest("Cancel", null);   
+			myModel.stateChangeRequest("Cancel", null); 
         });
 
 		HBox btnContainer = new HBox(100);
 		btnContainer.setAlignment(Pos.CENTER);
-		btnContainer.getChildren().add(submitButton);
-		btnContainer.getChildren().add(doneButton);
+		btnContainer.getChildren().add(searchButton);
+		btnContainer.getChildren().add(cancelButton);
 
 		vbox.getChildren().add(grid);
 		vbox.getChildren().add(btnContainer);
@@ -168,8 +134,7 @@ public class SearchVendorsForVIITView extends View
 	//-------------------------------------------------------------
 	public void populateFields()
 	{
-		venName.setText("");
-		phoneNum.setText("");
+		barcodeSearch.setText("");
 	}
 
 	// process events generated from our GUI components
@@ -180,26 +145,11 @@ public class SearchVendorsForVIITView extends View
 
 		clearErrorMessage();
 
-		String venNameEntered = venName.getText();
-		String phoneNumEntered = phoneNum.getText();
-//		boolean isNum = true; 
-//		try {
-//			Integer.parseInt(phoneNumEntered);
-//		} catch(NumberFormatException e) {
-//			isNum = false;
-//		}
-
-		if (venNameEntered == null || venNameEntered.length() == 0)
-			displayErrorMessage("Please enter an name");
-		else if(phoneNumEntered == null || phoneNumEntered.length() == 0)
-			displayErrorMessage("Please enter a phone number");
-		else if(!phoneNumEntered.matches("^[0-9]+$"))
-			displayErrorMessage("Phone number must be numerical");
+		String dataEntered = barcodeSearch.getText();
+		if(!dataEntered.matches("^[0-9]{9}$"))
+			displayErrorMessage("Please enter a valid 9 digit Barcode");
 		else
-		{
-			String status = "Active";
-			processData(venNameEntered, phoneNumEntered, status);
-		}
+			processData(dataEntered);
 	}
 
 	/**
@@ -207,14 +157,9 @@ public class SearchVendorsForVIITView extends View
 	 * Action is to pass this info on to the action object.
 	 */
 	//----------------------------------------------------------
-	private void processData(String a, String t, String s)
+	private void processData(String barcode)
 	{
-		Properties props = new Properties();
-		props.setProperty("vendorName", a);
-		props.setProperty("phoneNumber", t);
-		props.setProperty("status", s);
-		myModel.stateChangeRequest("VendorData", props);
-		populateFields();
+		myModel.stateChangeRequest("GetII", barcode);
 	}
 
 	
@@ -229,6 +174,11 @@ public class SearchVendorsForVIITView extends View
 		{
 			String msg = (String)value;
 			displayMessage(msg);
+		}
+		else if(key.equals("ActionError"))
+		{
+			String msg = (String)value;
+			displayErrorMessage(msg);
 		}
 	}
 

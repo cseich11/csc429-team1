@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -18,19 +19,19 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+import java.util.Properties;
+
 // project imports
 import impresario.IModel;
 
-/** The class containing the Deposit Amount View  for the Library application */
+
 //==============================================================
-public class SearchIITForVIITView extends View
+public class DeleteIIActionView extends View
 {
 
 	// Model
 
 	// GUI components
-	private TextField nameSearch, notesSearch;
-
 	private Button submitButton;
 	private Button cancelButton;
 
@@ -39,9 +40,9 @@ public class SearchIITForVIITView extends View
 
 	// constructor for this class -- takes a model object
 	//----------------------------------------------------------
-	public SearchIITForVIITView(IModel action)
+	public DeleteIIActionView(IModel action)
 	{
-		super(action, "AddVIITAction");
+		super(action, "DeleteIIActionView");
 
 		// create a container for showing the contents
 		VBox container = new VBox(10);
@@ -56,7 +57,7 @@ public class SearchIITForVIITView extends View
 
 		getChildren().add(container);
 
-		populateFields();
+		//populateFields();
 		
 		myModel.subscribe("UpdateStatusMessage", this);
 	}
@@ -67,7 +68,7 @@ public class SearchIITForVIITView extends View
 	private Node createTitle()
 	{
 		
-		Text titleText = new Text("       Restaurant Inventory Inventory Item Type Search          ");
+		Text titleText = new Text("       Remove From Inventory          ");
 		titleText.setWrappingWidth(300);
 		titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 		titleText.setTextAlignment(TextAlignment.CENTER);
@@ -88,32 +89,16 @@ public class SearchIITForVIITView extends View
         	grid.setVgap(10);
         	grid.setPadding(new Insets(25, 25, 25, 25));
 
-		Label nameSearchLabel = new Label("Search name: ");
-		grid.add(nameSearchLabel, 0, 0);
+		Label confirmDeleteLabel = new Label("Are you sure you want to remove this Inventory Item?");
+		grid.add(confirmDeleteLabel, 0, 0);
 
-		nameSearch = new TextField();
-		nameSearch.setOnAction(e -> {
-			processAction(e);
-		});
-		grid.add(nameSearch, 1, 0);
-		
-		Label notesSearchLabel = new Label("Search notes: ");
-		grid.add(notesSearchLabel, 0, 1);
-
-		notesSearch = new TextField();
-		notesSearch.setOnAction(e -> {
-			processAction(e);
-		});
-		grid.add(notesSearch, 1, 1);
-
-		submitButton = new Button("Submit");
+		submitButton = new Button("Confirm");
  		submitButton.setOnAction(e -> {
  			clearErrorMessage(); 
-			// do the search
 			processAction(e);
         });
 
-		cancelButton = new Button("Back");
+		cancelButton = new Button("Cancel");
  		cancelButton.setOnAction(e -> {
  			clearErrorMessage();
 			myModel.stateChangeRequest("Cancel", null); 
@@ -140,28 +125,15 @@ public class SearchIITForVIITView extends View
 	}
 
 	//-------------------------------------------------------------
-	public void populateFields()
+	//public void populateFields()
 	{
-		nameSearch.setText("");
-		notesSearch.setText("");
 	}
 
 	// process events generated from our GUI components
 	//-------------------------------------------------------------
 	public void processAction(Event evt)
 	{
-		// DEBUG: System.out.println("DepositAmountView.processAction()");
-
-		clearErrorMessage();
-
-		String[] dataEntered = {nameSearch.getText(), notesSearch.getText()};
-		
-//		if(titleEntered == null || titleEntered.length() == 0)
-//			displayErrorMessage("Please enter a title");
-//		else
-//		{
-			processData(dataEntered);
-//		}
+		myModel.stateChangeRequest("IIDelete", null);
 	}
 
 	/**
@@ -169,10 +141,10 @@ public class SearchIITForVIITView extends View
 	 * Action is to pass this info on to the action object.
 	 */
 	//----------------------------------------------------------
-	private void processData(String[] data)
-	{
-		myModel.stateChangeRequest("IITData", data);
-	}
+//	private void processData(String it)
+//	{
+//		myModel.stateChangeRequest("IIT Data", it);
+//	}
 
 	
 

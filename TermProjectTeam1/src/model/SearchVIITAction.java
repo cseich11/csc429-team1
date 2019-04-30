@@ -11,7 +11,7 @@ import userinterface.ViewFactory;
 
 /** The class containing the SearchInventoryItemTypesAction for the Library application */
 //==============================================================
-public class SearchIITAction extends Action
+public class SearchVIITAction extends Action
 {
 	private InventoryItemTypeCollection list; 
 
@@ -29,7 +29,7 @@ public class SearchIITAction extends Action
 	 *
 	 */
 	//----------------------------------------------------------
-	public SearchIITAction()
+	public SearchVIITAction()
 		throws Exception
 	{
 		super();
@@ -115,8 +115,6 @@ public class SearchIITAction extends Action
 			return iitUpdateStatusMessage;
 		if(key.equals("InventoryItemTypeList"))
 			return list;
-		if(key.equals("showSubmitButton"))
-			return false;
 		if(key.equals("IITData"))
 		{
 			String[] iitData = {itemTypeName, units, unitMeasure, validityDays, reorderPoint, notes, status};
@@ -134,13 +132,10 @@ public class SearchIITAction extends Action
 
 		if(key.equals("DoYourJob"))
 			doYourJob();
-		
 		else if(key.equals("IITData"))
 			processAction((String[])value);
-		
 		else if(key.equals("CancelInventoryItemTypeList"))
 			swapToView(createView());
-		
 		else if(key.equals("ModifyIIT")) {
 			try {
 				iit = new InventoryItemType((String)value);
@@ -148,12 +143,10 @@ public class SearchIITAction extends Action
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			createAndShowModifyIITView();
+//			createAndShowModifyVIITView();
 		}
-		
 		else if(key.equals("ModifyIITData"))
 			processAction((Properties)value);
-		
 		else if(key.equals("ConfirmDeleteIIT")) {
 			try {
 				iit = new InventoryItemType((String)value);
@@ -161,12 +154,10 @@ public class SearchIITAction extends Action
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			createAndShowDeleteIITView();
+			createAndShowDeleteVIITView();
 		}
-		
 		else if(key.equals("CancelModify"))
 			createAndShowIITListView();
-		
 		else if(key.equals("Delete"))
 		{
 			iit.persistentState.setProperty("Status", "Inactive");
@@ -176,8 +167,7 @@ public class SearchIITAction extends Action
 			list.findAllIITWithNameNotes(itemTypeNameSearched, notesSearched);
 			createAndShowIITListView();
 		}
-		
-		else if (key.equals("IITData") == true)
+		else if (key.equals("VIITData") == true)
 			processAction((Properties)value);
 
 		myRegistry.updateSubscribers(key, this);
@@ -204,14 +194,14 @@ public class SearchIITAction extends Action
 	//------------------------------------------------------
 	protected Scene createView()
 	{
-		Scene currentScene = myViews.get("SearchIITActionView");
+		Scene currentScene = myViews.get("SearchVIITActionView");
 
 		if (currentScene == null)
 		{
 			// create our initial view
-			View newView = ViewFactory.createView("SearchIITActionView", this);
+			View newView = ViewFactory.createView("SearchVIITActionView", this);
 			currentScene = new Scene(newView);
-			myViews.put("SearchIITActionView", currentScene);
+			myViews.put("SearchVIITActionView", currentScene);
 
 			return currentScene;
 		}
@@ -223,27 +213,19 @@ public class SearchIITAction extends Action
 	
 	protected void createAndShowIITListView()
 	{
-		View newView = ViewFactory.createView("InventoryItemTypeCollectionView", this);
+		View newView = ViewFactory.createView("VendorInventoryItemTypeCollectionView", this);
 		Scene currentScene = new Scene(newView);
-		myViews.put("InventoryItemTypeCollectionView", currentScene);
+		myViews.put("VendorInventoryItemTypeCollectionView", currentScene);
 
 		swapToView(currentScene);
 	}
 	
-	protected void createAndShowModifyIITView()
-	{
-		View newView = ViewFactory.createView("ModifyIITActionView", this);
-		Scene currentScene = new Scene(newView);
-		myViews.put("ModifyIITActionView", currentScene);
-
-		swapToView(currentScene);
-	}
 	
-	protected void createAndShowDeleteIITView()
+	protected void createAndShowDeleteVIITView()
 	{
-		View newView = ViewFactory.createView("DeleteIITActionView", this);
+		View newView = ViewFactory.createView("DeleteVIITActionView", this);
 		Scene currentScene = new Scene(newView);
-		myViews.put("DeleteIITActionView", currentScene);
+		myViews.put("DeleteVIITActionView", currentScene);
 
 		swapToView(currentScene);
 	}

@@ -85,6 +85,77 @@ import userinterface.WindowPosition;
 						+ viitId + " found.");
 				}
 			}
+		
+		public boolean checkVIITExists(String vendorId, String itemTypeName)
+		{
+		
+			setDependencies();
+			String query = "SELECT * FROM VendorInventoryItemType WHERE (VendorId = " + vendorId + " AND InventoryItemTypeName = \"" + itemTypeName + "\")";
+		
+			Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
+		
+			// You must get one viit at least
+			if (allDataRetrieved.size() != 0)
+			{
+				return true;
+			}
+			return false;
+		}
+		public VendorInventoryItemType(String vendorId, String itemTypeName)
+				throws InvalidPrimaryKeyException
+			{
+				super(myTableName);
+		
+				setDependencies();
+				String query = "SELECT * FROM " + myTableName + " WHERE (VendorId = " + vendorId + " AND InventoryItemTypeName = \"" + itemTypeName + "\")";
+		
+				Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
+		
+				// You must get one viit at least
+				if (allDataRetrieved != null)
+				{
+					int size = allDataRetrieved.size();
+		
+					// There should be EXACTLY one viit. More than that is an error
+					if (size != 1)
+					{
+						throw new InvalidPrimaryKeyException("Multiple VIIT's matching id : "
+							+ vendorId + " and " + itemTypeName + " found.");
+					}
+					else
+					{
+						// copy all the retrieved data into persistent state
+						Properties retrievedVIITData = allDataRetrieved.elementAt(0);
+						persistentState = new Properties();
+						System.out.println(retrievedVIITData);
+		
+						Enumeration allKeys = retrievedVIITData.propertyNames();
+						while (allKeys.hasMoreElements() == true)
+						{
+							String nextKey = (String)allKeys.nextElement();
+							String nextValue = retrievedVIITData.getProperty(nextKey);
+							// accountNumber = Integer.parseInt(retrievedAccountData.getProperty("accountNumber"));
+		
+							if (nextValue != null)
+							{
+								persistentState.setProperty(nextKey, nextValue);
+							}
+						}
+		
+					}
+				}
+				// If no viit found for this viitId, throw an exception
+				else
+				{
+					throw new InvalidPrimaryKeyException("No VIIT matching id : "
+						+ vendorId + " and " + itemTypeName + " found.");
+				}
+			}
+		
+		public VendorInventoryItemType()
+		{
+			super(myTableName);
+		}
 	
 		// Can also be used to create a NEW Book (if the system it is part of
 		// allows for a new book to be set up)
@@ -108,13 +179,40 @@ import userinterface.WindowPosition;
 			}
 		}
 		
-//		public Book()
-//		{
-//			super(myTableName);
-//			
-//			setDependencies();
-//			persistentState = new Properties();
-//		}
+		public void delete()
+		{
+			try
+			{
+				String vendorId = persistentState.getProperty("VendorId");
+				String itemTypeName = persistentState.getProperty("InventoryItemTypeName");
+				String query = "SELECT * FROM " + myTableName + " WHERE (VendorId = " + vendorId + " AND InventoryItemTypeName = \"" + itemTypeName + "\")";
+				
+				Vector<Properties> allDataRetrieved = getSelectQueryResult(query);
+		
+				// You must get one book at least
+				if (allDataRetrieved != null)
+				{
+					Properties whereClause = new Properties();
+					whereClause.setProperty("InventoryItemTypeName",persistentState.getProperty("InventoryItemTypeName"));
+					whereClause.setProperty("VendorId",persistentState.getProperty("VendorId"));
+					deletePersistentState(mySchema, whereClause);
+					updateStatusMessage = "VIIT: " + persistentState.getProperty("Id") + " removed from database!";
+				}
+//				else
+//				{
+//						insertPersistentState(mySchema, persistentState);
+//					persistentState.setProperty("ItemTypeName", itemTypeName);
+//					updateStatusMessage = "New Item: " +  persistentState.getProperty("ItemTypeName")
+//						+ " added to database!";
+//				}
+			}
+			catch (SQLException ex)
+			{
+				updateStatusMessage = "Error in installing IIT data in database!";
+			}
+//			 System.out.println(updateStatusMessage);
+		}
+		
 		
 		//------------------------------------------------------------
 		public void createAndShowVIITView()

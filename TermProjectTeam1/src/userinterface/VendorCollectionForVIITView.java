@@ -46,7 +46,7 @@ import impresario.IModel;
 
 /** The class containing the Teller View  for the ATM application */
 //==============================================================
-public class VendorCollectionForAddVIITView extends View
+public class VendorCollectionForVIITView extends View
 {
 
     // GUI stuff
@@ -60,7 +60,7 @@ public class VendorCollectionForAddVIITView extends View
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public VendorCollectionForAddVIITView( IModel wsc)
+    public VendorCollectionForVIITView( IModel wsc)
     {
 
         super(wsc, "VendorCollectionView");

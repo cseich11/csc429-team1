@@ -36,10 +36,11 @@ import model.InventoryItemTypeCollection;
 public class InventoryItemTypeCollectionView extends View
 {
 	protected TableView<InventoryItemTypeTableModel> tableOfIITs;
-	protected Button doneButton, modifyButton, deleteButton;
+	protected Button doneButton, modifyButton, deleteButton, submitButton;
 	protected HBox btnContainer;
 
 	protected MessageView statusLog;
+	public Boolean sub = (Boolean)myModel.getState("showSubmitButton");
 
 
 	//--------------------------------------------------------------------------
@@ -232,7 +233,7 @@ public class InventoryItemTypeCollectionView extends View
 	{
 		InventoryItemTypeTableModel selectedItem = tableOfIITs.getSelectionModel().getSelectedItem();
 		
-		if(selectedItem != null)
+		if(selectedItem != null && !sub)
 		{
 			if(btnContainer.getChildren().contains(modifyButton) && btnContainer.getChildren().contains(deleteButton)) {
 				btnContainer.getChildren().remove(modifyButton);
@@ -249,6 +250,25 @@ public class InventoryItemTypeCollectionView extends View
 				myModel.stateChangeRequest("ConfirmDeleteIIT", selectedIITName);
 			});
 			btnContainer.getChildren().addAll(modifyButton, deleteButton);
+
+			myModel.stateChangeRequest("IITSelected", selectedIITName);
+			
+		}
+		
+		if(selectedItem != null && sub)
+		{
+			if(btnContainer.getChildren().contains(submitButton)) {
+				btnContainer.getChildren().remove(submitButton);
+				
+			}
+			System.out.println(selectedItem.getItemTypeName());
+			String selectedIITName = selectedItem.getItemTypeName();
+			submitButton = new Button("SUBMIT");
+			submitButton.setOnAction(e -> {
+				myModel.stateChangeRequest("SubmitIIT", selectedIITName);
+			});
+			
+			btnContainer.getChildren().addAll(submitButton);
 
 			myModel.stateChangeRequest("IITSelected", selectedIITName);
 			

@@ -25,7 +25,7 @@ import java.util.Properties;
 import impresario.IModel;
 //import model.SearchVendorAction;
 
-/** The class containing the Deposit Amount View  for the ATM application */
+/** The class containing the Search Vender View  for the Restaurant application */
 //==============================================================
 public class SearchVendorActionView extends View
 {
@@ -34,7 +34,6 @@ public class SearchVendorActionView extends View
 
 	// GUI components
 	protected TextField venName, phoneNum;
-	private ComboBox<String> status;
 
 	private Button submitButton;
 	private Button doneButton;
@@ -44,9 +43,9 @@ public class SearchVendorActionView extends View
 
 	// constructor for this class -- takes a model object
 	//----------------------------------------------------------
-	public SearchVendorActionView(IModel SearchVendorAction)
+	public SearchVendorActionView(IModel action)
 	{
-		super(SearchVendorAction, "SearchVendorActionView");
+		super(action, "SearchVendorActionView");
 
 		// create a container for showing the contents
 		VBox container = new VBox(10);
@@ -64,6 +63,7 @@ public class SearchVendorActionView extends View
 		populateFields();
 		
 		myModel.subscribe("UpdateStatusMessage", this);
+		displayMessage((String)myModel.getState("UpdateStatusMessage"));
 	}
 
 
@@ -182,39 +182,28 @@ public class SearchVendorActionView extends View
 
 		String venNameEntered = venName.getText();
 		String phoneNumEntered = phoneNum.getText();
-//		boolean isNum = true; 
-//		try {
-//			Integer.parseInt(phoneNumEntered);
-//		} catch(NumberFormatException e) {
-//			isNum = false;
-//		}
 
 		if (venNameEntered == null || venNameEntered.length() == 0)
-			displayErrorMessage("Please enter an name");
+			displayErrorMessage("Please enter a name");
 		else if(phoneNumEntered == null || phoneNumEntered.length() == 0)
 			displayErrorMessage("Please enter a phone number");
 		else if(!phoneNumEntered.matches("^[0-9]+$"))
 			displayErrorMessage("Phone number must be numerical");
 		else
 		{
-			String status = "Active";
-			processData(venNameEntered, phoneNumEntered, status);
+			String[] dataEntered = {venNameEntered, phoneNumEntered};
+			processData(dataEntered);
 		}
 	}
 
 	/**
-	 * Process amount entered by user.
+	 * Process data entered by user.
 	 * Action is to pass this info on to the action object.
 	 */
 	//----------------------------------------------------------
-	private void processData(String a, String t, String s)
+	private void processData(String[] data)
 	{
-		Properties props = new Properties();
-		props.setProperty("vendorName", a);
-		props.setProperty("phoneNumber", t);
-		props.setProperty("status", s);
-		myModel.stateChangeRequest("VendorData", props);
-		populateFields();
+		myModel.stateChangeRequest("VendorData", data);
 	}
 
 	

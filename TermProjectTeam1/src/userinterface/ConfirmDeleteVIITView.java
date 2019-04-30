@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -18,19 +19,20 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+import java.util.Properties;
+
 // project imports
 import impresario.IModel;
 
-/** The class containing the Deposit Amount View  for the Library application */
+
 //==============================================================
-public class SearchIITActionView extends View
+public class ConfirmDeleteVIITView extends View
 {
 
 	// Model
-
+	private String vendorName;
+	private String itemTypeName;
 	// GUI components
-	private TextField nameSearch, notesSearch;
-
 	private Button submitButton;
 	private Button cancelButton;
 
@@ -39,9 +41,9 @@ public class SearchIITActionView extends View
 
 	// constructor for this class -- takes a model object
 	//----------------------------------------------------------
-	public SearchIITActionView(IModel action)
+	public ConfirmDeleteVIITView(IModel action)
 	{
-		super(action, "SearchIITActionView");
+		super(action, "ConfirmDeleteVIITView");
 
 		// create a container for showing the contents
 		VBox container = new VBox(10);
@@ -56,10 +58,9 @@ public class SearchIITActionView extends View
 
 		getChildren().add(container);
 
-		populateFields();
+		//populateFields();
 		
 		myModel.subscribe("UpdateStatusMessage", this);
-		displayMessage((String)myModel.getState("UpdateStatusMessage"));
 	}
 
 
@@ -68,7 +69,7 @@ public class SearchIITActionView extends View
 	private Node createTitle()
 	{
 		
-		Text titleText = new Text("       Restaurant Inventory Inventory Item Type Search          ");
+		Text titleText = new Text("       Brockport Restaurant          ");
 		titleText.setWrappingWidth(300);
 		titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 		titleText.setTextAlignment(TextAlignment.CENTER);
@@ -89,32 +90,18 @@ public class SearchIITActionView extends View
         	grid.setVgap(10);
         	grid.setPadding(new Insets(25, 25, 25, 25));
 
-		Label nameSearchLabel = new Label("Search name: ");
-		grid.add(nameSearchLabel, 0, 0);
+		Label confirmDeleteLabel = new Label("Are you sure you want to delete the Vendor-Inventory-Item-Type?");
+//				+ " with Vendor Name = " + vendorName + "and ItemTypeName = " + itemTypeName + "?");
+		grid.add(confirmDeleteLabel, 0, 0);
 
-		nameSearch = new TextField();
-		nameSearch.setOnAction(e -> {
-			processAction(e);
-		});
-		grid.add(nameSearch, 1, 0);
-		
-		Label notesSearchLabel = new Label("Search notes: ");
-		grid.add(notesSearchLabel, 0, 1);
-
-		notesSearch = new TextField();
-		notesSearch.setOnAction(e -> {
-			processAction(e);
-		});
-		grid.add(notesSearch, 1, 1);
-
-		submitButton = new Button("Submit");
+		submitButton = new Button("Confirm");
  		submitButton.setOnAction(e -> {
  			clearErrorMessage(); 
-			// do the search
+			// do the delete
 			processAction(e);
         });
 
-		cancelButton = new Button("Back");
+		cancelButton = new Button("Cancel");
  		cancelButton.setOnAction(e -> {
  			clearErrorMessage();
 			myModel.stateChangeRequest("Cancel", null); 
@@ -141,10 +128,8 @@ public class SearchIITActionView extends View
 	}
 
 	//-------------------------------------------------------------
-	public void populateFields()
+	//public void populateFields()
 	{
-		nameSearch.setText("");
-		notesSearch.setText("");
 	}
 
 	// process events generated from our GUI components
@@ -155,13 +140,16 @@ public class SearchIITActionView extends View
 
 		clearErrorMessage();
 
-		String[] dataEntered = {nameSearch.getText(), notesSearch.getText()};
+		//String itemTypeNameEntered = itemTypeNameSearch.getText();
 		
 //		if(titleEntered == null || titleEntered.length() == 0)
 //			displayErrorMessage("Please enter a title");
 //		else
 //		{
-			processData(dataEntered);
+			//processData(itemTypeNameEntered);
+			myModel.stateChangeRequest("Delete", null);
+			displayMessage((String)myModel.getState("UpdateStatusMessage"));
+			
 //		}
 	}
 
@@ -170,9 +158,9 @@ public class SearchIITActionView extends View
 	 * Action is to pass this info on to the action object.
 	 */
 	//----------------------------------------------------------
-	private void processData(String[] data)
+	private void processData(String itn)
 	{
-		myModel.stateChangeRequest("IITData", data);
+		myModel.stateChangeRequest("IIT Data", itn);
 	}
 
 	

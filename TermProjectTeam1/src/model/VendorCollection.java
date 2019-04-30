@@ -26,22 +26,13 @@ public class VendorCollection  extends EntityBase implements IView
 
     // constructor for this class
     //----------------------------------------------------------
-    public VendorCollection(String name, String phone)
-    {
-        super(myTableName);
-		
-		vendorList = new Vector<Vendor>(); 
-		vendorList = findVendors(name, phone);
-//		System.out.println(vendorList);
-    }
-    
     public VendorCollection()
     {
-    	super(myTableName);
+        super(myTableName);
     }
 
     //----------------------------------------------------------------------------------
-    public Vector<Vendor> findVendors(String name, String phone){
+    public void findVendors(String name, String phone){
     
 	   String query = "SELECT * FROM " + myTableName + " WHERE vName LIKE '%" + name + "%' AND vPhone LIKE '%" + phone + "%'";
 		
@@ -70,8 +61,6 @@ public class VendorCollection  extends EntityBase implements IView
                         + nextVendorData.getProperty("vPhone") + "\t\t" + nextVendorData.getProperty("vStatus"));
             }
         }
-
-        return (vendorList);
     }
     
     public Vector<Vendor> findAllVendors()
@@ -202,24 +191,7 @@ public class VendorCollection  extends EntityBase implements IView
     }
 
     //------------------------------------------------------
-    protected void createAndShowVendorCollectionView()
-    {
-
-        Scene localScene = myViews.get("VendorCollectionView");
-
-        if (localScene == null)
-        {
-            // create our new view
-            View newView = ViewFactory.createView("VendorCollectionView", this);
-            localScene = new Scene(newView);
-            myViews.put("VendorCollectionView", localScene);
-        }
-        // make the view visible by installing it into the frame
-        swapToView(localScene);
-		
-    }
-
-    //-----------------------------------------------------------------------------------
+   
     protected void initializeSchema(String tableName)
     {
         if (mySchema == null)

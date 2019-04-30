@@ -13,7 +13,7 @@ import userinterface.ViewFactory;
 
 /** The class containing the AddVendorInventoryItemTypesAction for the Library application */
 //==============================================================
-public class AddVIITAction extends Action
+public class DeleteVIITAction extends Action
 {
 	private InventoryItemTypeCollection iitList; 
 	private VendorCollection vendorList; 
@@ -21,6 +21,7 @@ public class AddVIITAction extends Action
 	private String inventoryItemTypeName;
 	private String vendorId;
 	private String vendorPrice;
+	private String[] data;
 
 	// GUI Components
 	
@@ -38,7 +39,7 @@ public class AddVIITAction extends Action
 	 *
 	 */
 	//----------------------------------------------------------
-	public AddVIITAction()
+	public DeleteVIITAction()
 		throws Exception
 	{
 		super();
@@ -84,6 +85,7 @@ public class AddVIITAction extends Action
 	{
 		String vName = props.getProperty("vendorName");
 		String vPhone = props.getProperty("phoneNumber");
+		System.out.println(vName + " - " + vPhone);
 		vendorList = new VendorCollection();
 		vendorList.findVendors(vName, vPhone);
 		createAndShowVendors();
@@ -145,27 +147,25 @@ public class AddVIITAction extends Action
 		{
 			try {
 				iit = new InventoryItemType((String)value);
+				viit = new VendorInventoryItemType(vendor.persistentState.getProperty("vId"), iit.persistentState.getProperty("ItemTypeName"));
+				createAndShowConfirmDeleteView();
 			} catch (InvalidPrimaryKeyException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				viitUpdateStatusMessage = "This is not a valid VIIT"; 
+				createAndShowIITSearch();
 			}
-			viit = new VendorInventoryItemType();
-			if(viit.checkVIITExists(vendor.persistentState.getProperty("vId"),iit.persistentState.getProperty("ItemTypeName")))
-			{
-				viitUpdateStatusMessage = "This VIIT already Exists!";
-				createAndShowVendorSearch();
-			}
-			else
-			{
-				createAndShowPriceView();
-			}
+			
+		}
+		else if(key.equals("Delete"))
+		{
+			viit.delete();
+			viitUpdateStatusMessage = (String)viit.getState("UpdateStatusMessage");
 		}
 		else if(key.equals("SelectedVendor"))
 		{
 			try
 			{
 				vendor = new Vendor((String)value);
-				viitUpdateStatusMessage = "";
 			} catch (InvalidPrimaryKeyException e) {
 				e.printStackTrace();
 			}
@@ -173,25 +173,15 @@ public class AddVIITAction extends Action
 		}
 		else if (key.equals("VendorData") == true)
 		{
-			showVendorList((Properties)value);
+			data = (String[]) value;
+			System.out.println(data[0] + " - " + data[1]);
+			Properties props = new Properties();
+			props.setProperty("vendorName", data[0]);
+			props.setProperty("phoneNumber", data[1]);
+			showVendorList((Properties)props);
 		}
 		else if(key.equals("IITData"))
 			showIITList((String[])value);
-		if(key.equals("VIITData"))
-		{
-			String vendorPrice = (String)value;
-			Properties props = new Properties();
-			props.setProperty("VendorId", vendor.persistentState.getProperty("vId"));
-			props.setProperty("InventoryItemTypeName", iit.persistentState.getProperty("ItemTypeName"));
-			props.setProperty("VendorPrice", vendorPrice);
-			props.setProperty("DateOfLastUpdate", java.time.LocalDate.now() + "");
-			processAction(props);
-			createAndShowVendorSearch();
-			
-		}
-		
-//		else if(key.equals("ModifyIITData"))
-//			processAction((Properties)value);
 		myRegistry.updateSubscribers(key, this);
 	}
 	
@@ -233,15 +223,6 @@ public class AddVIITAction extends Action
 		}
 	}
 	
-	protected void createAndShowIITListView()
-	{
-		View newView = ViewFactory.createView("IITCollectionForVIITView", this);
-		Scene currentScene = new Scene(newView);
-		myViews.put("IITCollectionForVIITView", currentScene);
-
-		swapToView(currentScene);
-	}
-	
 	protected void createAndShowVendorSearch()
 	{
 		View newView = ViewFactory.createView("SearchVendorActionView", this);
@@ -278,11 +259,11 @@ public class AddVIITAction extends Action
 		swapToView(currentScene);
 	}
 	
-	protected void createAndShowPriceView()
+	protected void createAndShowConfirmDeleteView()
 	{
-		View newView = ViewFactory.createView("PriceView", this);
+		View newView = ViewFactory.createView("ConfirmDeleteVIITView", this);
 		Scene currentScene = new Scene(newView);
-		myViews.put("PriceView", currentScene);
+		myViews.put("ConfirmDeleteVIITView", currentScene);
 
 		swapToView(currentScene);
 	}
