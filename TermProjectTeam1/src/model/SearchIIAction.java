@@ -88,15 +88,23 @@ public class SearchIIAction extends Action
 		{
 			try {
 				ii = new InventoryItem((String)value);
-				if(ii.getStatus().equals("Available"))
-					createAndShowDeleteIIView();
-				else
-					actionErrorMessage = "Inventory Item does not exist";
+					createAndShowSearchIIChoiceView();
 			} catch (InvalidPrimaryKeyException e) {
 				actionErrorMessage = "Inventory Item does not exist";
 			}
 			
 		}
+		else if(key.equals("ModifyIIStatus"))
+		{
+			try {
+				ii = new InventoryItem((String)value);
+					//createAndShowModifyIIStatusView();
+			} catch (InvalidPrimaryKeyException e) {
+				actionErrorMessage = "Inventory Item does not exist";
+			}
+			
+		}
+		
 		else if(key.equals("IIDelete")) {
 			processActionDelete((Properties)value);
 			swapToView(createView());
@@ -173,4 +181,14 @@ public class SearchIIAction extends Action
 
 		swapToView(currentScene);
 	}
+	
+	protected void createAndShowSearchIIChoiceView()
+	{
+		View newView = ViewFactory.createView("SearchIIChoiceView", this);
+		Scene currentScene = new Scene(newView);
+		myViews.put("SearchIIChoiceView", currentScene);
+
+		swapToView(currentScene);
+	}
+	
 }
