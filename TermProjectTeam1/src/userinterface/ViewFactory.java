@@ -42,15 +42,8 @@ public class ViewFactory {
 			return new VendorCollectionForVIITView(model);
 		if(viewName.equals("ConfirmDeleteVIITView"))
 			return new ConfirmDeleteVIITView(model);
-		if(viewName.equals("ModifyIIStatusView"))
-			return new ModifyIIStatusView(model);
-		if(viewName.equals("SearchIIChoiceView"))
-			return new SearchIIChoiceView(model);
 		if(viewName.equals("PriceView"))
 			return new PriceView(model);
-		
-		
-		
 		return null;
 	}
 }
