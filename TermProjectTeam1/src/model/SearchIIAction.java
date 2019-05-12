@@ -44,19 +44,14 @@ public class SearchIIAction extends Action
 	protected void setDependencies()
 	{
 		dependencies = new Properties();
-		//dependencies.setProperty("Cancel", "CancelAction");
-		//dependencies.setProperty("CancelSearch", "CancelAction");
+		dependencies.setProperty("Cancel", "CancelAction");
 		dependencies.setProperty("SearchII", "ActionError");
 		dependencies.setProperty("OK", "CancelAction");
 		dependencies.setProperty("IIData", "UpdateStatusMessage");
 		dependencies.setProperty("GetII", "ActionError");
 		dependencies.setProperty("IIDelete", "UpdateStatusMessage");
 		dependencies.setProperty("ModifyIIStatusData", "UpdateStatusMessage");
-		//dependencies.setProperty("CancelModify", "CancelAction");
 		
-		
-		
-
 		myRegistry.setDependencies(dependencies);
 	}
 
@@ -133,10 +128,6 @@ public class SearchIIAction extends Action
 		}
 		
 		else if(key.equals("CancelSearch")) {
-			swapToView(createView());
-		}
-		
-		else if(key.equals("Cancel")) {
 			swapToView(createView());
 		}
 
