@@ -18,13 +18,11 @@ import userinterface.ViewFactory;
 public class SearchIIAction extends Action
 {
 	private static final String myTableName = "InventoryItem";
-	//private InventoryItemCollection list; 
 
 	// GUI Components
 	private String barcode = "";
 	private String actionErrorMessage = "";
 	private String updateStatusMessage = "";
-//	private String iiUpdateStatusMessage = "";
 	
 	private InventoryItem ii;
 	

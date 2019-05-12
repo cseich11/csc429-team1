@@ -96,27 +96,9 @@ public class InventoryManager implements IView, IModel
 		// STEP 4: Write the sCR method component for the key you
 		// just set up dependencies for
 		// DEBUG System.out.println("InventoryManager.sCR: key = " + key);
-		if (key.equals("AddNewIIT") || key.equals("SearchIIT") || key.equals("ModifyIIT"))
-		{
-			doAction(key);
-		}
-		else if (key.equals("AddVendor"))
-		{
-			doAction(key);
-		}
-		else if (key.equals("SearchVendor"))
-		{
-			doAction(key);
-		}
-		else if (key.equals("AddVIIT"))
-		{
-			doAction(key);
-		}
-		else if(key.equals("SearchII"))
-		{
-			doAction(key);
-		}
-		else if (key.equals("DeleteVIIT"))
+		if (key.equals("AddNewIIT") || key.equals("SearchIIT") || key.equals("ModifyIIT")
+				|| key.equals("AddVendor") || key.equals("SearchVendor") || key.equals("AddVIIT")
+				|| key.equals("SearchII") || key.equals("DeleteVIIT"))
 		{
 			doAction(key);
 		}
