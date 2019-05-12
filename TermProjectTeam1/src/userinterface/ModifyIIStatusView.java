@@ -64,6 +64,7 @@ public class ModifyIIStatusView extends View
 		populateFields();
 
 		myModel.subscribe("UpdateStatusMessage", this);
+		myModel.subscribe("ActionMessage", this);
   }
 
   // Create the label (Text) for the title of the screen
@@ -211,12 +212,12 @@ public class ModifyIIStatusView extends View
   
   private void processData(String s) 
   {
-  	Properties props = new Properties();
+  		Properties props = new Properties();
 		props.setProperty("status", s);
 		
 		//System.out.println(n + " - " + num + " - " + s); //DEBUG
 		
-		myModel.stateChangeRequest("ModifyIIStatus", props);
+		myModel.stateChangeRequest("ModifyIIStatusData", props);
 		//populateFields();
   }
 }

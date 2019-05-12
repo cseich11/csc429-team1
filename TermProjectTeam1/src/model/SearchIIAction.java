@@ -44,12 +44,18 @@ public class SearchIIAction extends Action
 	protected void setDependencies()
 	{
 		dependencies = new Properties();
-		dependencies.setProperty("Cancel", "CancelAction");
+		//dependencies.setProperty("Cancel", "CancelAction");
+		//dependencies.setProperty("CancelSearch", "CancelAction");
 		dependencies.setProperty("SearchII", "ActionError");
 		dependencies.setProperty("OK", "CancelAction");
 		dependencies.setProperty("IIData", "UpdateStatusMessage");
 		dependencies.setProperty("GetII", "ActionError");
 		dependencies.setProperty("IIDelete", "UpdateStatusMessage");
+		dependencies.setProperty("ModifyIIStatusData", "UpdateStatusMessage");
+		//dependencies.setProperty("CancelModify", "CancelAction");
+		
+		
+		
 
 		myRegistry.setDependencies(dependencies);
 	}
@@ -62,6 +68,12 @@ public class SearchIIAction extends Action
 	{
 		if(props.getProperty("Status").equals("Available"))
 			createAndShowDeleteIIView();
+	}
+	
+	public void processActionModify(Properties props) {
+		ii.persistentState.setProperty("Status", props.getProperty("status"));
+		updateStatusMessage = "Item: " + ii.persistentState.getProperty("Barcode") + " status updated";
+		ii.update();
 	}
 
 	//-----------------------------------------------------------
@@ -82,9 +94,11 @@ public class SearchIIAction extends Action
 	{
 		if(key.equals("DoYourJob"))
 			doYourJob();
+		
 		else if(key.equals("IIData"))
 			processAction((Properties)value);
-		else if(key.equals("GetII"))
+		
+		else if(key.equals("SearchII"))
 		{
 			try {
 				ii = new InventoryItem((String)value);
@@ -94,19 +108,35 @@ public class SearchIIAction extends Action
 			}
 			
 		}
-		else if(key.equals("ModifyIIStatus"))
+		
+		else if(key.equals("DeleteChoiceII")) {
+			createAndShowDeleteIIView();
+		}
+		
+		else if(key.equals("ModifyChoiceII"))
 		{
-			try {
-				ii = new InventoryItem((String)value);
-					//createAndShowModifyIIStatusView();
-			} catch (InvalidPrimaryKeyException e) {
-				actionErrorMessage = "Inventory Item does not exist";
-			}
-			
+			createAndShowModifyIIStatusView();
+		}
+		
+		else if(key.equals("ModifyIIStatusData"))
+		{
+			processActionModify((Properties)value);
 		}
 		
 		else if(key.equals("IIDelete")) {
 			processActionDelete((Properties)value);
+			swapToView(createView());
+		}
+		
+		else if(key.equals("CancelModify")) {
+			swapToView(createView());
+		}
+		
+		else if(key.equals("CancelSearch")) {
+			swapToView(createView());
+		}
+		
+		else if(key.equals("Cancel")) {
 			swapToView(createView());
 		}
 
@@ -187,6 +217,15 @@ public class SearchIIAction extends Action
 		View newView = ViewFactory.createView("SearchIIChoiceView", this);
 		Scene currentScene = new Scene(newView);
 		myViews.put("SearchIIChoiceView", currentScene);
+
+		swapToView(currentScene);
+	}
+	
+	protected void createAndShowModifyIIStatusView()
+	{
+		View newView = ViewFactory.createView("ModifyIIStatusView", this);
+		Scene currentScene = new Scene(newView);
+		myViews.put("ModifyIIStatusView", currentScene);
 
 		swapToView(currentScene);
 	}

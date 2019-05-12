@@ -1,8 +1,10 @@
 // specify the package
 package userinterface;
 
+import javafx.event.ActionEvent;
 // system imports
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -95,6 +97,14 @@ public class SearchIIActionView extends View
 
 		barcodeSearch = new TextField();
 		grid.add(barcodeSearch, 1, 0);
+		barcodeSearch.setOnAction(new EventHandler<ActionEvent>() {
+
+ 		     @Override
+ 		     public void handle(ActionEvent e) {
+ 		    	clearErrorMessage();
+ 		    	processAction(e);  
+      	  }
+  	});
 
 		searchButton = new Button("Search");
  		searchButton.setOnAction(e -> {
@@ -157,7 +167,7 @@ public class SearchIIActionView extends View
 	//----------------------------------------------------------
 	private void processData(String barcode)
 	{
-		myModel.stateChangeRequest("GetII", barcode);
+		myModel.stateChangeRequest("SearchII", barcode);
 	}
 
 	
