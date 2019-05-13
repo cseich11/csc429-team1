@@ -21,6 +21,35 @@ public class InventoryItemCollection extends EntityBase implements IView
     {
         super(myTableName);
     }
+    
+    //----------------------------------------------------------------------------------
+  	public void findAllInventoryItemsWithName(String name)
+  	{
+  		String query = "SELECT * FROM " + myTableName + " WHERE InventoryItemTypeName LIKE \"%" + name + "%\" AND Status = 'Available'";
+  		
+  		Vector allDataRetrieved = getSelectQueryResult(query);
+  		
+//  		System.out.println(query + "\n");
+
+  		if (allDataRetrieved != null)
+  		{
+  			list = new Vector<InventoryItem>();
+
+  			for (int i = 0; i < allDataRetrieved.size(); i++)
+  			{
+  				Properties nextInventoryItemData = (Properties)allDataRetrieved.elementAt(i);
+
+  				InventoryItem inventoryItem = new InventoryItem(nextInventoryItemData);
+
+  				if (inventoryItem != null)
+  				{
+  					addII(inventoryItem);
+  				}
+  				
+  			}
+
+  		}
+  	}
 
     //----------------------------------------------------------------------------------
     public void findAllII()

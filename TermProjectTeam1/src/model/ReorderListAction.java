@@ -148,9 +148,9 @@ public class ReorderListAction extends Action
 					{
 						InventoryItemCollection tempIICollection = new InventoryItemCollection();
 						tempIICollection.findAllInventoryItemsWithName(nextInventoryItemType.persistentState.getProperty("ItemTypeName"));
-						if(tempIICollection.list != null && !tempIICollection.list.isEmpty())
+						if((Vector<InventoryItem>)tempIICollection.getState("InventoryItems") != null && !((Vector<InventoryItem>)tempIICollection.getState("InventoryItems")).isEmpty())
 						{
-							double count = tempIICollection.list.size();
+							double count = ((Vector<InventoryItem>)tempIICollection.getState("InventoryItems")).size();
 							if(count <= Double.parseDouble(nextInventoryItemType.persistentState.getProperty("ReorderPoint")))
 							{
 								reorderList.addIIT(nextInventoryItemType);
