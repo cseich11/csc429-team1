@@ -50,6 +50,8 @@ public class ViewFactory {
 			return new PriceView(model);
 		if(viewName.equals("ReorderListView"))
 			return new ReorderListView(model);
+		if(viewName.equals("InventoryItemCollectionView"))
+			return new InventoryItemCollectionView(model);
 		return null;
 	}
 }

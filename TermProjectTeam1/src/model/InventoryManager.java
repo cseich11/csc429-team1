@@ -69,6 +69,7 @@ public class InventoryManager implements IView, IModel
 		dependencies.setProperty("ProcessInvoice", "ActionError");
 		dependencies.setProperty("AddVIIT", "ActionError");
 		dependencies.setProperty("DeleteVIIT", "ActionError");
+		dependencies.setProperty("GetIICollection", "ActionError");
 
 		myRegistry.setDependencies(dependencies);
 	}
@@ -96,20 +97,16 @@ public class InventoryManager implements IView, IModel
 		// STEP 4: Write the sCR method component for the key you
 		// just set up dependencies for
 		// DEBUG System.out.println("InventoryManager.sCR: key = " + key);
-		if (key.equals("AddNewIIT") || key.equals("SearchIIT") || key.equals("ModifyIIT")
-				|| key.equals("AddVendor") || key.equals("SearchVendor") || key.equals("AddVIIT")
-				|| key.equals("SearchII") || key.equals("DeleteVIIT"))
-		{
-			doAction(key);
-		}
-		else if (key.equals("GenerateReorderList"))
+		if (key.equals("AddNewIIT") || key.equals("SearchIIT") ||
+				key.equals("ModifyIIT") || key.equals("GetIICollection")||
+				key.equals("AddVendor") || key.equals("SearchVendor")||
+				key.equals("AddVIIT") || key.equals("SearchII")||
+				key.equals("DeleteVIIT") || key.equals("GenerateReorderList"))
 		{
 			doAction(key);
 		}
 		else if (key.equals("CancelAction"))
-		{
 			createAndShowInventoryManagerView();
-		}
 
 		myRegistry.updateSubscribers(key, this);
 	}

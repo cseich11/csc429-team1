@@ -37,7 +37,8 @@ public class InventoryManagerView extends View
 {
 
 	// GUI stuff
-	private Button insertIITButton, searchIITButton, searchIIButton, doneButton, addVendorButton, searchVendorButton, addVIITButton, deleteVIITButton, generateReorderListButton;
+	private Button insertIITButton, searchIITButton, searchIIButton, doneButton, addVendorButton, searchVendorButton, addVIITButton, deleteVIITButton, generateReorderListButton,
+					getIICollectionButton;
 
 	// For showing error message
 	private MessageView statusLog;
@@ -137,6 +138,10 @@ public class InventoryManagerView extends View
         generateReorderListButton = new Button("Generate Reorder List");
         generateReorderListButton.setOnAction(e -> {
         	myModel.stateChangeRequest("GenerateReorderList", null);
+
+        getIICollectionButton = new Button("Inventory Items");
+        getIICollectionButton.setOnAction(e -> {
+        	myModel.stateChangeRequest("GetIICollection", null);
         });
         	
 		doneButton = new Button("Done");
@@ -151,7 +156,8 @@ public class InventoryManagerView extends View
  		grid.add(addVIITButton, 1, 2);
  		grid.add(searchIIButton, 0, 3);
  		grid.add(generateReorderListButton, 1, 3);
-		grid.add(doneButton, 0, 4);
+		grid.add(getIICollectionButton, 0, 4);
+		grid.add(doneButton, 1, 4);
 
 		return grid;
 	}

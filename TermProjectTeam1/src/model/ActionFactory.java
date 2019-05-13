@@ -40,6 +40,9 @@ public class ActionFactory
 			return new DeleteVIITAction();
 		if(actionType.equals("GenerateReorderList"))
 			return new ReorderListAction();
+		if(actionType.equals("GetIICollection"))
+			return new GetIICollectionAction();
+		
 		return null;
 	}
 }
