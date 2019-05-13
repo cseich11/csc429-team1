@@ -122,7 +122,11 @@ public class SearchIIAction extends Action
 		}
 		
 		else if(key.equals("CancelModify")) {
-			swapToView(createView());
+			createAndShowSearchIIChoiceView();
+		}
+		
+		else if(key.equals("CancelDelete")) {
+			createAndShowSearchIIChoiceView();
 		}
 		
 		else if(key.equals("CancelSearch")) {

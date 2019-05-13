@@ -101,7 +101,7 @@ public class DeleteIIActionView extends View
 		cancelButton = new Button("Cancel");
  		cancelButton.setOnAction(e -> {
  			clearErrorMessage();
-			myModel.stateChangeRequest("Cancel", null); 
+			myModel.stateChangeRequest("CancelDelete", null); 
         });
 
 		HBox btnContainer = new HBox(100);
