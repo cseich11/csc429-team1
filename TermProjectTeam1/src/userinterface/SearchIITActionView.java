@@ -67,9 +67,8 @@ public class SearchIITActionView extends View
 	//-------------------------------------------------------------
 	private Node createTitle()
 	{
-		
 		Text titleText = new Text("       Restaurant Inventory Inventory Item Type Search          ");
-		titleText.setWrappingWidth(300);
+		titleText.setWrappingWidth(600);
 		titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 		titleText.setTextAlignment(TextAlignment.CENTER);
 		titleText.setFill(Color.DARKGREEN);
@@ -117,7 +116,7 @@ public class SearchIITActionView extends View
 		cancelButton = new Button("Back");
  		cancelButton.setOnAction(e -> {
  			clearErrorMessage();
-			myModel.stateChangeRequest("Cancel", null); 
+			myModel.stateChangeRequest("CancelItemTypeSearch", null); 
         });
 
 		HBox btnContainer = new HBox(100);

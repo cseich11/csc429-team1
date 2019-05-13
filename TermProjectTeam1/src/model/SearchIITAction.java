@@ -39,7 +39,7 @@ public class SearchIITAction extends Action
 	protected void setDependencies()
 	{
 		dependencies = new Properties();
-		dependencies.setProperty("Cancel", "CancelAction");
+		dependencies.setProperty("CancelItemTypeSearch", "CancelAction");
 		dependencies.setProperty("SearchIIT", "ActionError");
 		dependencies.setProperty("OK", "CancelAction");
 		dependencies.setProperty("ModifyIITData", "ActionMessage");

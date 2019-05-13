@@ -256,15 +256,7 @@ public class VendorCollectionView extends View
 			modifyVendorButton.setOnAction(e -> {
 				myModel.stateChangeRequest("ModifyVendor", selectedVendorID);
 			});
-			addVIITButton = new Button("Add VIIT");
-			addVIITButton.setOnAction(e -> {
-				myModel.stateChangeRequest("AddVIIT", selectedVendorID);
-			});
-			deleteVIITButton = new Button("Delete VIIT");
-			deleteVIITButton.setOnAction(e -> {
-				myModel.stateChangeRequest("DeleteVIIT", selectedVendorID);
-			});
-			btnContainer.getChildren().addAll(processInvoiceButton, modifyVendorButton, addVIITButton, deleteVIITButton);
+			btnContainer.getChildren().addAll(processInvoiceButton, modifyVendorButton);
 
 			myModel.stateChangeRequest("IITSelected", selectedVendorID);
 			

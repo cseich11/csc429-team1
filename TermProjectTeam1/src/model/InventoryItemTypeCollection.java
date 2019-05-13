@@ -38,7 +38,7 @@ public class InventoryItemTypeCollection extends EntityBase implements IView
 		
 		System.out.println(query + "\n");
 
-		if (allDataRetrieved != null)
+		if (allDataRetrieved != null || !allDataRetrieved.isEmpty())
 		{
 			list = new Vector<InventoryItemType>();
 

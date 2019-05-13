@@ -1,8 +1,10 @@
 // specify the package
 package userinterface;
 
+import javafx.event.ActionEvent;
 // system imports
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -33,7 +35,6 @@ public class AddVendorActionView extends View
 
 	// GUI components
 	protected TextField venName, phoneNum;
-	private ComboBox<String> status;
 
 	private Button submitButton;
 	private Button doneButton;
@@ -43,25 +44,26 @@ public class AddVendorActionView extends View
 
 	// constructor for this class -- takes a model object
 	//----------------------------------------------------------
-	public AddVendorActionView(IModel AddVendorAction)
+	public AddVendorActionView(IModel model)
 	{
-		super(AddVendorAction, "AddVendorActionView");
+		super(model, "AddVendorActionView");
 
 		// create a container for showing the contents
 		VBox container = new VBox(10);
 		container.setPadding(new Insets(15, 5, 5, 5));
 
-		// create our GUI components, add them to this panel
+		// Add a title for this panel
 		container.getChildren().add(createTitle());
+		
+		// create our GUI components, add them to this Container
 		container.getChildren().add(createFormContent());
 
-		// Error message area
-		container.getChildren().add(createStatusLog("                          \n                            "));
+		container.getChildren().add(createStatusLog("             \n              "));
 
 		getChildren().add(container);
 
 		populateFields();
-		
+
 		myModel.subscribe("UpdateStatusMessage", this);
 	}
 
@@ -70,19 +72,17 @@ public class AddVendorActionView extends View
 	//-------------------------------------------------------------
 	private Node createTitle()
 	{
-		
 		HBox container = new HBox();
 		container.setAlignment(Pos.CENTER);	
 
-        Text titleText = new Text("New Vendor");
-        titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-		titleText.setStrokeWidth(0.5);
-		titleText.setStroke(Color.GOLDENROD);  
-        titleText.setTextAlignment(TextAlignment.CENTER);
-        titleText.setFill(Color.DARKGREEN);
+		Text titleText = new Text(" Brockport Restaraunt ");
+		titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+		titleText.setWrappingWidth(300);
+		titleText.setTextAlignment(TextAlignment.CENTER);
+		titleText.setFill(Color.DARKGREEN);
 		container.getChildren().add(titleText);
-
-        return container;
+		
+		return container;
 	}
 
 	// Create the main form content
@@ -93,19 +93,22 @@ public class AddVendorActionView extends View
 
 		GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
+       	grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(25, 40, 1, 25));
+        grid.setPadding(new Insets(25, 25, 25, 25));
+        
+        Text prompt = new Text("VENDOR INFORMATION");
+        prompt.setWrappingWidth(400);
+        prompt.setTextAlignment(TextAlignment.CENTER);
+        prompt.setFill(Color.BLACK);
+        grid.add(prompt, 0, 0, 2, 1);
 
-
-
-
-        Text vendorName = new Text("Enter Vendor Name:");
-		vendorName.setFont(Font.font("Arial", FontWeight.BOLD, 13));
-        vendorName.setWrappingWidth(350);
-        vendorName.setTextAlignment(TextAlignment.CENTER);
-        vendorName.setFill(Color.GOLDENROD);
-        grid.add(vendorName, 1, 0);
+		Text vendorNameLabel = new Text(" Vendor Name : ");
+		Font myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
+		vendorNameLabel.setFont(myFont);
+		vendorNameLabel.setWrappingWidth(150);
+		vendorNameLabel.setTextAlignment(TextAlignment.RIGHT);
+		grid.add(vendorNameLabel, 0, 1);
 
 		venName = new TextField();
 		venName.setEditable(true);
@@ -113,44 +116,42 @@ public class AddVendorActionView extends View
 			processAction(e);
 		});
 		grid.add(venName, 1, 1);
-		
-		
-		
-		Text phoneNumber = new Text("Enter Phone Number:");
-		phoneNumber.setFont(Font.font("Arial", FontWeight.BOLD, 13));
-        phoneNumber.setWrappingWidth(350);
-        phoneNumber.setTextAlignment(TextAlignment.CENTER);
-        phoneNumber.setFill(Color.GOLDENROD);
-        grid.add(phoneNumber, 1, 2);
-		
+
+		Text phoneNumber = new Text(" Phone Number : ");
+		phoneNumber.setFont(myFont);
+		phoneNumber.setWrappingWidth(150);
+		phoneNumber.setTextAlignment(TextAlignment.RIGHT);
+		grid.add(phoneNumber, 0, 2);
+
 		phoneNum = new TextField();
 		phoneNum.setOnAction(e -> {
 			processAction(e);
 		});
-		grid.add(phoneNum, 1, 3);
+		grid.add(phoneNum, 1, 2);
+
 		
-		
-		
+
+		HBox doneCont = new HBox(10);
+		doneCont.setAlignment(Pos.CENTER);
 		submitButton = new Button("Submit");
- 		submitButton.setOnAction(e -> {
+		submitButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		submitButton.setOnAction(e -> {
  			clearErrorMessage(); 
 			// do the insert
 			processAction(e);
         });
-
-		doneButton = new Button("Done");
- 		doneButton.setOnAction(e -> {
+		
+		doneButton = new Button("Back");
+		doneButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		doneButton.setOnAction(e -> {
  			clearErrorMessage();
  			myModel.stateChangeRequest("Cancel", null);
         });
-
-		HBox btnContainer = new HBox(100);
-		btnContainer.setAlignment(Pos.CENTER);
-		btnContainer.getChildren().add(submitButton);
-		btnContainer.getChildren().add(doneButton);
-
+		doneCont.getChildren().add(submitButton);
+		doneCont.getChildren().add(doneButton);
+	
 		vbox.getChildren().add(grid);
-		vbox.getChildren().add(btnContainer);
+		vbox.getChildren().add(doneCont);
 
 		return vbox;
 	}

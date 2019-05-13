@@ -106,12 +106,12 @@ public class InventoryItemCollectionView extends View
         HBox container = new HBox();
         container.setAlignment(Pos.CENTER);
 
-        Text unitMeasureText = new Text("       Restaurant Inventory System       ");
-        unitMeasureText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        unitMeasureText.setWrappingWidth(725);
-        unitMeasureText.setTextAlignment(TextAlignment.CENTER);
-        unitMeasureText.setFill(Color.DARKGREEN);
-        container.getChildren().add(unitMeasureText);
+        Text title = new Text("       Restaurant Inventory System       ");
+        title.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        title.setWrappingWidth(725);
+        title.setTextAlignment(TextAlignment.CENTER);
+        title.setFill(Color.DARKGREEN);
+        container.getChildren().add(title);
 
         return container;
     }

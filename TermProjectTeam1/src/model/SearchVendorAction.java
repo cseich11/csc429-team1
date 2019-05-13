@@ -74,7 +74,7 @@ public class SearchVendorAction extends Action
 
 	
 	//----------------------------------------------------------
-	public void processActionSearchVender(String[] data)
+	public void processActionSearchVendor(String[] data)
 	{
 		if(data.length == 2 && data[0] != null && data[1] != null)
 		{
@@ -93,8 +93,6 @@ public class SearchVendorAction extends Action
 			iitList = new InventoryItemTypeCollection();
 			itemTypeNameSearched = data[0]; notesSearched = data[1];
 			iitList.findAllIITWithNameNotes(itemTypeNameSearched, notesSearched);
-				
-				
 				
 			createAndShowIITListView();
 		}
@@ -172,6 +170,8 @@ public class SearchVendorAction extends Action
 			String[] vData = {vName, vPhone};
 			return vData;
 		}
+		else if(key.equals("InventoryItemTypeList"))
+			return iitList;
 		else if(key.equals("UpdateStatusMessage"))
 			return updateStatusMessage;
 		else if (v != null)
@@ -189,7 +189,7 @@ public class SearchVendorAction extends Action
 			doYourJob();
 		
 		else if (key.equals("VendorData"))
-			processActionSearchVender((String[])value);
+			processActionSearchVendor((String[])value);
 		
 		else if(key.equals("CancelVendorList"))
 			swapToView(createView());
@@ -241,6 +241,12 @@ public class SearchVendorAction extends Action
 		
 		else if(key.equals("IITData"))
 			processAction((String[]) value);
+		
+		else if(key.equals("CancelInventoryItemTypeList"))
+			createAndShowSearchIITActionView();
+		
+		else if(key.equals("CancelItemTypeSearch"))
+			createAndShowVendorCollectionView();
 	
 			
 		myRegistry.updateSubscribers(key, this);

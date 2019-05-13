@@ -66,6 +66,7 @@ public class InventoryManager implements IView, IModel
 		dependencies.setProperty("AddIIT", "ActionError");
 		dependencies.setProperty("SearchIIT", "ActionError");
 		dependencies.setProperty("ModifyIIT", "ActionError");
+		dependencies.setProperty("AddVendor", "ActionError");
 		dependencies.setProperty("ProcessInvoice", "ActionError");
 		dependencies.setProperty("AddVIIT", "ActionError");
 		dependencies.setProperty("DeleteVIIT", "ActionError");

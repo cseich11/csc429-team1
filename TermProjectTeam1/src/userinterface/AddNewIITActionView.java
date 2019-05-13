@@ -42,8 +42,6 @@ public class AddNewIITActionView extends View
 	protected TextField validityDays;
 	protected TextField reorderPoint;
 	protected TextField notes;
-	
-	protected ComboBox<String> status;
 
 	protected Button cancelButton;
 	protected Button submitButton;
@@ -220,15 +218,6 @@ public class AddNewIITActionView extends View
        		    	processAction(e);  
             	  }
         	});
-		
-		Text statusLabel = new Text(" Status : ");
-		statusLabel.setFont(myFont);
-		statusLabel.setWrappingWidth(150);
-		statusLabel.setTextAlignment(TextAlignment.RIGHT);
-		grid.add(statusLabel, 0, 7);
-		status= new ComboBox<String>();
-		status.getItems().addAll("Active", "Inactive");
-		grid.add(status, 1, 7);
 
 		HBox doneCont = new HBox(10);
 		doneCont.setAlignment(Pos.CENTER);
@@ -280,7 +269,6 @@ public class AddNewIITActionView extends View
 		validityDays.setText("");
 		reorderPoint.setText("");
 		notes.setText("");
-	 	status.getSelectionModel().selectFirst();
 	}
 
 	/**
@@ -307,7 +295,6 @@ public class AddNewIITActionView extends View
 		String validityDaysInput = validityDays.getText();
 		String reorderPointInput = reorderPoint.getText();
 		String notesInput = notes.getText();
-		String statusInput = status.getValue();
 		int u, v, r;
 		boolean uC = true, vC = true, rC = true;
 		try {
@@ -348,18 +335,14 @@ public class AddNewIITActionView extends View
 		{
 			displayErrorMessage("Please Enter a nonnegative number for reorder point");
 		}
-//		else if(notesInput.length() == 0)
-//		{
-//			displayErrorMessage("Please Enter notes");
-//		}
 		else
 		{
-			processData(itemTypeNameInput, unitsInput, unitMeasureInput, validityDaysInput, reorderPointInput, notesInput, statusInput);
+			processData(itemTypeNameInput, unitsInput, unitMeasureInput, validityDaysInput, reorderPointInput, notesInput);
 		}
 	}
 	
 	
-	private void processData(String itemTypeName, String units, String unitMeasure, String validityDays, String reorderPoint, String notes, String status)
+	private void processData(String itemTypeName, String units, String unitMeasure, String validityDays, String reorderPoint, String notes)
 	{
 		Properties prop = new Properties();
 		prop.setProperty("ItemTypeName", itemTypeName);
@@ -368,7 +351,6 @@ public class AddNewIITActionView extends View
 		prop.setProperty("ValidityDays", validityDays);
 		prop.setProperty("ReorderPoint", reorderPoint);
 		prop.setProperty("Notes", notes);
-		prop.setProperty("Status", status);
 		myModel.stateChangeRequest("IITData", prop);
 	}
 	/**

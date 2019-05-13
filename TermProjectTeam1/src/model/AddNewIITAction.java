@@ -29,7 +29,6 @@ public class AddNewIITAction extends Action
 	private String validityDays;
 	private String reorderPoint;
 	private String notes;
-	private String status;
 	
 	private InventoryItemType iit;
 	
@@ -71,9 +70,8 @@ public class AddNewIITAction extends Action
 		validityDays = props.getProperty("ValidityDays");
 		reorderPoint = props.getProperty("ReorderPoint");
 		notes = props.getProperty("Notes");
-		status = props.getProperty("Status");
 
-		if(itemTypeName != null && units != null && unitMeasure != null && validityDays!= null && reorderPoint != null && notes != null && status != null)
+		if(itemTypeName != null && units != null && unitMeasure != null && validityDays!= null && reorderPoint != null && notes != null)
 		{
 			iit = new InventoryItemType(props);
 			iit.add();
@@ -96,7 +94,7 @@ public class AddNewIITAction extends Action
 		}
 		else if(key.equals("IITData"))
 		{
-			String[] iitData = {itemTypeName, units, unitMeasure, validityDays, reorderPoint, notes, status};
+			String[] iitData = {itemTypeName, units, unitMeasure, validityDays, reorderPoint, notes};
 			return iitData;
 		}
 		

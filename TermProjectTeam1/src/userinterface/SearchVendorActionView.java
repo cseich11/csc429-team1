@@ -36,7 +36,7 @@ public class SearchVendorActionView extends View
 	protected TextField venName, phoneNum;
 
 	private Button submitButton;
-	private Button doneButton;
+	private Button cancelButton;
 
 	// For showing error message
 	private MessageView statusLog;
@@ -56,7 +56,7 @@ public class SearchVendorActionView extends View
 		container.getChildren().add(createFormContent());
 
 		// Error message area
-		container.getChildren().add(createStatusLog("                          \n                            "));
+		container.getChildren().add(createStatusLog("                          "));
 
 		getChildren().add(container);
 
@@ -71,19 +71,13 @@ public class SearchVendorActionView extends View
 	//-------------------------------------------------------------
 	private Node createTitle()
 	{
+		Text titleText = new Text("       Restaurant Inventory Vendor Search          ");
+		titleText.setWrappingWidth(450);
+		titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+		titleText.setTextAlignment(TextAlignment.CENTER);
+		titleText.setFill(Color.DARKGREEN);
 		
-		HBox container = new HBox();
-		container.setAlignment(Pos.CENTER);	
-
-        Text titleText = new Text("Search For Vendor");
-        titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-		titleText.setStrokeWidth(0.5);
-		titleText.setStroke(Color.GOLDENROD);  
-        titleText.setTextAlignment(TextAlignment.CENTER);
-        titleText.setFill(Color.DARKGREEN);
-		container.getChildren().add(titleText);
-
-        return container;
+		return titleText;
 	}
 
 	// Create the main form content
@@ -93,62 +87,47 @@ public class SearchVendorActionView extends View
 		VBox vbox = new VBox(10);
 
 		GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(25, 40, 1, 25));
+        	grid.setAlignment(Pos.CENTER);
+       		grid.setHgap(10);
+        	grid.setVgap(10);
+        	grid.setPadding(new Insets(25, 25, 25, 25));
 
-
-
-
-        Text vendorName = new Text("Enter Vendor Name:");
-		vendorName.setFont(Font.font("Arial", FontWeight.BOLD, 13));
-        vendorName.setWrappingWidth(350);
-        vendorName.setTextAlignment(TextAlignment.CENTER);
-        vendorName.setFill(Color.GOLDENROD);
-        grid.add(vendorName, 1, 0);
+		Label nameSearchLabel = new Label("Search Name: ");
+		grid.add(nameSearchLabel, 0, 0);
 
 		venName = new TextField();
 		venName.setEditable(true);
 		venName.setOnAction(e -> {
 			processAction(e);
 		});
-		grid.add(venName, 1, 1);
+		grid.add(venName, 1, 0);
 		
-		
-		
-		Text phoneNumber = new Text("Enter Phone Number:");
-		phoneNumber.setFont(Font.font("Arial", FontWeight.BOLD, 13));
-        phoneNumber.setWrappingWidth(350);
-        phoneNumber.setTextAlignment(TextAlignment.CENTER);
-        phoneNumber.setFill(Color.GOLDENROD);
-        grid.add(phoneNumber, 1, 2);
-		
+		Label phoneSearchLabel = new Label("Search Phone Number: ");
+		grid.add(phoneSearchLabel, 0, 1);
+
 		phoneNum = new TextField();
 		phoneNum.setOnAction(e -> {
 			processAction(e);
 		});
-		grid.add(phoneNum, 1, 3);
-		
-		
-		
+		grid.add(phoneNum, 1, 1);
+
 		submitButton = new Button("Submit");
  		submitButton.setOnAction(e -> {
  			clearErrorMessage(); 
-			// do the insert
+			// do the search
 			processAction(e);
         });
 
-		doneButton = new Button("Done");
- 		doneButton.setOnAction(e -> {
+		cancelButton = new Button("Back");
+ 		cancelButton.setOnAction(e -> {
  			clearErrorMessage();
-			myModel.stateChangeRequest("Cancel", null);   
+			myModel.stateChangeRequest("Cancel", null); 
         });
 
 		HBox btnContainer = new HBox(100);
 		btnContainer.setAlignment(Pos.CENTER);
 		btnContainer.getChildren().add(submitButton);
-		btnContainer.getChildren().add(doneButton);
+		btnContainer.getChildren().add(cancelButton);
 
 		vbox.getChildren().add(grid);
 		vbox.getChildren().add(btnContainer);
