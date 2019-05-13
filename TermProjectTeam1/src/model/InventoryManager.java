@@ -102,6 +102,10 @@ public class InventoryManager implements IView, IModel
 		{
 			doAction(key);
 		}
+		else if (key.equals("GenerateReorderList"))
+		{
+			doAction(key);
+		}
 		else if (key.equals("CancelAction"))
 		{
 			createAndShowInventoryManagerView();

@@ -38,6 +38,8 @@ public class ActionFactory
 			return new AddVIITAction();
 		if(actionType.equals("DeleteVIIT"))
 			return new DeleteVIITAction();
+		if(actionType.equals("GenerateReorderList"))
+			return new ReorderListAction();
 		return null;
 	}
 }
