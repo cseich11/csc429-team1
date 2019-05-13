@@ -143,10 +143,10 @@ public class InventoryManagerView extends View
  		doneButton.setOnAction(e -> {
  			done(e);
         });
- 		grid.add(insertIITButton, 0, 0); 
- 		grid.add(searchIITButton, 1, 0);
- 		grid.add(addVendorButton, 0, 1);
- 		grid.add(searchVendorButton, 1, 1);
+ 		grid.add(addVendorButton, 0, 0);
+ 		grid.add(searchVendorButton, 1, 0);
+ 		grid.add(insertIITButton, 0, 1); 
+ 		grid.add(searchIITButton, 1, 1);
  		grid.add(deleteVIITButton, 0, 2);
  		grid.add(addVIITButton, 1, 2);
  		grid.add(searchIIButton, 0, 3);
