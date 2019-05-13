@@ -23,9 +23,9 @@ public class InventoryItemCollection extends EntityBase implements IView
     }
 
     //----------------------------------------------------------------------------------
-    public void findAllII(String name, String notes)
+    public void findAllII()
     {
-        String query = "SELECT * FROM " + myTableName + " WHERE Status = 'Active'";
+        String query = "SELECT * FROM " + myTableName + " WHERE Status = 'Available'";
 
         Vector allDataRetrieved = getSelectQueryResult(query);
 
@@ -99,11 +99,14 @@ public class InventoryItemCollection extends EntityBase implements IView
     //----------------------------------------------------------
     public Object getState(String key)
     {
-        if (key.equals("InventoryItem"))
+        if (key.equals("InventoryItems"))
             return list;
         else
         if (key.equals("InventoryItemList"))
-            return this;
+        {
+        	return this;
+        }
+            
         return null;
     }
 

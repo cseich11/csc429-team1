@@ -14,7 +14,6 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -72,15 +71,18 @@ public class InventoryItemCollectionView extends View
     //--------------------------------------------------------------------------
     protected void getEntryTableModelValues()
     {
-
         ObservableList<InventoryItemTableModel> tableData = FXCollections.observableArrayList();
         try
         {
-            InventoryItemCollection iitCollection = (InventoryItemCollection)myModel.getState("InventoryItemList");
+        	//the framework wasn't working so I "hacked" it
+        	//InventoryItemCollection iiCollection = (InventoryItemCollection)myModel.getState("InventoryItemList");
+        	
+        	InventoryItemCollection iiCollection = new InventoryItemCollection();
+        	iiCollection.findAllII();
 
-            Vector entryList = (Vector)iitCollection.getState("InventoryItems");
+            Vector entryList = (Vector)iiCollection.getState("InventoryItems");
             Enumeration entries = entryList.elements();
-
+            
             while (entries.hasMoreElements() == true)
             {
                 InventoryItem nextInventoryItem = (InventoryItem)entries.nextElement();
@@ -108,7 +110,7 @@ public class InventoryItemCollectionView extends View
 
         Text unitMeasureText = new Text("       Restaurant Inventory System       ");
         unitMeasureText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        unitMeasureText.setWrappingWidth(300);
+        unitMeasureText.setWrappingWidth(725);
         unitMeasureText.setTextAlignment(TextAlignment.CENTER);
         unitMeasureText.setFill(Color.DARKGREEN);
         container.getChildren().add(unitMeasureText);
@@ -172,25 +174,13 @@ public class InventoryItemCollectionView extends View
         statusColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryItemTableModel, String>("Status"));
 
-//		TableColumn actionsColumn = new TableColumn("Actions");
-//		actionsColumn.setMinWidth(100);
-
-
         tableOfIITs.getColumns().addAll(barcodeColumn,
                 inventoryItemTypeNameColumn, vendorColumn, dateRecievedColumn, dateLastUsedColumn,
                 notesColumn, statusColumn);
 
-        tableOfIITs.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event)
-            {
-                if (event.isPrimaryButtonDown() && event.getClickCount() >=1 ){
-                    addButtonsForSelected();
-                }
-            }
-        });
+        
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setPrefSize(115, 150);
+        scrollPane.setPrefSize(200, 175);
         scrollPane.setContent(tableOfIITs);
 
         doneButton = new Button("Done");
@@ -198,16 +188,10 @@ public class InventoryItemCollectionView extends View
 
             @Override
             public void handle(ActionEvent e) {
-                /**
-                 * Process the Cancel button.
-                 * The ultimate result of this action is that the transaction will tell the teller to
-                 * to switch to the transaction choice view. BUT THAT IS NOT THIS VIEW'S CONCERN.
-                 * It simply tells its model (controller) that the transaction was canceled, and leaves it
-                 * to the model to decide to tell the teller to do the switch back.
-                 */
-                //----------------------------------------------------------
-                clearErrorMessage();
-                myModel.stateChangeRequest("CancelInventoryItemList", null);
+            	
+            	clearErrorMessage();
+    			myModel.stateChangeRequest("Cancel", null);
+    			
             }
         });
 
@@ -227,53 +211,6 @@ public class InventoryItemCollectionView extends View
     //--------------------------------------------------------------------------
     public void updateState(String key, Object value)
     {
-    }
-
-    //--------------------------------------------------------------------------
-    protected void addButtonsForSelected()
-    {
-        InventoryItemTableModel selectedItem = tableOfIITs.getSelectionModel().getSelectedItem();
-
-        if(selectedItem != null && !sub)
-        {
-            if(btnContainer.getChildren().contains(modifyButton) && btnContainer.getChildren().contains(deleteButton)) {
-                btnContainer.getChildren().remove(modifyButton);
-                btnContainer.getChildren().remove(deleteButton);
-            }
-            System.out.println(selectedItem.getBarcode());
-            String selectedIITName = selectedItem.getBarcode();
-            modifyButton = new Button("Modify");
-            modifyButton.setOnAction(e -> {
-                myModel.stateChangeRequest("ModifyIIT", selectedIITName);
-            });
-            deleteButton = new Button("Delete");
-            deleteButton.setOnAction(e -> {
-                myModel.stateChangeRequest("ConfirmDeleteIIT", selectedIITName);
-            });
-            btnContainer.getChildren().addAll(modifyButton, deleteButton);
-
-            myModel.stateChangeRequest("IITSelected", selectedIITName);
-
-        }
-
-        if(selectedItem != null && sub)
-        {
-            if(btnContainer.getChildren().contains(submitButton)) {
-                btnContainer.getChildren().remove(submitButton);
-
-            }
-            System.out.println(selectedItem.getBarcode());
-            String selectedIITName = selectedItem.getBarcode();
-            submitButton = new Button("SUBMIT");
-            submitButton.setOnAction(e -> {
-                myModel.stateChangeRequest("SubmitIIT", selectedIITName);
-            });
-
-            btnContainer.getChildren().addAll(submitButton);
-
-            myModel.stateChangeRequest("IITSelected", selectedIITName);
-
-        }
     }
 
     //--------------------------------------------------------------------------
@@ -302,15 +239,4 @@ public class InventoryItemCollectionView extends View
     {
         statusLog.clearErrorMessage();
     }
-	/*
-	//--------------------------------------------------------------------------
-	public void mouseClicked(MouseEvent click)
-	{
-		if(click.getClickCount() >= 2)
-		{
-			processBookSelected();
-		}
-	}
-   */
-
 }

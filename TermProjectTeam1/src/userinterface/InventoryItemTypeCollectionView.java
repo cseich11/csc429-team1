@@ -77,7 +77,6 @@ public class InventoryItemTypeCollectionView extends View
 		try
 		{
 			InventoryItemTypeCollection iitCollection = (InventoryItemTypeCollection)myModel.getState("InventoryItemTypeList");
-
 	 		Vector entryList = (Vector)iitCollection.getState("InventoryItemTypes");
 			Enumeration entries = entryList.elements();
 

@@ -44,6 +44,8 @@ public class ViewFactory {
 			return new ConfirmDeleteVIITView(model);
 		if(viewName.equals("PriceView"))
 			return new PriceView(model);
+		if(viewName.equals("InventoryItemCollectionView"))
+			return new InventoryItemCollectionView(model);
 		return null;
 	}
 }

@@ -38,6 +38,9 @@ public class ActionFactory
 			return new AddVIITAction();
 		if(actionType.equals("DeleteVIIT"))
 			return new DeleteVIITAction();
+		if(actionType.equals("GetIICollection"))
+			return new GetIICollectionAction();
+		
 		return null;
 	}
 }
