@@ -106,9 +106,9 @@ public class ReorderListView extends View
 		HBox container = new HBox();
 		container.setAlignment(Pos.CENTER);	
 
-		Text unitMeasureText = new Text("       Restaurant Inventory System       ");
+		Text unitMeasureText = new Text("     Restaurant Inventory System    ");
 		unitMeasureText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-		unitMeasureText.setWrappingWidth(300);
+		unitMeasureText.setWrappingWidth(350);
 		unitMeasureText.setTextAlignment(TextAlignment.CENTER);
 		unitMeasureText.setFill(Color.DARKGREEN);
 		container.getChildren().add(unitMeasureText);

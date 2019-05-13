@@ -1,8 +1,10 @@
 // specify the package
 package userinterface;
 
+import javafx.event.ActionEvent;
 // system imports
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -34,30 +36,30 @@ public class SubmitInvoiceView extends View
 
 	// GUI components
 	protected TextField iitNameField, barcodeField, notesField;
-	private ComboBox<String> status;
 
 	private Button submitButton;
-	private Button doneButton;
+	private Button cancelButton;
 
 	// For showing error message
 	private MessageView statusLog;
 
 	// constructor for this class -- takes a model object
 	//----------------------------------------------------------
-	public SubmitInvoiceView(IModel action)
+	public SubmitInvoiceView(IModel model)
 	{
-		super(action, "SubmitInvoiceView");
+		super(model, "SubmitInvoiceView");
 
 		// create a container for showing the contents
 		VBox container = new VBox(10);
 		container.setPadding(new Insets(15, 5, 5, 5));
 
-		// create our GUI components, add them to this panel
+		// Add a title for this panel
 		container.getChildren().add(createTitle());
+		
+		// create our GUI components, add them to this Container
 		container.getChildren().add(createFormContent());
 
-		// Error message area
-		container.getChildren().add(createStatusLog("                          \n                            "));
+		container.getChildren().add(createStatusLog("             \n              "));
 
 		getChildren().add(container);
 
@@ -72,19 +74,17 @@ public class SubmitInvoiceView extends View
 	//-------------------------------------------------------------
 	private Node createTitle()
 	{
-		
 		HBox container = new HBox();
 		container.setAlignment(Pos.CENTER);	
 
-        Text titleText = new Text("Process Invoice");
-        titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-		titleText.setStrokeWidth(0.5);
-		titleText.setStroke(Color.GOLDENROD);  
-        titleText.setTextAlignment(TextAlignment.CENTER);
-        titleText.setFill(Color.DARKGREEN);
+		Text titleText = new Text(" Brockport Restaraunt ");
+		titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+		titleText.setWrappingWidth(300);
+		titleText.setTextAlignment(TextAlignment.CENTER);
+		titleText.setFill(Color.DARKGREEN);
 		container.getChildren().add(titleText);
-
-        return container;
+		
+		return container;
 	}
 
 	// Create the main form content
@@ -95,77 +95,75 @@ public class SubmitInvoiceView extends View
 
 		GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
+       	grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(25, 40, 1, 25));
+        grid.setPadding(new Insets(25, 25, 25, 25));
+        
+        Text prompt = new Text("PROCESS INVOICE");
+        prompt.setWrappingWidth(400);
+        prompt.setTextAlignment(TextAlignment.CENTER);
+        prompt.setFill(Color.BLACK);
+        grid.add(prompt, 0, 0, 2, 1);
 
+		Text iitNameLabel = new Text(" Item Type Name : ");
+		Font myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
+		iitNameLabel.setFont(myFont);
+		iitNameLabel.setWrappingWidth(150);
+		iitNameLabel.setTextAlignment(TextAlignment.RIGHT);
+		grid.add(iitNameLabel, 0, 1);
 
-
-
-        Text iitName = new Text("Enter Inventory Item Type Name:");
-        iitName.setFont(Font.font("Arial", FontWeight.BOLD, 13));
-        iitName.setWrappingWidth(350);
-        iitName.setTextAlignment(TextAlignment.CENTER);
-        iitName.setFill(Color.GOLDENROD);
-        grid.add(iitName, 1, 0);
-
-        iitNameField = new TextField();
+		iitNameField = new TextField();
         iitNameField.setEditable(true);
         iitNameField.setOnAction(e -> {
 			processAction(e);
 		});
 		grid.add(iitNameField, 1, 1);
-		
-		
-		
-		Text barcode = new Text("Enter Inventory Item Barcode:");
-		barcode.setFont(Font.font("Arial", FontWeight.BOLD, 13));
-		barcode.setWrappingWidth(350);
-		barcode.setTextAlignment(TextAlignment.CENTER);
-		barcode.setFill(Color.GOLDENROD);
-        grid.add(barcode, 1, 2);
-		
-        barcodeField = new TextField();
+
+		Text barcodeLabel = new Text(" Item Barcode : ");
+		barcodeLabel.setFont(myFont);
+		barcodeLabel.setWrappingWidth(150);
+		barcodeLabel.setTextAlignment(TextAlignment.RIGHT);
+		grid.add(barcodeLabel, 0, 2);
+
+		barcodeField = new TextField();
         barcodeField.setOnAction(e -> {
 			processAction(e);
 		});
-		grid.add(barcodeField, 1, 3);
-		
-		Text notes = new Text("Enter Inventory Item Notes:");
-		notes.setFont(Font.font("Arial", FontWeight.BOLD, 13));
-		notes.setWrappingWidth(350);
-		notes.setTextAlignment(TextAlignment.CENTER);
-		notes.setFill(Color.GOLDENROD);
-        grid.add(notes, 1, 4);
-		
-        notesField = new TextField();
+		grid.add(barcodeField, 1, 2);
+
+		Text notesLabel = new Text(" Item Notes : ");
+		notesLabel.setFont(myFont);
+		notesLabel.setWrappingWidth(150);
+		notesLabel.setTextAlignment(TextAlignment.RIGHT);
+		grid.add(notesLabel, 0, 3);
+
+		notesField = new TextField();
         notesField.setOnAction(e -> {
 			processAction(e);
 		});
-		grid.add(notesField, 1, 5);
-		
-		
-		
+		grid.add(notesField, 1, 3);
+
+		HBox doneCont = new HBox(10);
+		doneCont.setAlignment(Pos.CENTER);
 		submitButton = new Button("Submit");
- 		submitButton.setOnAction(e -> {
- 			clearErrorMessage(); 
-			// do the insert
-			processAction(e);
+		submitButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		submitButton.setOnAction(e -> {
+			clearErrorMessage();
+       		processAction(e);
         });
-
-		doneButton = new Button("Done");
- 		doneButton.setOnAction(e -> {
- 			clearErrorMessage();
-			myModel.stateChangeRequest("Cancel", null);   
+		
+		cancelButton = new Button("Back");
+		cancelButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+		cancelButton.setOnAction(e -> {
+			clearErrorMessage();
+			myModel.stateChangeRequest("Cancel", null);
         });
-
-		HBox btnContainer = new HBox(100);
-		btnContainer.setAlignment(Pos.CENTER);
-		btnContainer.getChildren().add(submitButton);
-		btnContainer.getChildren().add(doneButton);
-
+		
+		doneCont.getChildren().add(submitButton);
+		doneCont.getChildren().add(cancelButton);
+	
 		vbox.getChildren().add(grid);
-		vbox.getChildren().add(btnContainer);
+		vbox.getChildren().add(doneCont);
 
 		return vbox;
 	}
