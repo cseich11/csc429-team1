@@ -71,7 +71,7 @@ public class SearchIIActionView extends View
 	private Node createTitle()
 	{
 		
-		Text titleText = new Text("       Inventory Item Search          ");
+		Text titleText = new Text("      Inventory Item Search          ");
 		titleText.setWrappingWidth(300);
 		titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 		titleText.setTextAlignment(TextAlignment.CENTER);

@@ -138,11 +138,14 @@ public class InventoryManagerView extends View
  		doneButton.setOnAction(e -> {
  			done(e);
         });
-
-		HBox btnContainer = new HBox(10);
-		btnContainer.setAlignment(Pos.BOTTOM_RIGHT);
-		btnContainer.getChildren().addAll(insertIITButton, searchIITButton, searchIIButton, addVendorButton, searchVendorButton, addVIITButton, deleteVIITButton, doneButton);
-		grid.add(btnContainer, 1, 3);
+ 		grid.add(insertIITButton, 0, 0); 
+ 		grid.add(searchIITButton, 1, 0);
+ 		grid.add(addVendorButton, 0, 1);
+ 		grid.add(searchVendorButton, 1, 1);
+ 		grid.add(deleteVIITButton, 0, 2);
+ 		grid.add(addVIITButton, 1, 2);
+ 		grid.add(searchIIButton, 0, 3);
+ 		grid.add(doneButton, 1, 3);
 
 		return grid;
 	}
