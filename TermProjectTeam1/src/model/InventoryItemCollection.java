@@ -14,53 +14,24 @@ import userinterface.ViewFactory;
 
 /** The class containing the InventoryItemTypeCollection for the Library application */
 //==============================================================
-public class InventoryItemTypeCollection extends EntityBase implements IView
+public class InventoryItemCollection extends EntityBase implements IView
 {
-	private static final String myTableName = "InventoryItemType";
+	private static final String myTableName = "InventoryItem";
 
-	protected Vector<InventoryItemType> list;
+	protected Vector<InventoryItem> list;
 	// GUI Components
 
 	// constructor for this class
 	//----------------------------------------------------------
-	public InventoryItemTypeCollection()
+	public InventoryItemCollection()
 	{
 		super(myTableName);
-		list = new Vector<InventoryItemType>();
 	}
 
 	//----------------------------------------------------------------------------------
-	public void findAllIITWithNameNotes(String name, String notes)
+	public void findAllInventoryItemsWithName(String name)
 	{
-		String query = "SELECT * FROM " + myTableName + " WHERE ItemTypeName LIKE '%" + name + "%' AND Notes LIKE '%" + notes + "%'";
-		
-		Vector allDataRetrieved = getSelectQueryResult(query);
-		
-		System.out.println(query + "\n");
-
-		if (allDataRetrieved != null)
-		{
-			list = new Vector<InventoryItemType>();
-
-			for (int i = 0; i < allDataRetrieved.size(); i++)
-			{
-				Properties nextInventoryItemTypeData = (Properties)allDataRetrieved.elementAt(i);
-
-				InventoryItemType inventoryItemType = new InventoryItemType(nextInventoryItemTypeData);
-
-				if (inventoryItemType != null)
-				{
-					addIIT(inventoryItemType);
-				}
-				
-			}
-
-		}
-	}
-	
-	public void findAllIIT()
-	{
-		String query = "SELECT * FROM " + myTableName + " WHERE Status = 'Active'";
+		String query = "SELECT * FROM " + myTableName + " WHERE InventoryItemTypeName LIKE \"%" + name + "%\" AND Status = 'Available'";
 		
 		Vector allDataRetrieved = getSelectQueryResult(query);
 		
@@ -68,13 +39,41 @@ public class InventoryItemTypeCollection extends EntityBase implements IView
 
 		if (allDataRetrieved != null)
 		{
-			list = new Vector<InventoryItemType>();
+			list = new Vector<InventoryItem>();
+
+			for (int i = 0; i < allDataRetrieved.size(); i++)
+			{
+				Properties nextInventoryItemData = (Properties)allDataRetrieved.elementAt(i);
+
+				InventoryItem inventoryItem = new InventoryItem(nextInventoryItemData);
+
+				if (inventoryItem != null)
+				{
+					addIIT(inventoryItem);
+				}
+				
+			}
+
+		}
+	}
+	
+	public void findAllInventoryItems()
+	{
+		String query = "SELECT * FROM " + myTableName + " WHERE Status = 'Available'";
+		
+		Vector allDataRetrieved = getSelectQueryResult(query);
+		
+//		System.out.println(query + "\n");
+
+		if (allDataRetrieved != null)
+		{
+			list = new Vector<InventoryItem>();
 
 			for (int i = 0; i < allDataRetrieved.size(); i++)
 			{
 				Properties nextInventoryItemTypeData = (Properties)allDataRetrieved.elementAt(i);
 
-				InventoryItemType inventoryItemType = new InventoryItemType(nextInventoryItemTypeData);
+				InventoryItem inventoryItemType = new InventoryItem(nextInventoryItemTypeData);
 
 				if (inventoryItemType != null)
 				{
@@ -87,7 +86,7 @@ public class InventoryItemTypeCollection extends EntityBase implements IView
 	}
 	
 	
-	protected void addIIT(InventoryItemType a)
+	protected void addIIT(InventoryItem a)
 	{
 		//list.add(a);
 		int index = findIndexToAdd(a);
@@ -95,7 +94,7 @@ public class InventoryItemTypeCollection extends EntityBase implements IView
 	}
 
 	//----------------------------------------------------------------------------------
-	private int findIndexToAdd(InventoryItemType a)
+	private int findIndexToAdd(InventoryItem a)
 	{
 		//users.add(u);
 		int low=0;
@@ -106,9 +105,9 @@ public class InventoryItemTypeCollection extends EntityBase implements IView
 		{
 			middle = (low+high)/2;
 
-			InventoryItemType midSession = list.elementAt(middle);
+			InventoryItem midSession = list.elementAt(middle);
 
-			int result = InventoryItemType.compare(a,midSession);
+			int result = InventoryItem.compare(a,midSession);
 
 			if (result ==0)
 			{
@@ -151,16 +150,16 @@ public class InventoryItemTypeCollection extends EntityBase implements IView
 	}
 
 	//----------------------------------------------------------
-	public InventoryItemType retrieve(String inventoryItemTypeName)
+	public InventoryItem retrieve(String inventoryItemTypeName)
 	{
-		InventoryItemType retValue = null;
+		InventoryItem retValue = null;
 		for (int cnt = 0; cnt < list.size(); cnt++)
 		{
-			InventoryItemType nextInventoryItemType = list.elementAt(cnt);
-			String nextInventoryItemTypeName = (String)nextInventoryItemType.getState("ItemTypeName");
+			InventoryItem nextInventoryItem = list.elementAt(cnt);
+			String nextInventoryItemTypeName = (String)nextInventoryItem.getState("InventoryItemTypeName");
 			if (nextInventoryItemTypeName.equals(inventoryItemTypeName) == true)
 			{
-				retValue = nextInventoryItemType;
+				retValue = nextInventoryItem;
 				return retValue; // we should say 'break;' here
 			}
 		}
