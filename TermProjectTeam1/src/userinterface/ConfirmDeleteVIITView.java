@@ -18,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import model.VendorInventoryItemType;
 
 import java.util.Properties;
 
@@ -38,6 +39,8 @@ public class ConfirmDeleteVIITView extends View
 
 	// For showing error message
 	private MessageView statusLog;
+	
+	private VendorInventoryItemType viit;
 
 	// constructor for this class -- takes a model object
 	//----------------------------------------------------------
@@ -61,6 +64,7 @@ public class ConfirmDeleteVIITView extends View
 		//populateFields();
 		
 		myModel.subscribe("UpdateStatusMessage", this);
+		
 	}
 
 
@@ -90,8 +94,11 @@ public class ConfirmDeleteVIITView extends View
         	grid.setVgap(10);
         	grid.setPadding(new Insets(25, 25, 25, 25));
 
-		Label confirmDeleteLabel = new Label("Are you sure you want to delete the Vendor-Inventory-Item-Type?");
-//				+ " with Vendor Name = " + vendorName + "and ItemTypeName = " + itemTypeName + "?");
+        	viit = (VendorInventoryItemType) myModel.getState("VIIT");
+		Label confirmDeleteLabel = new Label("Are you sure you want to delete the following Vendor-Inventory-Item-Type?\n"
+				+ "Id: " + viit.getState("Id") + "\n" + "Vendor Id: " + viit.getState("VendorId") + "\n" 
+				+ "Inventory Item Type Name: " + viit.getState("InventoryItemTypeName") + "\n" + "Date Of Last Update: "
+				+ viit.getState("DateOfLastUpdate"));
 		grid.add(confirmDeleteLabel, 0, 0);
 
 		submitButton = new Button("Confirm");
