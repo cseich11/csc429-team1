@@ -106,6 +106,8 @@ public class InventoryItemCollection extends EntityBase implements IView
         {
         	return this;
         }
+        else if(key.equals("Barcode"))
+        	return persistentState.getProperty("Barcode");
             
         return null;
     }
@@ -118,14 +120,14 @@ public class InventoryItemCollection extends EntityBase implements IView
     }
 
     //----------------------------------------------------------
-    public InventoryItem retrieve(String inventoryItemName)
+    public InventoryItem retrieve(String barcode)
     {
         InventoryItem retValue = null;
         for (int cnt = 0; cnt < list.size(); cnt++)
         {
             InventoryItem nextInventoryItem = list.elementAt(cnt);
-            String nextInventoryItemName = (String)nextInventoryItem.getState("ItemName");
-            if (nextInventoryItemName.equals(inventoryItemName) == true)
+            String nextInventoryItemName = (String)nextInventoryItem.getState("Barcode");
+            if (nextInventoryItemName.equals(barcode) == true)
             {
                 retValue = nextInventoryItem;
                 return retValue; // we should say 'break;' here

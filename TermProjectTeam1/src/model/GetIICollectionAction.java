@@ -56,55 +56,26 @@ public class GetIICollectionAction extends Action
 
 	protected Scene createView() {
 
-		Scene currentScene = myViews.get("InventoryItemCollectionView");
-		
-		if (currentScene == null)
-		{
-			// create our initial view
-			View newView = ViewFactory.createView("InventoryItemCollectionView", this);
-			currentScene = new Scene(newView);
-			myViews.put("InventoryItemCollectionView", currentScene);
-
-			return currentScene;
-		}
-		else
-		{	
-			return currentScene;
-		}
-
+		ic = new InventoryItemCollection();
+		ic.findAllII();
+			
 		// create our initial view
-//		View newView = ViewFactory.createView("InventoryItemCollectionView", this);
-//		currentScene = new Scene(newView);
-//		myViews.put("InventoryItemCollectionView", currentScene);
-//
-//		return currentScene;
+		View newView = ViewFactory.createView("InventoryItemCollectionView", this);
+		Scene currentScene = new Scene(newView);
+		myViews.put("InventoryItemCollectionView", currentScene);
+
+		return currentScene;
 	}
 
 
 	public Object getState(String key) {
 		
-//		if (key.equals("ActionError"))
-//			return actionErrorMessage;
-//		if(key.equals("InventoryItemTypeList"))
-//			return list;
-//		if(key.equals("showSubmitButton"))
-//			return false;
-//		if(key.equals("IITData"))
-//		{
-//			String[] iitData = {itemTypeName, units, unitMeasure, validityDays, reorderPoint, notes, status};
-//			return iitData;
-//		}
-//		if (iit != null)
-//			return iit.getState(key);
-//		if(key.equals("InventoryItemTypeList"))
-//		{
-////			System.out.println("test");
-//			ic = new InventoryItemCollection();
-//			ic.findAllII();
-//			return ic;
-//		}
-		
-//		ic = new InventoryItemCollection();
+		if (key.equals("ActionError"))
+			return actionErrorMessage;
+		if(key.equals("InventoryItemList"))
+			return ic;
+		if(key.equals("showSubmitButton"))
+			return false;
 		
 		return null;
 	}

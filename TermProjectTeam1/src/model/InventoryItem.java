@@ -366,7 +366,7 @@ public class InventoryItem extends EntityBase implements IView {
 			v.addElement(persistentState.getProperty("Barcode"));
 			v.addElement(persistentState.getProperty("InventoryItemTypeName"));
 			v.addElement(persistentState.getProperty("Vendor"));
-			v.addElement(persistentState.getProperty("DateReceived"));
+			v.addElement(persistentState.getProperty("DateRecieved"));
 			v.addElement(persistentState.getProperty("DateLastUsed"));
 			v.addElement(persistentState.getProperty("Notes"));
 			v.addElement(persistentState.getProperty("Status"));

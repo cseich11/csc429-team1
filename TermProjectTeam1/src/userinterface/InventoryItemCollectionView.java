@@ -30,11 +30,13 @@ import java.util.Enumeration;
 import impresario.IModel;
 import model.InventoryItem;
 import model.InventoryItemCollection;
+import model.InventoryItemType;
+import model.InventoryItemTypeCollection;
 
 //==============================================================================
 public class InventoryItemCollectionView extends View
 {
-    protected TableView<InventoryItemTableModel> tableOfIITs;
+    protected TableView<InventoryItemTableModel> tableOfIIs;
     protected Button doneButton, modifyButton, deleteButton, submitButton;
     protected HBox btnContainer;
 
@@ -70,36 +72,32 @@ public class InventoryItemCollectionView extends View
 
     //--------------------------------------------------------------------------
     protected void getEntryTableModelValues()
-    {
-        ObservableList<InventoryItemTableModel> tableData = FXCollections.observableArrayList();
-        try
-        {
-        	//the framework wasn't working so I "hacked" it
-        	//InventoryItemCollection iiCollection = (InventoryItemCollection)myModel.getState("InventoryItemList");
-        	
-        	InventoryItemCollection iiCollection = new InventoryItemCollection();
-        	iiCollection.findAllII();
+	{
+		
+		ObservableList<InventoryItemTableModel> tableData = FXCollections.observableArrayList();
+		try
+		{
+			InventoryItemCollection iiCollection = (InventoryItemCollection)myModel.getState("InventoryItemList");
+	 		Vector entryList = (Vector)iiCollection.getState("InventoryItems");
+			Enumeration entries = entryList.elements();
 
-            Vector entryList = (Vector)iiCollection.getState("InventoryItems");
-            Enumeration entries = entryList.elements();
-            
-            while (entries.hasMoreElements() == true)
-            {
-                InventoryItem nextInventoryItem = (InventoryItem)entries.nextElement();
-                Vector<String> view = nextInventoryItem.getEntryListView();
+			while (entries.hasMoreElements() == true)
+			{
+				InventoryItem nextInventoryItem = (InventoryItem)entries.nextElement();
+				Vector<String> view = nextInventoryItem.getEntryListView();
 
-                // add this list entry to the list
-                InventoryItemTableModel nextTableRowData = new InventoryItemTableModel(view);
-                tableData.add(nextTableRowData);
-
-            }
-
-            tableOfIITs.setItems(tableData);
-        }
-        catch (Exception e) {//SQLException e) {
-            // Need to handle this exception
-        }
-    }
+				// add this list entry to the list
+				InventoryItemTableModel nextTableRowData = new InventoryItemTableModel(view);
+				tableData.add(nextTableRowData);
+				
+			}
+			
+			tableOfIIs.setItems(tableData);
+		}
+		catch (Exception e) {//SQLException e) {
+			// Need to handle this exception
+		}
+	}
 
     // Create the unitMeasure container
     //-------------------------------------------------------------
@@ -136,8 +134,8 @@ public class InventoryItemCollectionView extends View
         prompt.setFill(Color.BLACK);
         grid.add(prompt, 0, 0, 2, 1);
 
-        tableOfIITs = new TableView<InventoryItemTableModel>();
-        tableOfIITs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        tableOfIIs = new TableView<InventoryItemTableModel>();
+        tableOfIIs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         TableColumn barcodeColumn = new TableColumn("Barcode") ;
         barcodeColumn.setMinWidth(100);
@@ -174,14 +172,14 @@ public class InventoryItemCollectionView extends View
         statusColumn.setCellValueFactory(
                 new PropertyValueFactory<InventoryItemTableModel, String>("Status"));
 
-        tableOfIITs.getColumns().addAll(barcodeColumn,
+        tableOfIIs.getColumns().addAll(barcodeColumn,
                 inventoryItemTypeNameColumn, vendorColumn, dateRecievedColumn, dateLastUsedColumn,
                 notesColumn, statusColumn);
 
         
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setPrefSize(200, 175);
-        scrollPane.setContent(tableOfIITs);
+        scrollPane.setContent(tableOfIIs);
 
         doneButton = new Button("Done");
         doneButton.setOnAction(new EventHandler<ActionEvent>() {
