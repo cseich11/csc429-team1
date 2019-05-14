@@ -188,7 +188,7 @@ public class InventoryItemTypeCollectionView extends View
 			}
 		});
 		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setPrefSize(725, 300);
+		scrollPane.setPrefSize(700, 300);
 		scrollPane.setFitToWidth(true);
 		scrollPane.setFitToHeight(true);
 		scrollPane.setContent(tableOfIITs);
