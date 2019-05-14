@@ -177,6 +177,9 @@ public class SearchIITAction extends Action
 			createAndShowIITListView();
 		}
 		
+		else if (key.equals("CancelDelete"))
+			createAndShowIITListView();
+		
 		else if (key.equals("IITData") == true)
 			processAction((Properties)value);
 
