@@ -138,7 +138,7 @@ public class IITCollectionForVIITView extends View
 		tableOfIITs.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 	
 		TableColumn nameColumn = new TableColumn("ItemTypeName") ;
-		nameColumn.setMinWidth(100);
+		nameColumn.setMinWidth(150);
 		nameColumn.setCellValueFactory(
 	                new PropertyValueFactory<InventoryItemTypeTableModel, String>("itemTypeName"));
 		
@@ -148,17 +148,17 @@ public class IITCollectionForVIITView extends View
 	                new PropertyValueFactory<InventoryItemTypeTableModel, String>("units"));
 		  
 		TableColumn unitMeasureColumn = new TableColumn("Unit Measure") ;
-		unitMeasureColumn.setMinWidth(100);
+		unitMeasureColumn.setMinWidth(150);
 		unitMeasureColumn.setCellValueFactory(
 	                new PropertyValueFactory<InventoryItemTypeTableModel, String>("unitMeasure"));
 		
 		TableColumn validityDaysColumn = new TableColumn("ValidityDays") ;
-		validityDaysColumn.setMinWidth(100);
+		validityDaysColumn.setMinWidth(150);
 		validityDaysColumn.setCellValueFactory(
 	                new PropertyValueFactory<InventoryItemTypeTableModel, String>("validityDays"));
 		
 		TableColumn reorderPointColumn = new TableColumn("ReorderPoint") ;
-		reorderPointColumn.setMinWidth(100);
+		reorderPointColumn.setMinWidth(150);
 		reorderPointColumn.setCellValueFactory(
 	                new PropertyValueFactory<InventoryItemTypeTableModel, String>("reorderPoint"));
 		
@@ -189,7 +189,7 @@ public class IITCollectionForVIITView extends View
 			}
 		});
 		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setPrefSize(925, 300);
+		scrollPane.setPrefSize(800, 300);
 		scrollPane.setFitToWidth(true);
 		scrollPane.setFitToHeight(true);
 		scrollPane.setContent(tableOfIITs);
