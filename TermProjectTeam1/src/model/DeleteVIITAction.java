@@ -110,6 +110,8 @@ public class DeleteVIITAction extends Action
 			return iitList;
 		if (key.equals("VendorList"))
             return vendorList;
+		if (key.equals("VIIT"))
+            return viit;
 		
 		if (iit != null)
 			return iit.getState(key);
