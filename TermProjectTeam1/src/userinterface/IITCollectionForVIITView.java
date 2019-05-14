@@ -189,7 +189,9 @@ public class IITCollectionForVIITView extends View
 			}
 		});
 		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setPrefSize(115, 150);
+		scrollPane.setPrefSize(925, 300);
+		scrollPane.setFitToWidth(true);
+		scrollPane.setFitToHeight(true);
 		scrollPane.setContent(tableOfIITs);
 
 		doneButton = new Button("Done");
