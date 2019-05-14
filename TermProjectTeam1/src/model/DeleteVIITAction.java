@@ -184,6 +184,13 @@ public class DeleteVIITAction extends Action
 		}
 		else if(key.equals("IITData"))
 			showIITList((String[])value);
+		else if(key.equals("CancelItemTypeSearch"))
+			createAndShowVendors();
+		else if(key.equals("CancelVendorList"))
+			createAndShowVendorSearch();
+		else if(key.equals("CancelIITList"))
+			createAndShowIITSearch();
+		
 		myRegistry.updateSubscribers(key, this);
 	}
 	

@@ -177,6 +177,12 @@ public class AddVIITAction extends Action
 		}
 		else if(key.equals("IITData"))
 			showIITList((String[])value);
+		else if(key.equals("CancelItemTypeSearch"))
+			createAndShowVendors();
+		else if(key.equals("CancelVendorList"))
+			createAndShowVendorSearch();
+		else if(key.equals("CancelIITList"))
+			createAndShowIITSearch();
 		if(key.equals("VIITData"))
 		{
 			String vendorPrice = (String)value;

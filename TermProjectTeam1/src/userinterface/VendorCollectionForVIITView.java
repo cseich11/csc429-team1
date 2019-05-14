@@ -197,7 +197,7 @@ public class VendorCollectionForVIITView extends View
 
             @Override
             public void handle(ActionEvent e) {
-            	InventoryManager newManager = new InventoryManager();
+            	myModel.stateChangeRequest("CancelVendorList", null);
             }
         });
         

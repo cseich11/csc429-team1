@@ -207,7 +207,7 @@ public class IITCollectionForVIITView extends View
        		    	//----------------------------------------------------------
        		    	clearErrorMessage();
 //       		    	myModel.stateChangeRequest("CancelInventoryItemTypeList", null); 
-       		    	InventoryManager manager = new InventoryManager();
+       		    	myModel.stateChangeRequest("CancelIITList", null);
        		    }
         	});
 
