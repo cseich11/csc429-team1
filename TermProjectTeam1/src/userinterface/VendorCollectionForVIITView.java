@@ -189,7 +189,7 @@ public class VendorCollectionForVIITView extends View
 			}
 		});
 		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setPrefSize(925, 300);
+		scrollPane.setPrefSize(500, 300);
 		scrollPane.setFitToWidth(true);
 		scrollPane.setFitToHeight(true);
 		scrollPane.setContent(vendorTable);
