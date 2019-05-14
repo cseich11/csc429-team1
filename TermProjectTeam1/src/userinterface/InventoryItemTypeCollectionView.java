@@ -105,7 +105,7 @@ public class InventoryItemTypeCollectionView extends View
 		HBox container = new HBox();
 		container.setAlignment(Pos.CENTER);	
 
-		Text unitMeasureText = new Text("       Restaurant Inventory System       ");
+		Text unitMeasureText = new Text(" Restaurant Inventory System ");
 		unitMeasureText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 		unitMeasureText.setWrappingWidth(300);
 		unitMeasureText.setTextAlignment(TextAlignment.CENTER);
@@ -188,7 +188,9 @@ public class InventoryItemTypeCollectionView extends View
 			}
 		});
 		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setPrefSize(115, 150);
+		scrollPane.setPrefSize(725, 300);
+		scrollPane.setFitToWidth(true);
+		scrollPane.setFitToHeight(true);
 		scrollPane.setContent(tableOfIITs);
 
 		doneButton = new Button("Done");

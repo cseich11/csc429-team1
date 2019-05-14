@@ -149,7 +149,7 @@ public class VendorCollectionView extends View
 		prompt.setFont(Font.font("Arial", FontWeight.BOLD, 15));
         prompt.setWrappingWidth(500);
         prompt.setTextAlignment(TextAlignment.CENTER);
-        prompt.setFill(Color.GOLDENROD);
+        prompt.setFill(Color.BLACK);
         grid.add(prompt, 0, 0);
 		
 		vendorTable = new TableView<VendorTableModel>();
@@ -192,7 +192,9 @@ public class VendorCollectionView extends View
 		});
 
 		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setPrefSize(190, 200);
+		scrollPane.setPrefSize(275, 200);
+		scrollPane.setFitToHeight(true);
+		scrollPane.setFitToWidth(true);
 		scrollPane.setContent(vendorTable);
 
         doneButton = new Button("DONE");
