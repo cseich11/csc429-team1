@@ -96,9 +96,9 @@ public class ConfirmDeleteVIITView extends View
 
         	viit = (VendorInventoryItemType) myModel.getState("VIIT");
 		Label confirmDeleteLabel = new Label("Are you sure you want to delete the following Vendor-Inventory-Item-Type?\n"
-				+ "Id: " + viit.getState("Id") + "\n" + "Vendor Id: " + viit.getState("VendorId") + "\n" 
-				+ "Inventory Item Type Name: " + viit.getState("InventoryItemTypeName") + "\n" + "Date Of Last Update: "
-				+ viit.getState("DateOfLastUpdate"));
+				+ "Id: " + viit.getState("Id") + "\nVendor Id: " + viit.getState("VendorId")
+				+ "\nInventory Item Type Name: " + viit.getState("InventoryItemTypeName") + "\nVendor Price: "
+				+ viit.getState("VendorPrice") + "\nDate Of Last Update: " + viit.getState("DateOfLastUpdate"));
 		grid.add(confirmDeleteLabel, 0, 0);
 
 		submitButton = new Button("Confirm");
