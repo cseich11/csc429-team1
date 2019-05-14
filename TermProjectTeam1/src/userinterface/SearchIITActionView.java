@@ -59,7 +59,7 @@ public class SearchIITActionView extends View
 		populateFields();
 		
 		myModel.subscribe("UpdateStatusMessage", this);
-		displayMessage((String)myModel.getState("UpdateStatusMessage"));
+//		displayMessage((String)myModel.getState("UpdateStatusMessage"));
 	}
 
 

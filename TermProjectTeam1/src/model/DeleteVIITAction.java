@@ -154,7 +154,7 @@ public class DeleteVIITAction extends Action
 			} catch (InvalidPrimaryKeyException e) {
 				// TODO Auto-generated catch block
 				viitUpdateStatusMessage = "This is not a valid VIIT"; 
-				createAndShowIITSearch();
+				createAndShowVendorSearch();
 			}
 			
 		}
