@@ -69,7 +69,7 @@ public class DeleteIIActionView extends View
 	{
 		
 		Text titleText = new Text("       Remove From Inventory          ");
-		titleText.setWrappingWidth(300);
+		titleText.setWrappingWidth(350);
 		titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 		titleText.setTextAlignment(TextAlignment.CENTER);
 		titleText.setFill(Color.DARKGREEN);
